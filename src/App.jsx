@@ -4,6 +4,7 @@ import { motion, useAnimation, useMotionValue, useTransform, useScroll, useSprin
 import { useState, useRef, useEffect, Suspense, useMemo } from 'react'
 import * as THREE from 'three'
 import { EffectComposer, Bloom, ChromaticAberration, Noise, Vignette } from '@react-three/postprocessing'
+import { SolanaTokenActions } from './SolanaTokenActions'
 
 // Ultra Glitch Text Component with 3D Depth
 function GlitchText({ children, className }) {
@@ -760,7 +761,12 @@ function App() {
   }
 
   return (
-    <div className="h-screen w-screen bg-black text-white overflow-hidden relative" onMouseMove={handleMouseMove}>
+    <div className="min-h-screen w-screen text-white overflow-x-hidden relative" onMouseMove={handleMouseMove}>
+      {/* Animated Purple Gradient Background */}
+      <div className="fixed inset-0 bg-gradient-to-br from-purple-950 via-purple-900 to-black">
+        <div className="absolute inset-0 bg-gradient-to-tr from-purple-900/50 via-violet-900/30 to-transparent animate-gradient-shift" />
+        <div className="absolute inset-0 bg-gradient-to-bl from-indigo-950/40 via-purple-900/20 to-transparent animate-gradient-shift animation-delay-4000" />
+      </div>
       {/* Layered Visual Effects */}
       <LaserGrid />
       <DigitalNoise />
@@ -791,7 +797,7 @@ function App() {
           }}
           transition={{ duration: 20, repeat: Infinity }}
         >
-          <div className="w-full h-full bg-gradient-radial from-pink-500 to-transparent rounded-full mix-blend-screen filter blur-3xl opacity-30 animate-plasma-flow" />
+          <div className="w-full h-full bg-gradient-radial from-purple-600 via-violet-500 to-transparent rounded-full mix-blend-screen filter blur-3xl opacity-40 animate-plasma-flow" />
         </motion.div>
         <motion.div 
           className="absolute bottom-0 right-0 w-[600px] h-[600px] animate-morph"
@@ -801,7 +807,7 @@ function App() {
           }}
           transition={{ duration: 25, repeat: Infinity }}
         >
-          <div className="w-full h-full bg-gradient-radial from-cyan-500 to-transparent rounded-full mix-blend-screen filter blur-3xl opacity-30 animate-quantum-flux" />
+          <div className="w-full h-full bg-gradient-radial from-indigo-500 via-purple-500 to-transparent rounded-full mix-blend-screen filter blur-3xl opacity-40 animate-quantum-flux" />
         </motion.div>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px]">
           <div className="w-full h-full bg-gradient-conic from-purple-500 via-pink-500 to-purple-500 rounded-full mix-blend-screen filter blur-3xl opacity-20 animate-vortex-spin" />
@@ -835,7 +841,7 @@ function App() {
       {/* Reality-Breaking 3D Background */}
       <div className="absolute inset-0 z-0">
         <Canvas camera={{ position: [0, 0, 10], fov: 60 }} gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}>
-          <fog attach="fog" args={['#000', 5, 20]} />
+          <fog attach="fog" args={['#1a0033', 5, 20]} />
           <ambientLight intensity={0.05} />
           
           {/* Dynamic Lighting System */}
@@ -1239,6 +1245,22 @@ function App() {
           </div>
         </HolographicCard>
       </div>
+      
+      {/* Solana Token Actions Section */}
+      <section className="relative z-20 py-20 px-4 bg-gradient-to-b from-transparent via-purple-950/50 to-black/80">
+        <motion.div
+          initial={{ opacity: 0, y: 100 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 2, duration: 1 }}
+          className="relative"
+        >
+          {/* Section separator with glow effect */}
+          <div className="absolute -top-20 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-purple-500 to-transparent opacity-50" />
+          <div className="absolute -top-20 left-0 right-0 h-20 bg-gradient-to-b from-purple-500/20 to-transparent blur-xl" />
+          
+          <SolanaTokenActions tokenAddress={ca} />
+        </motion.div>
+      </section>
     </div>
   )
 }
