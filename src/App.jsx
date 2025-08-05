@@ -1059,13 +1059,16 @@ function App() {
                 />
                 
                 <motion.h3 
-                  className={`relative text-3xl font-black bg-gradient-to-r ${stat.color} bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(255,255,255,0.5)]`}
+                  className={`relative text-3xl font-black bg-gradient-to-r ${stat.color} bg-clip-text text-transparent`}
+                  style={{
+                    filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.8)) drop-shadow(-1px -1px 2px rgba(0,0,0,0.6))'
+                  }}
                   animate={{ 
                     scale: [1, 1.1, 1],
                     filter: [
-                      'brightness(1) contrast(1)',
-                      'brightness(1.5) contrast(1.2)',
-                      'brightness(1) contrast(1)'
+                      'drop-shadow(2px 2px 4px rgba(0,0,0,0.8)) drop-shadow(-1px -1px 2px rgba(0,0,0,0.6)) brightness(1) contrast(1)',
+                      'drop-shadow(2px 2px 4px rgba(0,0,0,0.8)) drop-shadow(-1px -1px 2px rgba(0,0,0,0.6)) brightness(1.5) contrast(1.2)',
+                      'drop-shadow(2px 2px 4px rgba(0,0,0,0.8)) drop-shadow(-1px -1px 2px rgba(0,0,0,0.6)) brightness(1) contrast(1)'
                     ]
                   }}
                   transition={{ duration: 2, repeat: Infinity }}
