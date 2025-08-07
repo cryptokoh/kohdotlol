@@ -5,6 +5,7 @@ function KoHLabsExact() {
   const [matrixMode, setMatrixMode] = useState(false)
   const [showTerminal, setShowTerminal] = useState(false)
   const [showClaude, setShowClaude] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const canvasRef = useRef(null)
   const matrixRainRef = useRef(null)
   const konamiRef = useRef([])
@@ -503,6 +504,18 @@ function KoHLabsExact() {
     return () => window.removeEventListener('resize', handleResize)
   }, [matrixMode])
 
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (mobileMenuOpen && !e.target.closest('.nav-container')) {
+        setMobileMenuOpen(false)
+      }
+    }
+    
+    document.addEventListener('click', handleClickOutside)
+    return () => document.removeEventListener('click', handleClickOutside)
+  }, [mobileMenuOpen])
+
   return (
     <div className={matrixMode ? 'matrix-mode' : ''}>
       {/* Matrix Rain Canvas */}
@@ -540,17 +553,17 @@ function KoHLabsExact() {
         {matrixText}
       </div>
 
-      {/* Claude Code CLI Modal */}
+      {/* Claude Code CLI Modal - Terminal Only */}
       {showClaude && (
         <div className="claude-modal-overlay" onClick={() => setShowClaude(false)}>
-          <div className="claude-modal" onClick={(e) => e.stopPropagation()}>
-            <div className="claude-modal-header">
+          <div className="claude-terminal-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="claude-terminal-header">
               <div className="claude-modal-buttons">
                 <span className="terminal-button red" onClick={() => setShowClaude(false)}></span>
                 <span className="terminal-button yellow"></span>
                 <span className="terminal-button green"></span>
               </div>
-              <div className="claude-modal-title">Claude Code v3.5 - AI Development Assistant</div>
+              <div className="claude-terminal-title">Claude Code v3.5 - Terminal</div>
               <div className="claude-modal-controls">
                 <button 
                   className="claude-speed-btn"
@@ -580,42 +593,7 @@ function KoHLabsExact() {
               </div>
             </div>
             
-            {/* Add file explorer sidebar */}
-            <div className="claude-modal-content">
-              <div className="claude-sidebar">
-                <div className="claude-sidebar-header">EXPLORER</div>
-                <div className="claude-file-tree">
-                  {claudeFiles.map((file, index) => (
-                    <div key={index} className={`claude-file-item ${file.active ? 'active' : ''}`}>
-                      {file.type === 'folder' ? (
-                        <>
-                          <span className="file-icon">{file.open ? '📂' : '📁'}</span>
-                          <span className="file-name">{file.name}</span>
-                        </>
-                      ) : (
-                        <>
-                          <span className="file-indent">{file.parent ? '  ' : ''}</span>
-                          <span className="file-icon">📄</span>
-                          <span className="file-name">{file.name}</span>
-                        </>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
-              
-              <div className="claude-main">
-                {/* Tab bar */}
-                <div className="claude-tabs">
-                  <div className="claude-tab active">
-                    <span className="tab-icon">📄</span>
-                    <span className="tab-name">trading-bot.ts</span>
-                    <span className="tab-close">×</span>
-                  </div>
-                </div>
-                
-                {/* Main content area */}
-                <div className="claude-modal-body">
+            <div className="claude-terminal-body">
               {claudeOutput.map((line, index) => (
                 <div key={index} className={`claude-line ${line.type}`}>
                   {line.type === 'command' && (
@@ -661,26 +639,142 @@ function KoHLabsExact() {
                   {line.type === 'output' && <br />}
                 </div>
               ))}
+              
+              {/* Terminal cursor when done */}
+              {claudeTypingRef.current >= claudeScript.length && (
+                <div className="claude-line">
+                  <span className="claude-prompt">$</span>
+                  <span className="claude-cursor">▊</span>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Claude IDE Modal - Preserved for future use
+      {showClaude && (
+        <div className="claude-modal-overlay" onClick={() => setShowClaude(false)}>
+          <div className="claude-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="claude-header">
+              <div className="claude-modal-buttons">
+                <span className="terminal-button red" onClick={() => setShowClaude(false)}></span>
+                <span className="terminal-button yellow"></span>
+                <span className="terminal-button green"></span>
+              </div>
+              <div className="claude-title">Claude Code v3.5 - AI Development Assistant</div>
+              <div className="claude-modal-controls">
+                <button 
+                  className="claude-speed-btn"
+                  onClick={cycleSpeed}
+                  title={`Speed: ${getSpeedLabel()} (click to change)`}
+                >
+                  {getSpeedIcon()}
+                </button>
+                <button 
+                  className="claude-restart-btn"
+                  onClick={() => {
+                    setClaudeOutput([])
+                    claudeTypingRef.current = 0
+                    startClaudeSimulation()
+                  }}
+                  title="Restart Demo"
+                >
+                  ↻
+                </button>
+                <button 
+                  className="terminal-close-btn"
+                  onClick={() => setShowClaude(false)}
+                  title="Close"
+                >
+                  ✕
+                </button>
+              </div>
+            </div>
+            
+            <div className="claude-ide-container">
+              {/* File Explorer Sidebar 
+              <div className="claude-sidebar">
+                <div className="claude-explorer-header">
+                  <span>EXPLORER</span>
+                </div>
+                <div className="claude-explorer">
+                  <div className="claude-folder expanded">
+                    <span className="folder-icon">▼</span> SOLANA-TRADING-BOT
+                  </div>
+                  <div className="claude-file-tree">
+                    <div className="claude-file">📄 package.json</div>
+                    <div className="claude-file active">📄 index.js</div>
+                    <div className="claude-file">📄 trading-bot.js</div>
+                    <div className="claude-file">📄 jupiter-api.js</div>
+                    <div className="claude-file">📄 wallet-manager.js</div>
+                    <div className="claude-file">📄 .env</div>
+                    <div className="claude-folder">
+                      <span className="folder-icon">▶</span> src
+                    </div>
+                    <div className="claude-folder">
+                      <span className="folder-icon">▶</span> config
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Main Editor Area 
+              <div className="claude-main">
+                {/* Tabs 
+                <div className="claude-tabs">
+                  <div className="claude-tab active">
+                    <span>index.js</span>
+                    <span className="tab-close">×</span>
+                  </div>
+                  <div className="claude-tab">
+                    <span>trading-bot.js</span>
+                    <span className="tab-close">×</span>
+                  </div>
                 </div>
                 
-                {/* Status bar */}
-                <div className="claude-status-bar">
-                  <div className="status-left">
-                    <span className="status-item">🟢 Connected</span>
-                    <span className="status-item">UTF-8</span>
-                    <span className="status-item">TypeScript</span>
-                  </div>
-                  <div className="status-right">
-                    <span className="status-item">Ln 42, Col 16</span>
-                    <span className="status-item">Spaces: 2</span>
-                    <span className="status-item">🔄 {getSpeedLabel()}</span>
-                  </div>
+                {/* Terminal Output 
+                <div className="claude-terminal">
+                  {claudeOutput.map((line, index) => (
+                    <div key={index} className={`claude-line ${line.type}`}>
+                      {/* Render different line types 
+                      {line.type === 'command' && (
+                        <>
+                          <span className="claude-prompt">$</span>
+                          <span className="claude-command"> {line.text}</span>
+                        </>
+                      )}
+                      {/* ... other line types ... 
+                    </div>
+                  ))}
+                  
+                  {/* Terminal cursor when done 
+                  {claudeTypingRef.current >= claudeScript.length && (
+                    <div className="claude-line">
+                      <span className="claude-prompt">$</span>
+                      <span className="claude-cursor">▊</span>
+                    </div>
+                  )}
                 </div>
+              </div>
+            </div>
+            
+            {/* Status Bar 
+            <div className="claude-status-bar">
+              <div className="claude-status-left">
+                <span>🟢 Connected</span>
+                <span>UTF-8</span>
+                <span>JavaScript</span>
+              </div>
+              <div className="claude-status-right">
+                <span>Ln 42, Col 15</span>
+                <span>Spaces: 2</span>
               </div>
             </div>
           </div>
         </div>
       )}
+      End of Claude IDE Modal */}
 
       {/* Terminal Modal */}
       {showTerminal && (
@@ -747,6 +841,20 @@ function KoHLabsExact() {
       <nav>
         <div className="nav-container">
           <a href="#" className="logo">$koHLabs</a>
+          
+          {/* Mobile Menu Toggle */}
+          <button 
+            className="mobile-menu-toggle"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            <span className={`hamburger ${mobileMenuOpen ? 'open' : ''}`}>
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+          </button>
+          
           <div className="nav-center">
             <div className="contract-pill" onClick={copyContract} title="Click to copy contract address">
               <span className="contract-label">CA:</span>
@@ -756,23 +864,14 @@ function KoHLabsExact() {
               </svg>
               {copiedContract && <span className="copied-tooltip">Copied!</span>}
             </div>
-          </div>
-          <div className="nav-right">
-            <div className="nav-links">
-              <a href="#mission">Mission</a>
-              <a href="#terminal">Terminal</a>
-              <a href="#socials">Connect</a>
-              <a href="https://pump.fun/coin/ELehFFYywLvfxCNVgxesCecYPtk4KcM2RYpor6H3AasN" target="_blank" rel="noopener noreferrer">Live</a>
-              <a href="https://www.mexc.com/dex/pumpfun-mexc?ca=koHLabs&currency=SOL" target="_blank" rel="noopener noreferrer">MEXC</a>
-            </div>
-            {/* Social icons as window controls */}
+            {/* Social icons - moved here for mobile layout */}
             <div className="social-controls">
-              <a href="https://t.me/cryptokoh" target="_blank" rel="noopener noreferrer" className="social-control telegram" title="Telegram">
+              <a href="https://t.me/koh_labs" target="_blank" rel="noopener noreferrer" className="social-control telegram" title="Telegram">
                 <svg width="8" height="8" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121L8.32 13.617l-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/>
                 </svg>
               </a>
-              <a href="https://x.com/crypto_koh" target="_blank" rel="noopener noreferrer" className="social-control twitter" title="X (Twitter)">
+              <a href="https://x.com/kohlabs_sol" target="_blank" rel="noopener noreferrer" className="social-control twitter" title="X (Twitter)">
                 <svg width="8" height="8" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                 </svg>
@@ -782,6 +881,16 @@ function KoHLabsExact() {
                   <path d="M12 2l2.4 7.4h7.6l-6 4.6 2.4 7.4-6.4-4.6-6.4 4.6 2.4-7.4-6-4.6h7.6z"/>
                 </svg>
               </a>
+            </div>
+          </div>
+          <div className="nav-right">
+            <div className={`nav-links ${mobileMenuOpen ? 'mobile-open' : ''}`}>
+              <a href="#mission" onClick={() => setMobileMenuOpen(false)}>Mission</a>
+              <a href="/operations" className="operations-link" onClick={() => setMobileMenuOpen(false)}>Operations</a>
+              <a href="#terminal" onClick={() => setMobileMenuOpen(false)}>Terminal</a>
+              <a href="#socials" onClick={() => setMobileMenuOpen(false)}>Connect</a>
+              <a href="https://pump.fun/coin/ELehFFYywLvfxCNVgxesCecYPtk4KcM2RYpor6H3AasN" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)}>Live</a>
+              <a href="https://www.mexc.com/dex/pumpfun-mexc?ca=koHLabs&currency=SOL" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)}>MEXC</a>
             </div>
           </div>
         </div>
@@ -958,19 +1067,19 @@ function KoHLabsExact() {
 
       {/* Socials Section */}
       <section className="socials-section" id="socials">
-        <h2>Connect With Us</h2>
+        <h2>Connect With KoHLabs</h2>
         <div className="socials-container">
-          <a href="https://t.me/cryptokoh" target="_blank" rel="noopener noreferrer" className="social-link">
+          <a href="https://t.me/koh_labs" target="_blank" rel="noopener noreferrer" className="social-link">
             <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121L8.32 13.617l-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/>
             </svg>
-            Telegram: @cryptokoh
+            Telegram: @koh_labs
           </a>
-          <a href="https://x.com/crypto_koh" target="_blank" rel="noopener noreferrer" className="social-link">
+          <a href="https://x.com/kohlabs_sol" target="_blank" rel="noopener noreferrer" className="social-link">
             <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
               <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
             </svg>
-            X: @crypto_koh
+            X: @kohlabs_sol
           </a>
           <a href="https://pump.fun/coin/ELehFFYywLvfxCNVgxesCecYPtk4KcM2RYpor6H3AasN" target="_blank" rel="noopener noreferrer" className="social-link">
             <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">

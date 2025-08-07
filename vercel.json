@@ -10,6 +10,17 @@
           "value": "pump.koh.lol"
         }
       ]
+    },
+    {
+      "source": "/(.*)",
+      "destination": "https://t.me/koh_labs",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": "tg.koh.lol"
+        }
+      ]
     }
   ]
 }

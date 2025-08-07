@@ -1,3 +1,6 @@
 # Netlify redirects file
 # Redirect pump.koh.lol subdomain to pump.fun
 https://pump.koh.lol/* https://pump.fun/coin/ELehFFYywLvfxCNVgxesCecYPtk4KcM2RYpor6H3AasN 301!
+
+# Redirect tg.koh.lol subdomain to KoHLabs telegram
+https://tg.koh.lol/* https://t.me/koh_labs 301!
