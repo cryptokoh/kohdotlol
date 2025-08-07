@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import TerminalWidget from './components/TerminalWidget'
 
 function KoHLabs() {
   const [matrixMode, setMatrixMode] = useState(false)
@@ -196,7 +197,6 @@ function KoHLabs() {
           <a href="#" className="text-2xl font-mono font-bold text-green-400">$koHLabs</a>
           <div className="hidden md:flex gap-8 items-center">
             <a href="#mission" className="text-gray-300 hover:text-green-400 transition-colors">Mission</a>
-            <a href="#terminal" className="text-gray-300 hover:text-green-400 transition-colors">Terminal</a>
             <a href="#socials" className="text-gray-300 hover:text-green-400 transition-colors">Connect</a>
             <a href="https://pump.fun/coin/ELehFFYywLvfxCNVgxesCecYPtk4KcM2RYpor6H3AasN" target="_blank" rel="noopener noreferrer" 
                className="text-gray-300 hover:text-green-400 transition-colors">Pump.fun</a>
@@ -257,76 +257,8 @@ function KoHLabs() {
         </div>
       </section>
 
-      {/* Terminal Section */}
-      <section id="terminal" className="py-16 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className={`rounded-t-lg overflow-hidden shadow-2xl ${
-            matrixMode ? 'border border-green-500 shadow-green-500/50' : ''
-          }`}>
-            <div className="bg-gradient-to-b from-gray-600 to-gray-700 h-8 flex items-center gap-2 px-3">
-              <div className="w-3 h-3 rounded-full bg-gradient-to-b from-red-400 to-red-600"></div>
-              <div className="w-3 h-3 rounded-full bg-gradient-to-b from-yellow-400 to-orange-500"></div>
-              <div className="w-3 h-3 rounded-full bg-gradient-to-b from-green-400 to-green-600"></div>
-            </div>
-            <div className={`font-mono text-sm p-5 h-96 overflow-y-auto ${
-              matrixMode ? 'bg-black/90 text-green-500' : 'bg-purple-950 text-white'
-            }`}>
-              <div className="mb-2">
-                <span className="text-green-400 font-bold">koh@kohlabs:~$</span>
-                <span className="ml-2">cat mission.txt</span>
-              </div>
-              <div className="text-blue-400 ml-5">
-                <pre>{`╔══════════════════════════════════════════════╗
-║  $koHLabs Mission Statement                  ║
-╠══════════════════════════════════════════════╣
-║  • Degen to Regen transformation             ║
-║  • Vibe coding with real people              ║
-║  • Build AI agents & support projects        ║
-║  • Write code we barely understand—together  ║
-║  • Explore Solana ecosystem collaboratively  ║
-╚══════════════════════════════════════════════╝`}</pre>
-              </div>
-              <div className="mt-4 mb-2">
-                <span className="text-green-400 font-bold">koh@kohlabs:~$</span>
-                <span className="ml-2">./check_status.sh</span>
-              </div>
-              <div className="text-blue-400 ml-5">
-                <div>[✓] Solana Network: Connected</div>
-                <div>[✓] Token Contract: Deployed with 1.01 SOL</div>
-                <div>[✓] Vibe Check: Hardcore mode enabled</div>
-                <div>[✓] koH Status: Building anyway</div>
-                <div>[✓] Mission: Degen → Regen in progress</div>
-              </div>
-              <div className="mt-4 mb-2">
-                <span className="text-green-400 font-bold">koh@kohlabs:~$</span>
-                <span className="ml-2">echo "koH don't know, but koH builds anyway"</span>
-              </div>
-              <div className="text-blue-400 ml-5">
-                koH don't know, but koH builds anyway
-              </div>
-              <div className="mt-4">
-                <span className="text-green-400 font-bold">koh@kohlabs:~$</span>
-                <span className="ml-2 animate-pulse">_</span>
-              </div>
-              
-              {/* Easter Egg for Matrix Mode */}
-              {matrixMode && (
-                <>
-                  <div className="mt-4 text-green-500">
-                    <span className="font-bold">neo@matrix:~$</span>
-                    <span className="ml-2">wake_up_neo</span>
-                  </div>
-                  <div className="text-green-500 ml-5">
-                    <div>The Matrix has you...</div>
-                    <div>Follow the white rabbit 🐰</div>
-                    <div>Knock, knock, Neo.</div>
-                  </div>
-                </>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Terminal Widget */}
+      <TerminalWidget />
 
       {/* Mission Section */}
       <section id="mission" className="py-16 px-6 bg-black/30">
