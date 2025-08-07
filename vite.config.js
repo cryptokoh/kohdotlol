@@ -31,30 +31,51 @@ export default defineConfig({
   },
   build: {
     sourcemap: false, // Disable sourcemaps to reduce memory usage
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
-      },
-    },
+    minify: 'esbuild', // Use esbuild for faster builds with less memory
     rollupOptions: {
       output: {
-        manualChunks: {
-          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'three-vendor': ['three', '@react-three/fiber', '@react-three/drei'],
-          'solana-vendor': ['@solana/web3.js', '@solana/spl-token', '@solana/wallet-adapter-react'],
-          'wallet-vendor': ['@rainbow-me/rainbowkit', 'wagmi', 'viem'],
-          'animation-vendor': ['framer-motion'],
-          'auth-vendor': ['@auth0/auth0-react', '@farcaster/auth-kit'],
+        manualChunks(id) {
+          // More granular chunking to reduce memory pressure
+          if (id.includes('node_modules')) {
+            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router')) {
+              return 'react-vendor';
+            }
+            if (id.includes('three') || id.includes('@react-three')) {
+              return 'three-vendor';
+            }
+            if (id.includes('@solana') || id.includes('bs58') || id.includes('bn.js')) {
+              return 'solana-vendor';
+            }
+            if (id.includes('wagmi') || id.includes('viem') || id.includes('@rainbow-me')) {
+              return 'wallet-vendor';
+            }
+            if (id.includes('framer-motion')) {
+              return 'animation-vendor';
+            }
+            if (id.includes('@auth0') || id.includes('@farcaster')) {
+              return 'auth-vendor';
+            }
+            if (id.includes('ethers') || id.includes('@ethersproject')) {
+              return 'ethers-vendor';
+            }
+            // Generic vendor chunk for other dependencies
+            return 'vendor';
+          }
         },
+        chunkFileNames: 'assets/[name]-[hash].js',
+        entryFileNames: 'assets/[name]-[hash].js',
+        assetFileNames: 'assets/[name]-[hash].[ext]',
       },
       onwarn(warning, warn) {
         // Suppress "use client" warnings
         if (warning.code === 'MODULE_LEVEL_DIRECTIVE') return
         warn(warning)
       },
+      // Optimize Rollup's memory usage
+      maxParallelFileOps: 2,
     },
     chunkSizeWarningLimit: 1500,
+    // Reduce memory pressure during build
+    reportCompressedSize: false,
   },
 })
