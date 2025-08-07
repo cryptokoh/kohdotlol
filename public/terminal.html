@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ubuntu Terminal</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Ubuntu Mono', 'DejaVu Sans Mono', monospace;
+            background: #2c001e;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(120, 45, 90, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(90, 45, 120, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(150, 50, 100, 0.2) 0%, transparent 50%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .terminal-container {
+            width: 100%;
+            max-width: 980px;
+            height: 640px;
+            background: #300a24;
+            border-radius: 8px 8px 0 0;
+            box-shadow: 
+                0 0 0 1px rgba(255, 255, 255, 0.1),
+                0 10px 30px rgba(0, 0, 0, 0.5),
+                0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .terminal-header {
+            background: linear-gradient(to bottom, #4a4a4a 0%, #3c3c3c 100%);
+            padding: 0;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #1a1a1a;
+            position: relative;
+        }
+
+        .terminal-buttons {
+            display: flex;
+            gap: 8px;
+            padding: 0 12px;
+            align-items: center;
+            height: 100%;
+        }
+
+        .terminal-button {
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .terminal-button.close {
+            background: linear-gradient(to bottom, #ff6b5a 0%, #ed4737 100%);
+        }
+
+        .terminal-button.close:hover {
+            background: linear-gradient(to bottom, #ff8070 0%, #ff5545 100%);
+        }
+
+        .terminal-button.minimize {
+            background: linear-gradient(to bottom, #ffbf3f 0%, #ffa500 100%);
+        }
+
+        .terminal-button.minimize:hover {
+            background: linear-gradient(to bottom, #ffd060 0%, #ffb020 100%);
+        }
+
+        .terminal-button.maximize {
+            background: linear-gradient(to bottom, #5cbf60 0%, #4cae4c 100%);
+        }
+
+        .terminal-button.maximize:hover {
+            background: linear-gradient(to bottom, #70d070 0%, #60c060 100%);
+        }
+
+        .terminal-title {
+            flex: 1;
+            text-align: center;
+            color: #d3d3d3;
+            font-size: 14px;
+            font-weight: 500;
+            user-select: none;
+            font-family: 'Ubuntu', sans-serif;
+        }
+
+        .terminal-menu {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            gap: 16px;
+        }
+
+        .menu-item {
+            color: #d3d3d3;
+            font-size: 13px;
+            cursor: pointer;
+            font-family: 'Ubuntu', sans-serif;
+        }
+
+        .menu-item:hover {
+            color: #ffffff;
+        }
+
+        .terminal-body {
+            flex: 1;
+            padding: 8px 12px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            background: #300a24;
+            font-size: 14px;
+            line-height: 1.4;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+        }
+
+        .terminal-body::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .terminal-body::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .terminal-body::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
+
+        .terminal-body::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .output-line {
+            margin: 0;
+            padding: 1px 0;
+            color: #ffffff;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: 'Ubuntu Mono', monospace;
+        }
+
+        .output-line.command {
+            color: #ffffff;
+        }
+
+        .output-line.directory {
+            color: #729fcf;
+            font-weight: bold;
+        }
+
+        .output-line.executable {
+            color: #8ae234;
+            font-weight: bold;
+        }
+
+        .output-line.file {
+            color: #ffffff;
+        }
+
+        .output-line.symlink {
+            color: #34e2e2;
+        }
+
+        .output-line.archive {
+            color: #e74c3c;
+        }
+
+        .output-line.image {
+            color: #ad7fa8;
+        }
+
+        .output-line.success {
+            color: #8ae234;
+        }
+
+        .output-line.error {
+            color: #ef2929;
+        }
+
+        .output-line.warning {
+            color: #fcaf3e;
+        }
+
+        .output-line.info {
+            color: #729fcf;
+        }
+
+        .prompt-line {
+            display: flex;
+            align-items: baseline;
+            margin: 2px 0;
+        }
+
+        .prompt-user {
+            color: #8ae234;
+            font-weight: bold;
+        }
+
+        .prompt-at {
+            color: #ffffff;
+        }
+
+        .prompt-host {
+            color: #729fcf;
+            font-weight: bold;
+        }
+
+        .prompt-colon {
+            color: #ffffff;
+        }
+
+        .prompt-path {
+            color: #729fcf;
+            font-weight: bold;
+        }
+
+        .prompt-symbol {
+            color: #ffffff;
+            margin-left: 4px;
+        }
+
+        .input-line {
+            display: flex;
+            align-items: baseline;
+        }
+
+        .terminal-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #ffffff;
+            font-family: 'Ubuntu Mono', monospace;
+            font-size: 14px;
+            padding: 0;
+            margin-left: 4px;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 16px;
+            background: #ffffff;
+            animation: blink 1s infinite;
+            vertical-align: text-bottom;
+            margin-left: 1px;
+        }
+
+        @keyframes blink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
+        }
+
+        .typing-indicator {
+            display: none;
+            color: #8ae234;
+        }
+
+        .typing-indicator.active {
+            display: block;
+        }
+
+        .sudo-password-prompt {
+            color: #fcaf3e;
+        }
+
+        .tab-completion {
+            display: inline-block;
+            padding: 2px 4px;
+            margin: 0 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            color: #729fcf;
+        }
+
+        .permission-denied {
+            color: #ef2929;
+            font-weight: bold;
+        }
+
+        .highlight {
+            background: rgba(252, 175, 62, 0.3);
+            padding: 0 2px;
+        }
+
+        .ascii-art {
+            color: #fcaf3e;
+            line-height: 1.2;
+        }
+
+        .system-info {
+            color: #8ae234;
+            border-left: 2px solid #8ae234;
+            padding-left: 8px;
+            margin: 8px 0;
+        }
+</head>
+<body>
+    <div class="terminal-container">
+        <div class="terminal-header">
+            <div class="terminal-buttons">
+                <button class="terminal-button close"></button>
+                <button class="terminal-button minimize"></button>
+                <button class="terminal-button maximize"></button>
+            </div>
+            <div class="terminal-title">Terminal - Claude Code Interface</div>
+        </div>
+        
+        <div class="terminal-body" id="terminal-output">
+            <div class="welcome-message">
+                <div class="output-line system">Claude Code Terminal v1.0</div>
+                <div class="output-line system">Type 'help' for available commands</div>
+                <div class="output-line system">────────────────────────────────────────</div>
+            </div>
+        </div>
+        
+        <div class="input-container">
+            <span class="prompt">❯</span>
+            <input type="text" class="terminal-input" id="terminal-input" autofocus placeholder="Enter command...">
+            <span class="cursor" id="cursor"></span>
+            <div class="command-suggestion" id="suggestion"></div>
+        </div>
+    </div>
+
+    <script>
+        const terminalInput = document.getElementById('terminal-input');
+        const terminalOutput = document.getElementById('terminal-output');
+        const cursor = document.getElementById('cursor');
+        const suggestion = document.getElementById('suggestion');
+
+        // Command history
+        let commandHistory = [];
+        let historyIndex = -1;
+
+        // Available commands
+        const commands = {
+            help: {
+                description: 'Show available commands',
+                execute: () => {
+                    return `Available commands:
+  help         - Show this help message
+  clear        - Clear the terminal
+  echo [text]  - Display text
+  date         - Show current date and time
+  pwd          - Print working directory
+  ls           - List files (simulated)
+  cat [file]   - Display file contents (simulated)
+  whoami       - Display current user
+  theme [mode] - Change theme (dark/light)
+  analyze      - Analyze code (simulated)
+  build        - Build project (simulated)
+  test         - Run tests (simulated)
+  about        - About this terminal`;
+                }
+            },
+            clear: {
+                description: 'Clear terminal',
+                execute: () => {
+                    terminalOutput.innerHTML = '<div class="welcome-message"><div class="output-line system">Terminal cleared.</div></div>';
+                    return null;
+                }
+            },
+            echo: {
+                description: 'Display text',
+                execute: (args) => args.join(' ')
+            },
+            date: {
+                description: 'Show date and time',
+                execute: () => new Date().toString()
+            },
+            pwd: {
+                description: 'Print working directory',
+                execute: () => '/home/user/projects'
+            },
+            ls: {
+                description: 'List files',
+                execute: () => `src/
+dist/
+node_modules/
+package.json
+README.md
+tsconfig.json`
+            },
+            cat: {
+                description: 'Display file contents',
+                execute: (args) => {
+                    if (!args.length) return 'Error: Please specify a file';
+                    const files = {
+                        'README.md': '# Claude Code Terminal\n\nAn interactive terminal interface that mimics Claude Code.',
+                        'package.json': '{\n  "name": "terminal-interface",\n  "version": "1.0.0",\n  "description": "Interactive terminal UI"\n}'
+                    };
+                    return files[args[0]] || `Error: File '${args[0]}' not found`;
+                }
+            },
+            whoami: {
+                description: 'Display current user',
+                execute: () => 'claude-user'
+            },
+            theme: {
+                description: 'Change theme',
+                execute: (args) => {
+                    if (!args.length) return 'Usage: theme [dark|light]';
+                    if (args[0] === 'light') {
+                        document.querySelector('.terminal-container').style.background = '#f5f5f5';
+                        document.querySelector('.terminal-body').style.background = '#ffffff';
+                        return 'Theme changed to light';
+                    } else if (args[0] === 'dark') {
+                        document.querySelector('.terminal-container').style.background = '#1a1a1a';
+                        document.querySelector('.terminal-body').style.background = '#1a1a1a';
+                        return 'Theme changed to dark';
+                    }
+                    return 'Invalid theme. Use: dark or light';
+                }
+            },
+            analyze: {
+                description: 'Analyze code',
+                execute: () => {
+                    showTypingIndicator();
+                    setTimeout(() => {
+                        hideTypingIndicator();
+                        addOutput('Analyzing codebase...', 'system');
+                        setTimeout(() => {
+                            addOutput('✓ 142 files analyzed\n✓ No critical issues found\n✓ 3 suggestions for improvement', 'assistant');
+                        }, 500);
+                    }, 1500);
+                    return null;
+                }
+            },
+            build: {
+                description: 'Build project',
+                execute: () => {
+                    showTypingIndicator();
+                    setTimeout(() => {
+                        hideTypingIndicator();
+                        addOutput('Building project...', 'system');
+                        setTimeout(() => {
+                            addOutput('✓ Compiled successfully\n✓ Bundle size: 234.5 KB\n✓ Build time: 3.2s', 'assistant');
+                        }, 1000);
+                    }, 2000);
+                    return null;
+                }
+            },
+            test: {
+                description: 'Run tests',
+                execute: () => {
+                    showTypingIndicator();
+                    setTimeout(() => {
+                        hideTypingIndicator();
+                        addOutput('Running test suite...', 'system');
+                        setTimeout(() => {
+                            addOutput('Test Results:\n✓ 42 passed\n✗ 0 failed\n━ 3 skipped\n\nAll tests passed!', 'assistant');
+                        }, 800);
+                    }, 1800);
+                    return null;
+                }
+            },
+            about: {
+                description: 'About this terminal',
+                execute: () => `Claude Code Terminal Interface
+Version: 1.0.0
+Created: 2025
+Description: An interactive terminal that mimics Claude Code's interface
+Features: Command execution, syntax highlighting, command history`
+            }
+        };
+
+        // Add output to terminal
+        function addOutput(text, type = 'default') {
+            const line = document.createElement('div');
+            line.className = `output-line ${type}`;
+            line.textContent = text;
+            terminalOutput.appendChild(line);
+            terminalOutput.scrollTop = terminalOutput.scrollHeight;
+        }
+
+        // Show typing indicator
+        function showTypingIndicator() {
+            const indicator = document.createElement('div');
+            indicator.className = 'typing-indicator active output-line system';
+            indicator.innerHTML = 'Processing<span class="typing-dots"></span>';
+            indicator.id = 'typing-indicator';
+            terminalOutput.appendChild(indicator);
+            terminalOutput.scrollTop = terminalOutput.scrollHeight;
+        }
+
+        // Hide typing indicator
+        function hideTypingIndicator() {
+            const indicator = document.getElementById('typing-indicator');
+            if (indicator) {
+                indicator.remove();
+            }
+        }
+
+        // Process command
+        function processCommand(input) {
+            const trimmedInput = input.trim();
+            if (!trimmedInput) return;
+
+            // Add command to output
+            addOutput(`❯ ${trimmedInput}`, 'user');
+
+            // Add to history
+            commandHistory.push(trimmedInput);
+            historyIndex = commandHistory.length;
+
+            // Parse command and arguments
+            const parts = trimmedInput.split(' ');
+            const command = parts[0].toLowerCase();
+            const args = parts.slice(1);
+
+            // Execute command
+            if (commands[command]) {
+                const result = commands[command].execute(args);
+                if (result !== null) {
+                    addOutput(result, 'assistant');
+                }
+            } else {
+                addOutput(`Command not found: ${command}. Type 'help' for available commands.`, 'error');
+            }
+        }
+
+        // Handle input
+        terminalInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                processCommand(terminalInput.value);
+                terminalInput.value = '';
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (historyIndex > 0) {
+                    historyIndex--;
+                    terminalInput.value = commandHistory[historyIndex];
+                }
+            } else if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                if (historyIndex < commandHistory.length - 1) {
+                    historyIndex++;
+                    terminalInput.value = commandHistory[historyIndex];
+                } else {
+                    historyIndex = commandHistory.length;
+                    terminalInput.value = '';
+                }
+            } else if (e.key === 'Tab') {
+                e.preventDefault();
+                // Simple autocomplete
+                const input = terminalInput.value.toLowerCase();
+                const matches = Object.keys(commands).filter(cmd => cmd.startsWith(input));
+                if (matches.length === 1) {
+                    terminalInput.value = matches[0];
+                } else if (matches.length > 1) {
+                    addOutput(`Suggestions: ${matches.join(', ')}`, 'system');
+                }
+            }
+        });
+
+        // Focus input when clicking on terminal
+        document.querySelector('.terminal-container').addEventListener('click', () => {
+            terminalInput.focus();
+        });
+
+        // Handle window buttons
+        document.querySelector('.terminal-button.close').addEventListener('click', () => {
+            if (confirm('Close terminal?')) {
+                window.close();
+            }
+        });
+
+        document.querySelector('.terminal-button.minimize').addEventListener('click', () => {
+            document.querySelector('.terminal-container').style.transform = 'scale(0.9)';
+            setTimeout(() => {
+                document.querySelector('.terminal-container').style.transform = 'scale(1)';
+            }, 300);
+        });
+
+        document.querySelector('.terminal-button.maximize').addEventListener('click', () => {
+            const container = document.querySelector('.terminal-container');
+            if (container.style.maxWidth === '100%') {
+                container.style.maxWidth = '900px';
+                container.style.height = '600px';
+            } else {
+                container.style.maxWidth = '100%';
+                container.style.height = '90vh';
+            }
+        });
+
+        // Cursor animation synced with input
+        terminalInput.addEventListener('input', () => {
+            cursor.style.display = terminalInput.value ? 'none' : 'inline-block';
+        });
+
+        terminalInput.addEventListener('focus', () => {
+            cursor.style.display = terminalInput.value ? 'none' : 'inline-block';
+        });
+
+        terminalInput.addEventListener('blur', () => {
+            cursor.style.display = 'none';
+        });
+    </script>
+</body>
+</html>

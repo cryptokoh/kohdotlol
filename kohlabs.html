@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$koHLabs - Building in Public on Solana</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&family=Ubuntu:wght@300;400;500;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Ubuntu', sans-serif;
+            background: #2c001e;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(120, 45, 90, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(90, 45, 120, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(150, 50, 100, 0.2) 0%, transparent 50%);
+            min-height: 100vh;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            background: linear-gradient(to bottom, #4a4a4a 0%, #3c3c3c 100%);
+            padding: 15px 30px;
+            border-bottom: 1px solid #1a1a1a;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Ubuntu Mono', monospace;
+            font-size: 24px;
+            font-weight: bold;
+            color: #8ae234;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #d3d3d3;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 14px;
+        }
+
+        .nav-links a:hover {
+            color: #8ae234;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 60px;
+            padding: 80px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .meme-container {
+            display: inline-block;
+            position: relative;
+            margin-bottom: 40px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .meme-image {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            border: 4px solid #8ae234;
+            box-shadow: 0 0 30px rgba(138, 226, 52, 0.5);
+            object-fit: cover;
+        }
+
+        .hero h1 {
+            font-size: 64px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #8ae234, #729fcf);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tagline {
+            font-size: 24px;
+            color: #729fcf;
+            margin-bottom: 30px;
+            font-family: 'Ubuntu Mono', monospace;
+        }
+
+        .launch-statement {
+            background: rgba(48, 10, 36, 0.8);
+            border: 1px solid #8ae234;
+            border-radius: 8px;
+            padding: 30px;
+            margin: 40px auto;
+            max-width: 800px;
+            font-family: 'Ubuntu Mono', monospace;
+        }
+
+        .launch-statement h2 {
+            color: #8ae234;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .launch-statement p {
+            color: #d3d3d3;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        /* Terminal Section */
+        .terminal-section {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .terminal-window {
+            background: #300a24;
+            border-radius: 8px 8px 0 0;
+            box-shadow: 
+                0 0 0 1px rgba(255, 255, 255, 0.1),
+                0 10px 30px rgba(0, 0, 0, 0.5);
+            margin-bottom: 40px;
+        }
+
+        .terminal-header {
+            background: linear-gradient(to bottom, #4a4a4a 0%, #3c3c3c 100%);
+            padding: 10px 15px;
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .terminal-button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .terminal-button.red { background: #ff6b5a; }
+        .terminal-button.yellow { background: #ffbf3f; }
+        .terminal-button.green { background: #5cbf60; }
+
+        .terminal-body {
+            padding: 20px;
+            font-family: 'Ubuntu Mono', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            height: 400px;
+            overflow-y: auto;
+        }
+
+        .terminal-line {
+            margin: 5px 0;
+        }
+
+        .prompt {
+            color: #8ae234;
+            font-weight: bold;
+        }
+
+        .command {
+            color: #ffffff;
+        }
+
+        .output {
+            color: #729fcf;
+            margin-left: 20px;
+        }
+
+        .comment {
+            color: #666;
+        }
+
+        /* Mission Section */
+        .mission-section {
+            padding: 60px 20px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .mission-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .mission-card {
+            background: rgba(48, 10, 36, 0.6);
+            border: 1px solid rgba(138, 226, 52, 0.3);
+            border-radius: 8px;
+            padding: 30px;
+            transition: all 0.3s;
+        }
+
+        .mission-card:hover {
+            transform: translateY(-5px);
+            border-color: #8ae234;
+            box-shadow: 0 10px 30px rgba(138, 226, 52, 0.2);
+        }
+
+        .mission-card h3 {
+            color: #8ae234;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .mission-card p {
+            color: #d3d3d3;
+            line-height: 1.6;
+        }
+
+        /* Socials Section */
+        .socials-section {
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .socials-container {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 30px;
+            background: rgba(48, 10, 36, 0.8);
+            border: 2px solid #729fcf;
+            border-radius: 50px;
+            color: #729fcf;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-family: 'Ubuntu Mono', monospace;
+        }
+
+        .social-link:hover {
+            background: #729fcf;
+            color: #300a24;
+            transform: scale(1.05);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 20px 40px;
+            background: linear-gradient(45deg, #8ae234, #729fcf);
+            color: #300a24;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(138, 226, 52, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(138, 226, 52, 0.5);
+        }
+
+        /* Footer */
+        footer {
+            padding: 30px 20px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #666;
+            font-family: 'Ubuntu Mono', monospace;
+        }
+
+        /* Animations */
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        .typing-effect {
+            overflow: hidden;
+            white-space: nowrap;
+            animation: typing 2s steps(40, end);
+        }
+
+        /* Matrix Mode */
+        .matrix-toggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 9999;
+            background: linear-gradient(45deg, #00ff00, #008800);
+            border: 2px solid #00ff00;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Ubuntu Mono', monospace;
+            color: #000;
+            font-weight: bold;
+            font-size: 12px;
+            transition: all 0.3s;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .matrix-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.8);
+        }
+
+        .matrix-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        body.matrix-mode .matrix-canvas {
+            opacity: 1;
+        }
+
+        body.matrix-mode {
+            background: #000;
+        }
+
+        body.matrix-mode * {
+            color: #00ff00 !important;
+            text-shadow: 0 0 5px #00ff00;
+        }
+
+        body.matrix-mode .terminal-body {
+            background: rgba(0, 0, 0, 0.9);
+        }
+
+        body.matrix-mode .terminal-container {
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid #00ff00;
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.5);
+        }
+
+        body.matrix-mode .mission-card {
+            background: rgba(0, 20, 0, 0.8);
+            border-color: #00ff00;
+        }
+
+        body.matrix-mode .social-link {
+            border-color: #00ff00;
+            background: rgba(0, 40, 0, 0.8);
+        }
+
+        body.matrix-mode .cta-button {
+            background: linear-gradient(45deg, #00ff00, #008800) !important;
+            color: #000 !important;
+        }
+
+        body.matrix-mode .meme-image {
+            border-color: #00ff00;
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.8);
+            filter: hue-rotate(120deg) contrast(1.2);
+        }
+
+        body.matrix-mode .launch-statement {
+            background: rgba(0, 20, 0, 0.9);
+            border-color: #00ff00;
+        }
+
+        body.matrix-mode .terminal-header {
+            background: linear-gradient(to bottom, #001100, #002200);
+        }
+
+        body.matrix-mode .nav-links a:hover {
+            color: #00ff00 !important;
+            text-shadow: 0 0 10px #00ff00;
+        }
+
+        .matrix-text {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            color: #00ff00;
+            font-family: 'Ubuntu Mono', monospace;
+            text-align: center;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 10000;
+        }
+
+        body.matrix-mode .matrix-text {
+            animation: matrixFlash 3s ease-in-out;
+        }
+
+        @keyframes matrixFlash {
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+            50% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            100% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+        }
+
+        /* Easter Egg Terminal Commands */
+        .easter-egg {
+            display: none;
+            color: #00ff00;
+            font-family: 'Ubuntu Mono', monospace;
+            margin: 10px 0;
+        }
+
+        body.matrix-mode .easter-egg {
+            display: block;
+        }
+
+        /* Glitch Effect */
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+        }
+
+        body.matrix-mode h1, body.matrix-mode h2, body.matrix-mode h3 {
+            animation: glitch 0.3s infinite;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .tagline {
+                font-size: 18px;
+            }
+            
+            .meme-image {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+
+            .matrix-toggle {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+                font-size: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Matrix Rain Canvas -->
+    <canvas class="matrix-canvas" id="matrixCanvas"></canvas>
+    
+    <!-- Matrix Mode Toggle -->
+    <div class="matrix-toggle" id="matrixToggle" title="Enter the Matrix">
+        MATRIX
+    </div>
+    
+    <!-- Matrix Flash Text -->
+    <div class="matrix-text" id="matrixText">
+        FOLLOW THE WHITE RABBIT 🐰
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">$koHLabs</a>
+            <div class="nav-links">
+                <a href="#mission">Mission</a>
+                <a href="#terminal">Terminal</a>
+                <a href="#socials">Connect</a>
+                <a href="https://pump.fun/coin/ELehFFYywLvfxCNVgxesCecYPtk4KcM2RYpor6H3AasN" target="_blank">Pump.fun</a>
+                <a href="https://www.mexc.com/dex/pumpfun-mexc?ca=koHLabs&currency=SOL" target="_blank">MEXC</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="meme-container">
+                <img src="kohlabs-meme.png" alt="$koHLabs Meme" class="meme-image">
+            </div>
+            <h1>$koHLabs</h1>
+            <p class="tagline">Degen to Regen • Vibe Coding • Real Builds • Live Streams</p>
+            
+            <div class="launch-statement">
+                <h2>🚀 Launch Statement</h2>
+                <p style="font-size: 18px; color: #8ae234; margin-bottom: 20px;">
+                    "$kohLabs – Degen to Regen. Vibe Coding. Real Builds."
+                </p>
+                <p>
+                    Live streaming the journey from meme to mission. We build AI agents, support projects, 
+                    and write code we barely understand—together. Hardcore vibe coding. Real people. Real ops.
+                </p>
+                <p style="margin-top: 15px;">
+                    Learn with koH—because koH don't know, but koH builds anyway. From degen to regen, 
+                    we're helping projects go from zero to something. Coin powers the stream. Stream powers the builders.
+                </p>
+                <p style="margin-top: 15px; color: #729fcf;">
+                    Back $kohLabs and let's build loud. Launched with 1.01 SOL - Let's have some fun!
+                </p>
+                <p style="margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(138, 226, 52, 0.3); color: #fcaf3e;">
+                    <strong>A Collaborative Exploration:</strong> $kohLabs launched as a collaboration to explore the Solana ecosystem together. 
+                    We're discovering what's possible when builders, degens, and dreamers unite to navigate Sol's endless possibilities.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Terminal Section -->
+    <section class="terminal-section" id="terminal">
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <span class="terminal-button red"></span>
+                <span class="terminal-button yellow"></span>
+                <span class="terminal-button green"></span>
+            </div>
+            <div class="terminal-body">
+                <div class="terminal-line">
+                    <span class="prompt">koh@kohlabs:~$</span>
+                    <span class="command"> cat mission.txt</span>
+                </div>
+                <div class="terminal-line output">
+                    ╔══════════════════════════════════════════════╗
+                </div>
+                <div class="terminal-line output">
+                    ║  $koHLabs Mission Statement                  ║
+                </div>
+                <div class="terminal-line output">
+                    ╠══════════════════════════════════════════════╣
+                </div>
+                <div class="terminal-line output">
+                    ║  • Degen to Regen transformation             ║
+                </div>
+                <div class="terminal-line output">
+                    ║  • Vibe coding with real people              ║
+                </div>
+                <div class="terminal-line output">
+                    ║  • Build AI agents & support projects        ║
+                </div>
+                <div class="terminal-line output">
+                    ║  • Write code we barely understand—together  ║
+                </div>
+                <div class="terminal-line output">
+                    ║  • Explore Solana ecosystem collaboratively  ║
+                </div>
+                <div class="terminal-line output">
+                    ╚══════════════════════════════════════════════╝
+                </div>
+                <br>
+                <div class="terminal-line">
+                    <span class="prompt">koh@kohlabs:~$</span>
+                    <span class="command"> ./check_status.sh</span>
+                </div>
+                <div class="terminal-line output">
+                    [✓] Solana Network: Connected</div>
+                <div class="terminal-line output">
+                    [✓] Token Contract: Deployed with 1.01 SOL</div>
+                <div class="terminal-line output">
+                    [✓] Vibe Check: Hardcore mode enabled</div>
+                <div class="terminal-line output">
+                    [✓] koH Status: Building anyway</div>
+                <div class="terminal-line output">
+                    [✓] Mission: Degen → Regen in progress</div>
+                <br>
+                <div class="terminal-line">
+                    <span class="prompt">koh@kohlabs:~$</span>
+                    <span class="command"> echo "koH don't know, but koH builds anyway"</span>
+                </div>
+                <div class="terminal-line output">
+                    koH don't know, but koH builds anyway
+                </div>
+                <br>
+                <div class="terminal-line">
+                    <span class="prompt">koh@kohlabs:~$</span>
+                    <span class="command typing-effect"> _</span>
+                </div>
+                <div class="easter-egg terminal-line">
+                    <span class="prompt" style="color: #00ff00;">neo@matrix:~$</span>
+                    <span class="command"> wake_up_neo</span>
+                </div>
+                <div class="easter-egg terminal-line output">
+                    The Matrix has you...</div>
+                <div class="easter-egg terminal-line output">
+                    Follow the white rabbit 🐰</div>
+                <div class="easter-egg terminal-line output">
+                    Knock, knock, Neo.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="mission-section" id="mission">
+        <div class="mission-content">
+            <div class="mission-card">
+                <h3>🔄 Degen to Regen</h3>
+                <p>
+                    Transforming degen energy into regenerative building. We're taking projects 
+                    from zero to something, one vibe-coded line at a time.
+                </p>
+            </div>
+            <div class="mission-card">
+                <h3>🎬 Live Stream Coding</h3>
+                <p>
+                    Real people, real ops, real builds. Watch us write code we barely understand, 
+                    debug in public, and celebrate when things actually work.
+                </p>
+            </div>
+            <div class="mission-card">
+                <h3>🤖 AI Agent Building</h3>
+                <p>
+                    Creating AI agents that do... things. Sometimes useful things. 
+                    Always interesting things. Join us in the experimental zone.
+                </p>
+            </div>
+            <div class="mission-card">
+                <h3>⚡ Solana Exploration</h3>
+                <p>
+                    Collaborative discovery of the Sol ecosystem. We're learning together, 
+                    building together, and probably breaking things together.
+                </p>
+            </div>
+            <div class="mission-card">
+                <h3>🛠️ Project Support</h3>
+                <p>
+                    Helping other projects go from idea to reality. Because koH believes 
+                    in lifting while climbing, even when we're not sure where we're going.
+                </p>
+            </div>
+            <div class="mission-card">
+                <h3>🎯 Vibe Coding</h3>
+                <p>
+                    Hardcore vibe coding sessions where the energy is high, the code is questionable, 
+                    and the learning never stops. This is how we roll.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Socials Section -->
+    <section class="socials-section" id="socials">
+        <h2 style="font-size: 36px; margin-bottom: 40px; color: #8ae234;">Connect With Us</h2>
+        <div class="socials-container">
+            <a href="https://t.me/cryptokoh" target="_blank" class="social-link">
+                <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121L8.32 13.617l-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/>
+                </svg>
+                Telegram: @cryptokoh
+            </a>
+            <a href="https://x.com/crypto_koh" target="_blank" class="social-link">
+                <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+                X: @crypto_koh
+            </a>
+            <a href="https://pump.fun/coin/ELehFFYywLvfxCNVgxesCecYPtk4KcM2RYpor6H3AasN" target="_blank" class="social-link">
+                <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+                Trade on Pump.fun
+            </a>
+            <a href="https://www.mexc.com/dex/pumpfun-mexc?ca=koHLabs&currency=SOL" target="_blank" class="social-link">
+                <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M21 5l-9 9-9-9m18 10l-9 9-9-9"/>
+                </svg>
+                Trade on MEXC
+            </a>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2 style="font-size: 36px; margin-bottom: 20px;">Ready to Build the Future?</h2>
+        <p style="font-size: 18px; margin-bottom: 40px; color: #d3d3d3;">
+            Join the $koHLabs community and be part of the open development revolution
+        </p>
+        <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+            <a href="https://pump.fun/coin/ELehFFYywLvfxCNVgxesCecYPtk4KcM2RYpor6H3AasN" target="_blank" class="cta-button">
+                Get $koHLabs on Pump.fun
+            </a>
+            <a href="https://www.mexc.com/dex/pumpfun-mexc?ca=koHLabs&currency=SOL" target="_blank" class="cta-button" style="background: linear-gradient(45deg, #729fcf, #ad7fa8);">
+                Trade on MEXC DEX
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2024 $koHLabs • Building in Public • Powered by Solana</p>
+        <p style="margin-top: 10px; color: #8ae234;">Not financial advice. DYOR. Build responsibly.</p>
+    </footer>
+
+    <script>
+        // Matrix Mode Variables
+        let matrixMode = false;
+        let matrixRain = null;
+        
+        // Matrix Rain Effect
+        function initMatrixRain() {
+            const canvas = document.getElementById('matrixCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            const matrix = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%^&*()_+-=[]{}|;:,.<>?/こんにちは世界";
+            const matrixArray = matrix.split("");
+            
+            const fontSize = 16;
+            const columns = canvas.width / fontSize;
+            
+            const drops = [];
+            for(let x = 0; x < columns; x++) {
+                drops[x] = Math.random() * -100;
+            }
+            
+            function draw() {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                ctx.fillStyle = '#00ff00';
+                ctx.font = fontSize + 'px monospace';
+                
+                for(let i = 0; i < drops.length; i++) {
+                    const text = matrixArray[Math.floor(Math.random() * matrixArray.length)];
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                    
+                    if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                }
+            }
+            
+            return setInterval(draw, 35);
+        }
+        
+        // Toggle Matrix Mode
+        function toggleMatrix() {
+            matrixMode = !matrixMode;
+            const body = document.body;
+            const canvas = document.getElementById('matrixCanvas');
+            const matrixText = document.getElementById('matrixText');
+            const toggleBtn = document.getElementById('matrixToggle');
+            
+            if (matrixMode) {
+                body.classList.add('matrix-mode');
+                toggleBtn.textContent = 'EXIT';
+                toggleBtn.style.background = 'linear-gradient(45deg, #ff0000, #880000)';
+                
+                // Start Matrix rain
+                matrixRain = initMatrixRain();
+                
+                // Show flash text
+                setTimeout(() => {
+                    matrixText.style.animation = 'none';
+                    void matrixText.offsetWidth; // Trigger reflow
+                    matrixText.style.animation = 'matrixFlash 3s ease-in-out';
+                }, 100);
+                
+                // Add some Matrix-style console messages
+                console.log('%c SYSTEM: ACCESS GRANTED', 'color: #00ff00; font-size: 20px; font-weight: bold;');
+                console.log('%c Welcome to the Matrix, koH', 'color: #00ff00; font-size: 16px;');
+                console.log('%c The code is all around you...', 'color: #00ff00; font-size: 14px;');
+                
+                // Play sound effect if you want (optional)
+                const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLdiTYIG2m98OScTgwOUKni8LNgGAU3');
+                audio.volume = 0.3;
+                audio.play().catch(() => {}); // Silently fail if audio doesn't play
+                
+            } else {
+                body.classList.remove('matrix-mode');
+                toggleBtn.textContent = 'MATRIX';
+                toggleBtn.style.background = 'linear-gradient(45deg, #00ff00, #008800)';
+                
+                // Stop Matrix rain
+                if (matrixRain) {
+                    clearInterval(matrixRain);
+                    matrixRain = null;
+                }
+                
+                // Clear canvas
+                const ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                console.log('%c SYSTEM: RETURNING TO REALITY', 'color: #8ae234; font-size: 16px; font-weight: bold;');
+            }
+        }
+        
+        // Konami Code Easter Egg
+        let konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+        let konamiIndex = 0;
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === konamiCode[konamiIndex]) {
+                konamiIndex++;
+                if (konamiIndex === konamiCode.length) {
+                    activateUltraMatrix();
+                    konamiIndex = 0;
+                }
+            } else {
+                konamiIndex = 0;
+            }
+        });
+        
+        function activateUltraMatrix() {
+            if (!matrixMode) {
+                toggleMatrix();
+            }
+            
+            // Super Matrix Mode
+            document.body.style.animation = 'glitch 0.1s infinite';
+            
+            const messages = [
+                "THERE IS NO SPOON",
+                "FREE YOUR MIND",
+                "THE MATRIX HAS YOU",
+                "FOLLOW THE WHITE RABBIT",
+                "WAKE UP, koH...",
+                "KNOCK KNOCK",
+                "YOU ARE THE ONE"
+            ];
+            
+            let messageIndex = 0;
+            const showMessage = setInterval(() => {
+                const matrixText = document.getElementById('matrixText');
+                matrixText.textContent = messages[messageIndex];
+                matrixText.style.animation = 'none';
+                void matrixText.offsetWidth;
+                matrixText.style.animation = 'matrixFlash 2s ease-in-out';
+                
+                messageIndex++;
+                if (messageIndex >= messages.length) {
+                    clearInterval(showMessage);
+                    setTimeout(() => {
+                        document.body.style.animation = '';
+                    }, 2000);
+                }
+            }, 2500);
+        }
+        
+        // Add some interactive terminal effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Matrix toggle button
+            document.getElementById('matrixToggle').addEventListener('click', toggleMatrix);
+            
+            // Window resize handler for Matrix canvas
+            window.addEventListener('resize', () => {
+                if (matrixMode) {
+                    const canvas = document.getElementById('matrixCanvas');
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+                }
+            });
+            // Simulate typing effect
+            const typingElements = document.querySelectorAll('.typing-effect');
+            typingElements.forEach(el => {
+                setInterval(() => {
+                    el.textContent = el.textContent === '_' ? '' : '_';
+                }, 500);
+            });
+
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+
+            // Add terminal command animation
+            let commandIndex = 0;
+            const commands = [
+                'git push origin main',
+                'npm run build',
+                'cargo build --release',
+                'solana program deploy',
+                'echo "WAGMI"'
+            ];
+
+            setInterval(() => {
+                const terminalBody = document.querySelector('.terminal-body');
+                if (terminalBody && Math.random() > 0.7) {
+                    const newLine = document.createElement('div');
+                    newLine.className = 'terminal-line';
+                    newLine.style.opacity = '0';
+                    newLine.innerHTML = `
+                        <span class="prompt">koh@kohlabs:~$</span>
+                        <span class="command"> ${commands[commandIndex % commands.length]}</span>
+                    `;
+                    terminalBody.appendChild(newLine);
+                    
+                    // Fade in animation
+                    setTimeout(() => {
+                        newLine.style.transition = 'opacity 0.5s';
+                        newLine.style.opacity = '1';
+                    }, 100);
+                    
+                    // Keep only last 15 lines
+                    const lines = terminalBody.querySelectorAll('.terminal-line');
+                    if (lines.length > 15) {
+                        lines[0].remove();
+                    }
+                    
+                    terminalBody.scrollTop = terminalBody.scrollHeight;
+                    commandIndex++;
+                }
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
