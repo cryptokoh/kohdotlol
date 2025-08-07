@@ -11,3 +11,21 @@
   to = "https://pump.fun/coin/ELehFFYywLvfxCNVgxesCecYPtk4KcM2RYpor6H3AasN"
   status = 301
   force = true
+
+[[redirects]]
+  from = "https://live.koh.lol/*"
+  to = "https://pump.fun/coin/ELehFFYywLvfxCNVgxesCecYPtk4KcM2RYpor6H3AasN"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://wif.koh.lol/*"
+  to = "https://pump.fun/coin/ELehFFYywLvfxCNVgxesCecYPtk4KcM2RYpor6H3AasN"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://live.wif.koh.lol/*"
+  to = "https://pump.fun/coin/ELehFFYywLvfxCNVgxesCecYPtk4KcM2RYpor6H3AasN"
+  status = 301
+  force = true
