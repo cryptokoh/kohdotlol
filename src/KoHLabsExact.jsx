@@ -4,12 +4,27 @@ import './KoHLabsExact.css'
 function KoHLabsExact() {
   const [matrixMode, setMatrixMode] = useState(false)
   const [showTerminal, setShowTerminal] = useState(false)
+  const [showClaude, setShowClaude] = useState(false)
   const canvasRef = useRef(null)
   const matrixRainRef = useRef(null)
   const konamiRef = useRef([])
   const terminalInputRef = useRef(null)
+  const claudeTypingRef = useRef(null)
   const [matrixText, setMatrixText] = useState('FOLLOW THE WHITE RABBIT 🐰')
   const [showMatrixText, setShowMatrixText] = useState(false)
+  const [copiedContract, setCopiedContract] = useState(false)
+  const [activeCard, setActiveCard] = useState(0)
+  const [claudeOutput, setClaudeOutput] = useState([])
+  const [claudeTypingIndex, setClaudeTypingIndex] = useState(0)
+  const [claudeSpeed, setClaudeSpeed] = useState(1) // 0: slow, 1: normal, 2: fast
+  const [claudeFiles, setClaudeFiles] = useState([
+    { name: 'src/', type: 'folder', open: true },
+    { name: 'trading-bot.ts', type: 'file', parent: 'src/', active: true },
+    { name: 'config.ts', type: 'file', parent: 'src/' },
+    { name: 'utils/', type: 'folder', open: false },
+    { name: 'package.json', type: 'file' },
+    { name: 'tsconfig.json', type: 'file' }
+  ])
   const [terminalHistory, setTerminalHistory] = useState([
     { type: 'output', text: 'KoHLabs Terminal v1.0.0 - Interactive Mode' },
     { type: 'output', text: 'Type "help" for available commands' },
@@ -20,6 +35,165 @@ function KoHLabsExact() {
   const [historyIndex, setHistoryIndex] = useState(-1)
   
   const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a']
+  const contractAddress = 'ELehFFYywLvfxCNVgxesCecYPtk4KcM2RYpor6H3AasN'
+  
+  const missionCards = [
+    { icon: '🔄', title: 'Degen to Regen', desc: 'Transforming degen energy into regenerative building. We\'re taking projects from zero to something, one vibe-coded line at a time.' },
+    { icon: '🎬', title: 'Live Stream Coding', desc: 'Real people, real ops, real builds. Watch us write code we barely understand, debug in public, and celebrate when things actually work.' },
+    { icon: '🤖', title: 'AI Agent Building', desc: 'Creating AI agents that do... things. Sometimes useful things. Always interesting things. Join us in the experimental zone.' },
+    { icon: '⚡', title: 'Solana Exploration', desc: 'Collaborative discovery of the Sol ecosystem. We\'re learning together, building together, and probably breaking things together.' },
+    { icon: '🛠️', title: 'Project Support', desc: 'Helping other projects go from idea to reality. Because koH believes in lifting while climbing, even when we\'re not sure where we\'re going.' },
+    { icon: '🎯', title: 'Vibe Coding', desc: 'Hardcore vibe coding sessions where the energy is high, the code is questionable, and the learning never stops. This is how we roll.' }
+  ]
+
+  // Copy contract address to clipboard
+  const copyContract = () => {
+    navigator.clipboard.writeText(contractAddress)
+    setCopiedContract(true)
+    setTimeout(() => setCopiedContract(false), 2000)
+  }
+
+  // Claude Code CLI Simulation Script
+  const claudeScript = [
+    { type: 'command', text: 'claude-code --dangerously-accept-all-prompts', delay: 0 },
+    { type: 'system', text: '🤖 Claude Code v3.5 - AI-Powered Development Assistant', delay: 500 },
+    { type: 'system', text: '⚠️  Running in dangerous mode - all prompts auto-accepted', delay: 700 },
+    { type: 'system', text: '📊 Model: Claude 3.5 Sonnet | Context: 200K tokens | Tools: Enabled', delay: 900 },
+    { type: 'output', text: '', delay: 1000 },
+    { type: 'claude', text: 'Analyzing $koHLabs project structure...', delay: 1200 },
+    { type: 'tree', text: '📁 kohlabs/', delay: 1400 },
+    { type: 'tree', text: '  ├── 📁 src/', delay: 1500 },
+    { type: 'tree', text: '  │   ├── 📄 index.ts', delay: 1600 },
+    { type: 'tree', text: '  │   └── 📁 components/', delay: 1700 },
+    { type: 'tree', text: '  ├── 📄 package.json', delay: 1800 },
+    { type: 'tree', text: '  └── 📄 tsconfig.json', delay: 1900 },
+    { type: 'progress', text: '▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ 100%', delay: 2000 },
+    { type: 'output', text: '', delay: 2200 },
+    { type: 'command', text: 'claude "Build a Solana trading bot for pump.fun tokens"', delay: 2500 },
+    { type: 'claude', text: 'I\'ll help you build a Solana trading bot for pump.fun tokens. Let me create a comprehensive solution.', delay: 3000 },
+    { type: 'output', text: '', delay: 3500 },
+    { type: 'file', text: '📄 Creating src/trading-bot.ts...', delay: 3800 },
+    { type: 'code', text: 'import { Connection, Keypair, PublicKey } from \'@solana/web3.js\'', delay: 4000 },
+    { type: 'code', text: 'import { Jupiter } from \'@jup-ag/core\'', delay: 4200 },
+    { type: 'code', text: 'import { TOKEN_PROGRAM_ID } from \'@solana/spl-token\'', delay: 4400 },
+    { type: 'code', text: '', delay: 4600 },
+    { type: 'code', text: 'class PumpFunTradingBot {', delay: 4800 },
+    { type: 'code', text: '  private connection: Connection', delay: 5000 },
+    { type: 'code', text: '  private jupiter: Jupiter', delay: 5200 },
+    { type: 'code', text: '  private wallet: Keypair', delay: 5400 },
+    { type: 'code', text: '', delay: 5600 },
+    { type: 'code', text: '  async executeTrade(tokenMint: string, amount: number) {', delay: 5800 },
+    { type: 'code', text: '    // AI-optimized trading logic', delay: 6000 },
+    { type: 'code', text: '    const routes = await this.jupiter.computeRoutes(...)', delay: 6200 },
+    { type: 'code', text: '    return await this.jupiter.exchange(routes[0])', delay: 6400 },
+    { type: 'code', text: '  }', delay: 6600 },
+    { type: 'code', text: '}', delay: 6800 },
+    { type: 'output', text: '', delay: 7000 },
+    { type: 'success', text: '✅ Trading bot created successfully!', delay: 7200 },
+    { type: 'output', text: '', delay: 7400 },
+    { type: 'command', text: 'npm run test', delay: 7600 },
+    { type: 'test', text: 'PASS  src/trading-bot.test.ts', delay: 8000 },
+    { type: 'test', text: '  ✓ should execute trades successfully (42ms)', delay: 8200 },
+    { type: 'test', text: '  ✓ should handle slippage correctly (23ms)', delay: 8400 },
+    { type: 'test', text: '  ✓ should validate token addresses (15ms)', delay: 8600 },
+    { type: 'output', text: '', delay: 8800 },
+    { type: 'success', text: 'Test Suites: 1 passed, 1 total', delay: 9000 },
+    { type: 'success', text: 'Tests: 3 passed, 3 total', delay: 9200 },
+    { type: 'output', text: '', delay: 9400 },
+    { type: 'command', text: 'git add . && git commit -m "feat: add AI-powered pump.fun trading bot 🚀"', delay: 9600 },
+    { type: 'git', text: '[main 8ae234a] feat: add AI-powered pump.fun trading bot 🚀', delay: 10000 },
+    { type: 'git', text: ' 3 files changed, 234 insertions(+)', delay: 10200 },
+    { type: 'output', text: '', delay: 10400 },
+    { type: 'claude', text: '🎉 Project complete! Your Solana trading bot is ready for pump.fun tokens.', delay: 10600 },
+    { type: 'claude', text: 'The bot includes Jupiter integration, slippage protection, and AI-optimized routing.', delay: 11000 },
+    { type: 'output', text: '', delay: 11400 },
+    { type: 'prompt', text: 'Ready for next command...', delay: 11600 }
+  ]
+
+  // Start Claude simulation
+  const startClaudeSimulation = () => {
+    setShowClaude(true)
+    setClaudeOutput([])
+    setClaudeTypingIndex(0)
+    
+    // Speed multipliers: slow (2x slower), normal (1x), fast (0.3x)
+    const speedMultipliers = [2, 1, 0.3]
+    const currentMultiplier = speedMultipliers[claudeSpeed]
+    
+    // Start the typing animation
+    const runScript = () => {
+      if (claudeTypingRef.current >= claudeScript.length) {
+        return
+      }
+      
+      const currentLine = claudeScript[claudeTypingRef.current]
+      
+      setTimeout(() => {
+        setClaudeOutput(prev => [...prev, currentLine])
+        claudeTypingRef.current = (claudeTypingRef.current || 0) + 1
+        
+        // Auto-scroll to bottom
+        setTimeout(() => {
+          const claudeBody = document.querySelector('.claude-modal-body')
+          if (claudeBody) {
+            claudeBody.scrollTop = claudeBody.scrollHeight
+          }
+        }, 50)
+        
+        runScript()
+      }, currentLine.delay * currentMultiplier)
+    }
+    
+    claudeTypingRef.current = 0
+    runScript()
+  }
+
+  // Cycle through speed settings
+  const cycleSpeed = () => {
+    setClaudeSpeed((prev) => (prev + 1) % 3)
+  }
+
+  const getSpeedIcon = () => {
+    const icons = ['🐢', '🚶', '🚀']
+    return icons[claudeSpeed]
+  }
+
+  const getSpeedLabel = () => {
+    const labels = ['Slow', 'Normal', 'Fast']
+    return labels[claudeSpeed]
+  }
+
+  // Handle card navigation
+  const nextCard = () => {
+    setActiveCard((prev) => (prev + 1) % missionCards.length)
+  }
+
+  const prevCard = () => {
+    setActiveCard((prev) => (prev - 1 + missionCards.length) % missionCards.length)
+  }
+
+  // Touch handling for swipe
+  const touchStartX = useRef(0)
+  const touchEndX = useRef(0)
+
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX
+  }
+
+  const handleTouchMove = (e) => {
+    touchEndX.current = e.touches[0].clientX
+  }
+
+  const handleTouchEnd = () => {
+    const swipeDistance = touchStartX.current - touchEndX.current
+    const swipeThreshold = 50
+
+    if (swipeDistance > swipeThreshold) {
+      nextCard()
+    } else if (swipeDistance < -swipeThreshold) {
+      prevCard()
+    }
+  }
 
   // Matrix Rain Effect
   const initMatrixRain = () => {
@@ -334,6 +508,15 @@ function KoHLabsExact() {
       {/* Matrix Rain Canvas */}
       <canvas ref={canvasRef} className="matrix-canvas" />
       
+      {/* Claude Button */}
+      <div 
+        className="claude-toggle" 
+        onClick={startClaudeSimulation}
+        title="Launch Claude Code CLI"
+      >
+        CLAUDE
+      </div>
+      
       {/* Terminal Button */}
       <div 
         className="terminal-toggle" 
@@ -356,6 +539,148 @@ function KoHLabsExact() {
       <div className={`matrix-text ${showMatrixText ? 'show' : ''}`}>
         {matrixText}
       </div>
+
+      {/* Claude Code CLI Modal */}
+      {showClaude && (
+        <div className="claude-modal-overlay" onClick={() => setShowClaude(false)}>
+          <div className="claude-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="claude-modal-header">
+              <div className="claude-modal-buttons">
+                <span className="terminal-button red" onClick={() => setShowClaude(false)}></span>
+                <span className="terminal-button yellow"></span>
+                <span className="terminal-button green"></span>
+              </div>
+              <div className="claude-modal-title">Claude Code v3.5 - AI Development Assistant</div>
+              <div className="claude-modal-controls">
+                <button 
+                  className="claude-speed-btn"
+                  onClick={cycleSpeed}
+                  title={`Speed: ${getSpeedLabel()} (click to change)`}
+                >
+                  {getSpeedIcon()}
+                </button>
+                <button 
+                  className="claude-restart-btn"
+                  onClick={() => {
+                    setClaudeOutput([])
+                    claudeTypingRef.current = 0
+                    startClaudeSimulation()
+                  }}
+                  title="Restart Demo"
+                >
+                  ↻
+                </button>
+                <button 
+                  className="terminal-close-btn"
+                  onClick={() => setShowClaude(false)}
+                  title="Close"
+                >
+                  ✕
+                </button>
+              </div>
+            </div>
+            
+            {/* Add file explorer sidebar */}
+            <div className="claude-modal-content">
+              <div className="claude-sidebar">
+                <div className="claude-sidebar-header">EXPLORER</div>
+                <div className="claude-file-tree">
+                  {claudeFiles.map((file, index) => (
+                    <div key={index} className={`claude-file-item ${file.active ? 'active' : ''}`}>
+                      {file.type === 'folder' ? (
+                        <>
+                          <span className="file-icon">{file.open ? '📂' : '📁'}</span>
+                          <span className="file-name">{file.name}</span>
+                        </>
+                      ) : (
+                        <>
+                          <span className="file-indent">{file.parent ? '  ' : ''}</span>
+                          <span className="file-icon">📄</span>
+                          <span className="file-name">{file.name}</span>
+                        </>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              <div className="claude-main">
+                {/* Tab bar */}
+                <div className="claude-tabs">
+                  <div className="claude-tab active">
+                    <span className="tab-icon">📄</span>
+                    <span className="tab-name">trading-bot.ts</span>
+                    <span className="tab-close">×</span>
+                  </div>
+                </div>
+                
+                {/* Main content area */}
+                <div className="claude-modal-body">
+              {claudeOutput.map((line, index) => (
+                <div key={index} className={`claude-line ${line.type}`}>
+                  {line.type === 'command' && (
+                    <>
+                      <span className="claude-prompt">$</span>
+                      <span className="claude-command"> {line.text}</span>
+                    </>
+                  )}
+                  {line.type === 'claude' && (
+                    <span className="claude-ai">
+                      <span className="claude-icon">🤖</span> {line.text}
+                    </span>
+                  )}
+                  {line.type === 'code' && (
+                    <span className="claude-code">{line.text}</span>
+                  )}
+                  {line.type === 'file' && (
+                    <span className="claude-file">{line.text}</span>
+                  )}
+                  {line.type === 'success' && (
+                    <span className="claude-success">{line.text}</span>
+                  )}
+                  {line.type === 'test' && (
+                    <span className="claude-test">{line.text}</span>
+                  )}
+                  {line.type === 'git' && (
+                    <span className="claude-git">{line.text}</span>
+                  )}
+                  {line.type === 'system' && (
+                    <span className="claude-system">{line.text}</span>
+                  )}
+                  {line.type === 'progress' && (
+                    <span className="claude-progress">{line.text}</span>
+                  )}
+                  {line.type === 'prompt' && (
+                    <span className="claude-ready">
+                      <span className="claude-cursor">▊</span> {line.text}
+                    </span>
+                  )}
+                  {line.type === 'tree' && (
+                    <span className="claude-tree">{line.text}</span>
+                  )}
+                  {line.type === 'output' && <br />}
+                </div>
+              ))}
+                </div>
+                
+                {/* Status bar */}
+                <div className="claude-status-bar">
+                  <div className="status-left">
+                    <span className="status-item">🟢 Connected</span>
+                    <span className="status-item">UTF-8</span>
+                    <span className="status-item">TypeScript</span>
+                  </div>
+                  <div className="status-right">
+                    <span className="status-item">Ln 42, Col 16</span>
+                    <span className="status-item">Spaces: 2</span>
+                    <span className="status-item">🔄 {getSpeedLabel()}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Terminal Modal */}
       {showTerminal && (
@@ -422,12 +747,42 @@ function KoHLabsExact() {
       <nav>
         <div className="nav-container">
           <a href="#" className="logo">$koHLabs</a>
-          <div className="nav-links">
-            <a href="#mission">Mission</a>
-            <a href="#terminal">Terminal</a>
-            <a href="#socials">Connect</a>
-            <a href="https://pump.fun/coin/ELehFFYywLvfxCNVgxesCecYPtk4KcM2RYpor6H3AasN" target="_blank" rel="noopener noreferrer">Pump.fun</a>
-            <a href="https://www.mexc.com/dex/pumpfun-mexc?ca=koHLabs&currency=SOL" target="_blank" rel="noopener noreferrer">MEXC</a>
+          <div className="nav-center">
+            <div className="contract-pill" onClick={copyContract} title="Click to copy contract address">
+              <span className="contract-label">CA:</span>
+              <span className="contract-text">{contractAddress.slice(0, 4)}...{contractAddress.slice(-4)}</span>
+              <svg className="copy-icon" width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+              </svg>
+              {copiedContract && <span className="copied-tooltip">Copied!</span>}
+            </div>
+          </div>
+          <div className="nav-right">
+            <div className="nav-links">
+              <a href="#mission">Mission</a>
+              <a href="#terminal">Terminal</a>
+              <a href="#socials">Connect</a>
+              <a href="https://pump.fun/coin/ELehFFYywLvfxCNVgxesCecYPtk4KcM2RYpor6H3AasN" target="_blank" rel="noopener noreferrer">Live</a>
+              <a href="https://www.mexc.com/dex/pumpfun-mexc?ca=koHLabs&currency=SOL" target="_blank" rel="noopener noreferrer">MEXC</a>
+            </div>
+            {/* Social icons as window controls */}
+            <div className="social-controls">
+              <a href="https://t.me/cryptokoh" target="_blank" rel="noopener noreferrer" className="social-control telegram" title="Telegram">
+                <svg width="8" height="8" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121L8.32 13.617l-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/>
+                </svg>
+              </a>
+              <a href="https://x.com/crypto_koh" target="_blank" rel="noopener noreferrer" className="social-control twitter" title="X (Twitter)">
+                <svg width="8" height="8" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+              </a>
+              <a href="https://pump.fun/coin/ELehFFYywLvfxCNVgxesCecYPtk4KcM2RYpor6H3AasN" target="_blank" rel="noopener noreferrer" className="social-control pump" title="Pump.fun">
+                <svg width="8" height="8" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2l2.4 7.4h7.6l-6 4.6 2.4 7.4-6.4-4.6-6.4 4.6 2.4-7.4-6-4.6h7.6z"/>
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
       </nav>
@@ -439,7 +794,21 @@ function KoHLabsExact() {
             <img src="/kohlabs-meme.png" alt="$koHLabs Meme" className="meme-image" />
           </div>
           <h1>$koHLabs</h1>
-          <p className="tagline">Degen to Regen • Vibe Coding • Real Builds • Live Streams</p>
+          <p className="tagline">
+            <span className="typewriter-text">Degen to Regen • Vibe Coding • Real Builds • Live Streams</span>
+          </p>
+          
+          {/* Contract Address Hero */}
+          <div className="contract-hero" onClick={copyContract}>
+            <div className="contract-hero-pill">
+              <span className="contract-hero-label">Contract Address</span>
+              <span className="contract-hero-address">{contractAddress}</span>
+              <svg className="contract-hero-copy" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+              </svg>
+              {copiedContract && <span className="contract-hero-copied">Copied!</span>}
+            </div>
+          </div>
           
           <div className="launch-statement">
             <h2>🚀 Launch Statement</h2>
@@ -541,48 +910,48 @@ function KoHLabsExact() {
 
       {/* Mission Section */}
       <section className="mission-section" id="mission">
-        <div className="mission-content">
-          <div className="mission-card">
-            <h3>🔄 Degen to Regen</h3>
-            <p>
-              Transforming degen energy into regenerative building. We're taking projects 
-              from zero to something, one vibe-coded line at a time.
-            </p>
+        {/* Desktop Grid View */}
+        <div className="mission-content desktop-only">
+          {missionCards.map((card, index) => (
+            <div key={index} className="mission-card">
+              <h3>{card.icon} {card.title}</h3>
+              <p>{card.desc}</p>
+            </div>
+          ))}
+        </div>
+        
+        {/* Mobile Carousel View */}
+        <div className="mission-carousel mobile-only"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
+          <button className="carousel-prev" onClick={prevCard}>‹</button>
+          
+          <div className="carousel-container">
+            <div className="carousel-track" style={{ transform: `translateX(-${activeCard * 100}%)` }}>
+              {missionCards.map((card, index) => (
+                <div key={index} className="carousel-card">
+                  <div className="carousel-card-inner">
+                    <h3>{card.icon} {card.title}</h3>
+                    <p>{card.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="mission-card">
-            <h3>🎬 Live Stream Coding</h3>
-            <p>
-              Real people, real ops, real builds. Watch us write code we barely understand, 
-              debug in public, and celebrate when things actually work.
-            </p>
-          </div>
-          <div className="mission-card">
-            <h3>🤖 AI Agent Building</h3>
-            <p>
-              Creating AI agents that do... things. Sometimes useful things. 
-              Always interesting things. Join us in the experimental zone.
-            </p>
-          </div>
-          <div className="mission-card">
-            <h3>⚡ Solana Exploration</h3>
-            <p>
-              Collaborative discovery of the Sol ecosystem. We're learning together, 
-              building together, and probably breaking things together.
-            </p>
-          </div>
-          <div className="mission-card">
-            <h3>🛠️ Project Support</h3>
-            <p>
-              Helping other projects go from idea to reality. Because koH believes 
-              in lifting while climbing, even when we're not sure where we're going.
-            </p>
-          </div>
-          <div className="mission-card">
-            <h3>🎯 Vibe Coding</h3>
-            <p>
-              Hardcore vibe coding sessions where the energy is high, the code is questionable, 
-              and the learning never stops. This is how we roll.
-            </p>
+          
+          <button className="carousel-next" onClick={nextCard}>›</button>
+          
+          {/* Dots indicator */}
+          <div className="carousel-dots">
+            {missionCards.map((_, index) => (
+              <button
+                key={index}
+                className={`carousel-dot ${index === activeCard ? 'active' : ''}`}
+                onClick={() => setActiveCard(index)}
+              />
+            ))}
           </div>
         </div>
       </section>
@@ -607,7 +976,7 @@ function KoHLabsExact() {
             <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
             </svg>
-            Trade on Pump.fun
+            Live on Pump.fun
           </a>
           <a href="https://www.mexc.com/dex/pumpfun-mexc?ca=koHLabs&currency=SOL" target="_blank" rel="noopener noreferrer" className="social-link">
             <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
