@@ -30,16 +30,31 @@ export default defineConfig({
     },
   },
   build: {
+    sourcemap: false, // Disable sourcemaps to reduce memory usage
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+      },
+    },
     rollupOptions: {
       output: {
         manualChunks: {
-          'react-vendor': ['react', 'react-dom'],
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
           'three-vendor': ['three', '@react-three/fiber', '@react-three/drei'],
-          'solana-vendor': ['@solana/web3.js', '@solana/spl-token'],
+          'solana-vendor': ['@solana/web3.js', '@solana/spl-token', '@solana/wallet-adapter-react'],
+          'wallet-vendor': ['@rainbow-me/rainbowkit', 'wagmi', 'viem'],
           'animation-vendor': ['framer-motion'],
+          'auth-vendor': ['@auth0/auth0-react', '@farcaster/auth-kit'],
         },
       },
+      onwarn(warning, warn) {
+        // Suppress "use client" warnings
+        if (warning.code === 'MODULE_LEVEL_DIRECTIVE') return
+        warn(warning)
+      },
     },
-    chunkSizeWarningLimit: 1000,
+    chunkSizeWarningLimit: 1500,
   },
 })
