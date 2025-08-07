@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from 'react'
-import { Auth0Provider } from '@auth0/auth0-react'
+// import { Auth0Provider } from '@auth0/auth0-react' // Commented out - causing loading issues
 
 const SocialAuthContext = createContext({})
 
@@ -77,25 +77,25 @@ export function SocialAuthProvider({ children }) {
     isTwitterConnected: !!twitterUser,
   }
 
-  // If Auth0 is configured, wrap with Auth0Provider
-  const auth0Domain = import.meta.env.VITE_AUTH0_DOMAIN
-  const auth0ClientId = import.meta.env.VITE_AUTH0_CLIENT_ID
+  // Auth0 integration temporarily disabled - was causing loading issues
+  // const auth0Domain = import.meta.env.VITE_AUTH0_DOMAIN
+  // const auth0ClientId = import.meta.env.VITE_AUTH0_CLIENT_ID
 
-  if (auth0Domain && auth0ClientId) {
-    return (
-      <Auth0Provider
-        domain={auth0Domain}
-        clientId={auth0ClientId}
-        authorizationParams={{
-          redirect_uri: window.location.origin
-        }}
-      >
-        <SocialAuthContext.Provider value={value}>
-          {children}
-        </SocialAuthContext.Provider>
-      </Auth0Provider>
-    )
-  }
+  // if (auth0Domain && auth0ClientId) {
+  //   return (
+  //     <Auth0Provider
+  //       domain={auth0Domain}
+  //       clientId={auth0ClientId}
+  //       authorizationParams={{
+  //         redirect_uri: window.location.origin
+  //       }}
+  //     >
+  //       <SocialAuthContext.Provider value={value}>
+  //         {children}
+  //       </SocialAuthContext.Provider>
+  //     </Auth0Provider>
+  //   )
+  // }
 
   return (
     <SocialAuthContext.Provider value={value}>
