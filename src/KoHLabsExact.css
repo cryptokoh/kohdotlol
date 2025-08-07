@@ -1,0 +1,756 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&family=Ubuntu:wght@300;400;500;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Ubuntu', sans-serif;
+  background: #2c001e;
+  background-image: 
+    radial-gradient(circle at 20% 50%, rgba(120, 45, 90, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(90, 45, 120, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 40% 20%, rgba(150, 50, 100, 0.2) 0%, transparent 50%);
+  min-height: 100vh;
+  color: #ffffff;
+  overflow-x: hidden;
+}
+
+/* Navigation */
+nav {
+  background: linear-gradient(to bottom, #4a4a4a 0%, #3c3c3c 100%);
+  padding: 15px 30px;
+  border-bottom: 1px solid #1a1a1a;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-family: 'Ubuntu Mono', monospace;
+  font-size: 24px;
+  font-weight: bold;
+  color: #8ae234;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.nav-links a {
+  color: #d3d3d3;
+  text-decoration: none;
+  transition: color 0.3s;
+  font-size: 14px;
+}
+
+.nav-links a:hover {
+  color: #8ae234;
+}
+
+/* Hero Section */
+.hero {
+  margin-top: 60px;
+  padding: 80px 20px;
+  text-align: center;
+  position: relative;
+}
+
+.hero-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.meme-container {
+  display: inline-block;
+  position: relative;
+  margin-bottom: 40px;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+.meme-image {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  border: 4px solid #8ae234;
+  box-shadow: 0 0 30px rgba(138, 226, 52, 0.5);
+  object-fit: cover;
+}
+
+.hero h1 {
+  font-size: 64px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  background: linear-gradient(45deg, #8ae234, #729fcf);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.tagline {
+  font-size: 24px;
+  color: #729fcf;
+  margin-bottom: 30px;
+  font-family: 'Ubuntu Mono', monospace;
+}
+
+.launch-statement {
+  background: rgba(48, 10, 36, 0.8);
+  border: 1px solid #8ae234;
+  border-radius: 8px;
+  padding: 30px;
+  margin: 40px auto;
+  max-width: 800px;
+  font-family: 'Ubuntu Mono', monospace;
+}
+
+.launch-statement h2 {
+  color: #8ae234;
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+
+.launch-statement p {
+  color: #d3d3d3;
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+/* Terminal Section */
+.terminal-section {
+  padding: 60px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.terminal-window {
+  background: #300a24;
+  border-radius: 8px 8px 0 0;
+  box-shadow: 
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    0 10px 30px rgba(0, 0, 0, 0.5);
+  margin-bottom: 40px;
+}
+
+.terminal-header {
+  background: linear-gradient(to bottom, #4a4a4a 0%, #3c3c3c 100%);
+  padding: 10px 15px;
+  border-radius: 8px 8px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.terminal-button {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.terminal-button.red { background: #ff6b5a; }
+.terminal-button.yellow { background: #ffbf3f; }
+.terminal-button.green { background: #5cbf60; }
+
+.terminal-body {
+  padding: 20px;
+  font-family: 'Ubuntu Mono', monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  height: 400px;
+  overflow-y: auto;
+}
+
+.terminal-line {
+  margin: 5px 0;
+}
+
+.prompt {
+  color: #8ae234;
+  font-weight: bold;
+}
+
+.command {
+  color: #ffffff;
+}
+
+.output {
+  color: #729fcf;
+  margin-left: 20px;
+}
+
+.comment {
+  color: #666;
+}
+
+/* Mission Section */
+.mission-section {
+  padding: 60px 20px;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.mission-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.mission-card {
+  background: rgba(48, 10, 36, 0.6);
+  border: 1px solid rgba(138, 226, 52, 0.3);
+  border-radius: 8px;
+  padding: 30px;
+  transition: all 0.3s;
+}
+
+.mission-card:hover {
+  transform: translateY(-5px);
+  border-color: #8ae234;
+  box-shadow: 0 10px 30px rgba(138, 226, 52, 0.2);
+}
+
+.mission-card h3 {
+  color: #8ae234;
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+
+.mission-card p {
+  color: #d3d3d3;
+  line-height: 1.6;
+}
+
+/* Socials Section */
+.socials-section {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.socials-section h2 {
+  font-size: 36px;
+  margin-bottom: 40px;
+  color: #8ae234;
+}
+
+.socials-container {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 30px;
+  background: rgba(48, 10, 36, 0.8);
+  border: 2px solid #729fcf;
+  border-radius: 50px;
+  color: #729fcf;
+  text-decoration: none;
+  transition: all 0.3s;
+  font-family: 'Ubuntu Mono', monospace;
+}
+
+.social-link:hover {
+  background: #729fcf;
+  color: #300a24;
+  transform: scale(1.05);
+}
+
+/* CTA Section */
+.cta-section {
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.cta-section h2 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.cta-subtitle {
+  font-size: 18px;
+  margin-bottom: 40px;
+  color: #d3d3d3;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cta-button {
+  display: inline-block;
+  padding: 20px 40px;
+  background: linear-gradient(45deg, #8ae234, #729fcf);
+  color: #300a24;
+  text-decoration: none;
+  border-radius: 50px;
+  font-size: 18px;
+  font-weight: bold;
+  transition: all 0.3s;
+  box-shadow: 0 5px 20px rgba(138, 226, 52, 0.3);
+}
+
+.cta-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(138, 226, 52, 0.5);
+}
+
+.cta-button-alt {
+  background: linear-gradient(45deg, #729fcf, #ad7fa8);
+}
+
+/* Footer */
+footer {
+  padding: 30px 20px;
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #666;
+  font-family: 'Ubuntu Mono', monospace;
+}
+
+.footer-disclaimer {
+  margin-top: 10px;
+  color: #8ae234;
+}
+
+.footer-link {
+  margin-top: 15px;
+}
+
+.footer-link a {
+  color: #666;
+  text-decoration: none;
+  font-size: 12px;
+  transition: color 0.3s;
+}
+
+.footer-link a:hover {
+  color: #8ae234;
+}
+
+/* Animations */
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+.typing-effect {
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typing 2s steps(40, end);
+}
+
+/* Terminal Button */
+.terminal-toggle {
+  position: fixed;
+  bottom: 30px;
+  right: 110px;
+  z-index: 9999;
+  background: linear-gradient(45deg, #8ae234, #729fcf);
+  border: 2px solid #8ae234;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Ubuntu Mono', monospace;
+  color: #300a24;
+  font-weight: bold;
+  font-size: 10px;
+  transition: all 0.3s;
+  box-shadow: 0 0 20px rgba(138, 226, 52, 0.5);
+  animation: pulse 2s infinite;
+}
+
+.terminal-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 30px rgba(138, 226, 52, 0.8);
+}
+
+/* Matrix Mode */
+.matrix-toggle {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 9999;
+  background: linear-gradient(45deg, #00ff00, #008800);
+  border: 2px solid #00ff00;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Ubuntu Mono', monospace;
+  color: #000;
+  font-weight: bold;
+  font-size: 12px;
+  transition: all 0.3s;
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.matrix-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 30px rgba(0, 255, 0, 0.8);
+}
+
+.matrix-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.matrix-mode .matrix-canvas {
+  opacity: 1;
+}
+
+.matrix-mode {
+  background: #000;
+}
+
+.matrix-mode * {
+  color: #00ff00 !important;
+  text-shadow: 0 0 5px #00ff00;
+}
+
+.matrix-mode .terminal-body {
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.matrix-mode .terminal-window {
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid #00ff00;
+  box-shadow: 0 0 30px rgba(0, 255, 0, 0.5);
+}
+
+.matrix-mode .mission-card {
+  background: rgba(0, 20, 0, 0.8);
+  border-color: #00ff00;
+}
+
+.matrix-mode .social-link {
+  border-color: #00ff00;
+  background: rgba(0, 40, 0, 0.8);
+}
+
+.matrix-mode .cta-button {
+  background: linear-gradient(45deg, #00ff00, #008800) !important;
+  color: #000 !important;
+}
+
+.matrix-mode .meme-image {
+  border-color: #00ff00;
+  box-shadow: 0 0 30px rgba(0, 255, 0, 0.8);
+  filter: hue-rotate(120deg) contrast(1.2);
+}
+
+.matrix-mode .launch-statement {
+  background: rgba(0, 20, 0, 0.9);
+  border-color: #00ff00;
+}
+
+.matrix-mode .terminal-header {
+  background: linear-gradient(to bottom, #001100, #002200);
+}
+
+.matrix-mode .nav-links a:hover {
+  color: #00ff00 !important;
+  text-shadow: 0 0 10px #00ff00;
+}
+
+.matrix-mode .matrix-toggle {
+  background: linear-gradient(45deg, #ff0000, #880000);
+}
+
+.matrix-text {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 24px;
+  color: #00ff00;
+  font-family: 'Ubuntu Mono', monospace;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 10000;
+}
+
+.matrix-text.show {
+  animation: matrixFlash 3s ease-in-out;
+}
+
+@keyframes matrixFlash {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+}
+
+/* Easter Egg Terminal Commands */
+.easter-egg {
+  display: none;
+  color: #00ff00;
+  font-family: 'Ubuntu Mono', monospace;
+  margin: 10px 0;
+}
+
+.matrix-mode .easter-egg {
+  display: block;
+}
+
+/* Glitch Effect */
+@keyframes glitch {
+  0%, 100% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+}
+
+.matrix-mode h1,
+.matrix-mode h2,
+.matrix-mode h3 {
+  animation: glitch 0.3s infinite;
+}
+
+/* Terminal Modal */
+.terminal-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(5px);
+  z-index: 10001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.terminal-modal {
+  width: 90%;
+  max-width: 800px;
+  height: 80%;
+  max-height: 600px;
+  background: #300a24;
+  border-radius: 8px;
+  box-shadow: 
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    0 20px 60px rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.terminal-modal-header {
+  background: linear-gradient(to bottom, #4a4a4a 0%, #3c3c3c 100%);
+  padding: 0 15px;
+  height: 40px;
+  border-radius: 8px 8px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #1a1a1a;
+}
+
+.terminal-modal-buttons {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.terminal-modal-title {
+  flex: 1;
+  text-align: center;
+  color: #d3d3d3;
+  font-family: 'Ubuntu Mono', monospace;
+  font-size: 14px;
+}
+
+.terminal-modal-controls {
+  display: flex;
+  align-items: center;
+}
+
+.terminal-close-btn {
+  background: none;
+  border: none;
+  color: #d3d3d3;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0 5px;
+  transition: color 0.3s;
+}
+
+.terminal-close-btn:hover {
+  color: #ff6b5a;
+}
+
+.terminal-modal-body {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  font-family: 'Ubuntu Mono', monospace;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.terminal-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-family: 'Ubuntu Mono', monospace;
+  font-size: 14px;
+  width: calc(100% - 300px);
+  margin-left: 5px;
+}
+
+.terminal-cursor {
+  animation: blink 1s infinite;
+  color: #8ae234;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.terminal-error {
+  color: #ff6b5a;
+}
+
+.terminal-success {
+  color: #5cbf60;
+}
+
+.terminal-system {
+  color: #729fcf;
+  font-style: italic;
+}
+
+.terminal-link {
+  color: #ad7fa8;
+}
+
+/* Terminal modal in matrix mode */
+.matrix-mode .terminal-modal {
+  background: rgba(0, 0, 0, 0.95);
+  border: 1px solid #00ff00;
+  box-shadow: 0 0 30px rgba(0, 255, 0, 0.5);
+}
+
+.matrix-mode .terminal-modal-header {
+  background: linear-gradient(to bottom, #001100, #002200);
+}
+
+.matrix-mode .terminal-modal-body {
+  background: rgba(0, 20, 0, 0.3);
+}
+
+.matrix-mode .terminal-input {
+  color: #00ff00;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 36px;
+  }
+  
+  .tagline {
+    font-size: 18px;
+  }
+  
+  .meme-image {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .nav-links {
+    display: none;
+  }
+
+  .terminal-toggle {
+    bottom: 20px;
+    right: 80px;
+    width: 50px;
+    height: 50px;
+    font-size: 9px;
+  }
+  
+  .matrix-toggle {
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    font-size: 10px;
+  }
+  
+  .terminal-modal {
+    width: 95%;
+    height: 90%;
+  }
+}

@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { lazy, Suspense } from 'react'
-import KoHLabs from './KoHLabs'
+import KoHLabsExact from './KoHLabsExact'
 
 // Lazy load legacy apps to improve main page performance
 const TerminalApp = lazy(() => import('./TerminalApp'))
@@ -17,7 +17,7 @@ function App() {
     <Router>
       <Routes>
         {/* Main landing page - loads immediately */}
-        <Route path="/" element={<KoHLabs />} />
+        <Route path="/" element={<KoHLabsExact />} />
         
         {/* Legacy apps - lazy loaded with providers */}
         <Route path="/legacy/*" element={

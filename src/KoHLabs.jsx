@@ -162,7 +162,18 @@ function KoHLabs() {
   }, [matrixMode])
 
   return (
-    <div className={`min-h-screen relative ${matrixMode ? 'matrix-mode' : ''}`}>
+    <div 
+      className={`min-h-screen relative ${matrixMode ? 'matrix-mode' : ''}`}
+      style={{
+        background: matrixMode ? '#000' : '#2c001e',
+        backgroundImage: matrixMode ? 'none' : `
+          radial-gradient(circle at 20% 50%, rgba(120, 45, 90, 0.3) 0%, transparent 50%),
+          radial-gradient(circle at 80% 80%, rgba(90, 45, 120, 0.3) 0%, transparent 50%),
+          radial-gradient(circle at 40% 20%, rgba(150, 50, 100, 0.2) 0%, transparent 50%)
+        `,
+        fontFamily: "'Ubuntu', sans-serif"
+      }}
+    >
       {/* Matrix Rain Canvas */}
       <canvas
         ref={canvasRef}
@@ -192,9 +203,16 @@ function KoHLabs() {
       )}
 
       {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-gradient-to-b from-gray-700 to-gray-800 border-b border-black z-[1000] backdrop-blur-lg">
+      <nav 
+        className="fixed top-0 w-full border-b border-black z-[1000]"
+        style={{
+          background: 'linear-gradient(to bottom, #4a4a4a 0%, #3c3c3c 100%)',
+          borderBottom: '1px solid #1a1a1a',
+          backdropFilter: 'blur(10px)'
+        }}
+      >
         <div className="max-w-7xl mx-auto px-8 py-4 flex justify-between items-center">
-          <a href="#" className="text-2xl font-mono font-bold text-green-400">$koHLabs</a>
+          <a href="#" className="text-2xl font-bold" style={{ fontFamily: "'Ubuntu Mono', monospace", color: '#8ae234' }}>$koHLabs</a>
           <div className="hidden md:flex gap-8 items-center">
             <a href="#mission" className="text-gray-300 hover:text-green-400 transition-colors">Mission</a>
             <a href="#socials" className="text-gray-300 hover:text-green-400 transition-colors">Connect</a>
@@ -229,11 +247,14 @@ function KoHLabs() {
             Degen to Regen • Vibe Coding • Real Builds • Live Streams
           </p>
           
-          <div className={`max-w-4xl mx-auto p-8 rounded-lg border ${
-            matrixMode 
-              ? 'bg-black/80 border-green-500' 
-              : 'bg-purple-950/80 border-green-400'
-          }`}>
+          <div 
+            className="max-w-4xl mx-auto p-8 rounded-lg"
+            style={{
+              background: matrixMode ? 'rgba(0, 0, 0, 0.8)' : 'rgba(48, 10, 36, 0.8)',
+              border: matrixMode ? '1px solid #00ff00' : '1px solid #8ae234',
+              fontFamily: "'Ubuntu Mono', monospace"
+            }}
+          >
             <h2 className="text-xl font-bold text-green-400 mb-4">🚀 Launch Statement</h2>
             <p className="text-lg text-green-400 mb-5">
               "$kohLabs – Degen to Regen. Vibe Coding. Real Builds."
@@ -271,11 +292,22 @@ function KoHLabs() {
             { icon: '🛠️', title: 'Project Support', desc: 'Helping other projects go from idea to reality. Because koH believes in lifting while climbing, even when we\'re not sure where we\'re going.' },
             { icon: '🎯', title: 'Vibe Coding', desc: 'Hardcore vibe coding sessions where the energy is high, the code is questionable, and the learning never stops. This is how we roll.' }
           ].map((item, i) => (
-            <div key={i} className={`p-6 rounded-lg border transition-all duration-300 hover:transform hover:-translate-y-1 ${
-              matrixMode 
-                ? 'bg-green-950/60 border-green-500/30 hover:border-green-500 hover:shadow-green-500/20' 
-                : 'bg-purple-950/60 border-green-400/30 hover:border-green-400 hover:shadow-green-400/20'
-            } hover:shadow-2xl`}>
+            <div 
+              key={i} 
+              className="p-6 rounded-lg transition-all duration-300 hover:transform hover:-translate-y-1 hover:shadow-2xl"
+              style={{
+                background: matrixMode ? 'rgba(0, 255, 0, 0.05)' : 'rgba(48, 10, 36, 0.6)',
+                border: matrixMode ? '1px solid rgba(0, 255, 0, 0.3)' : '1px solid rgba(138, 226, 52, 0.3)'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = matrixMode ? '#00ff00' : '#8ae234';
+                e.currentTarget.style.boxShadow = matrixMode ? '0 10px 30px rgba(0, 255, 0, 0.2)' : '0 10px 30px rgba(138, 226, 52, 0.2)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = matrixMode ? 'rgba(0, 255, 0, 0.3)' : 'rgba(138, 226, 52, 0.3)';
+                e.currentTarget.style.boxShadow = '';
+              }}
+            >
               <h3 className="text-xl font-bold text-green-400 mb-3">{item.icon} {item.title}</h3>
               <p className="text-gray-300">{item.desc}</p>
             </div>
@@ -287,38 +319,57 @@ function KoHLabs() {
       <section id="socials" className="py-16 px-6 text-center">
         <h2 className="text-4xl font-bold text-green-400 mb-10">Connect With Us</h2>
         <div className="flex flex-wrap gap-6 justify-center">
-          <a href="https://t.me/cryptokoh" target="_blank" rel="noopener noreferrer" 
-             className={`flex items-center gap-3 px-8 py-4 rounded-full border-2 transition-all duration-300 hover:scale-105 font-mono ${
-               matrixMode 
-                 ? 'bg-green-950/80 border-green-500 text-green-500 hover:bg-green-500 hover:text-black' 
-                 : 'bg-purple-950/80 border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-purple-950'
-             }`}>
+          <a 
+            href="https://t.me/cryptokoh" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="flex items-center gap-3 px-8 py-4 rounded-full transition-all duration-300 hover:scale-105"
+            style={{
+              fontFamily: "'Ubuntu Mono', monospace",
+              background: matrixMode ? 'rgba(0, 255, 0, 0.1)' : 'rgba(48, 10, 36, 0.8)',
+              border: matrixMode ? '2px solid #00ff00' : '2px solid #729fcf',
+              color: matrixMode ? '#00ff00' : '#729fcf'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = matrixMode ? '#00ff00' : '#729fcf';
+              e.currentTarget.style.color = matrixMode ? '#000' : '#2c001e';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = matrixMode ? 'rgba(0, 255, 0, 0.1)' : 'rgba(48, 10, 36, 0.8)';
+              e.currentTarget.style.color = matrixMode ? '#00ff00' : '#729fcf';
+            }}
+          >
             Telegram: @cryptokoh
           </a>
-          <a href="https://x.com/crypto_koh" target="_blank" rel="noopener noreferrer"
-             className={`flex items-center gap-3 px-8 py-4 rounded-full border-2 transition-all duration-300 hover:scale-105 font-mono ${
-               matrixMode 
-                 ? 'bg-green-950/80 border-green-500 text-green-500 hover:bg-green-500 hover:text-black' 
-                 : 'bg-purple-950/80 border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-purple-950'
-             }`}>
-            X: @crypto_koh
-          </a>
-          <a href="https://pump.fun/coin/ELehFFYywLvfxCNVgxesCecYPtk4KcM2RYpor6H3AasN" target="_blank" rel="noopener noreferrer"
-             className={`flex items-center gap-3 px-8 py-4 rounded-full border-2 transition-all duration-300 hover:scale-105 font-mono ${
-               matrixMode 
-                 ? 'bg-green-950/80 border-green-500 text-green-500 hover:bg-green-500 hover:text-black' 
-                 : 'bg-purple-950/80 border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-purple-950'
-             }`}>
-            Trade on Pump.fun
-          </a>
-          <a href="https://www.mexc.com/dex/pumpfun-mexc?ca=koHLabs&currency=SOL" target="_blank" rel="noopener noreferrer"
-             className={`flex items-center gap-3 px-8 py-4 rounded-full border-2 transition-all duration-300 hover:scale-105 font-mono ${
-               matrixMode 
-                 ? 'bg-green-950/80 border-green-500 text-green-500 hover:bg-green-500 hover:text-black' 
-                 : 'bg-purple-950/80 border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-purple-950'
-             }`}>
-            Trade on MEXC
-          </a>
+          {[
+            { href: "https://x.com/crypto_koh", text: "X: @crypto_koh" },
+            { href: "https://pump.fun/coin/ELehFFYywLvfxCNVgxesCecYPtk4KcM2RYpor6H3AasN", text: "Trade on Pump.fun" },
+            { href: "https://www.mexc.com/dex/pumpfun-mexc?ca=koHLabs&currency=SOL", text: "Trade on MEXC" }
+          ].map((link, i) => (
+            <a 
+              key={i}
+              href={link.href}
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="flex items-center gap-3 px-8 py-4 rounded-full transition-all duration-300 hover:scale-105"
+              style={{
+                fontFamily: "'Ubuntu Mono', monospace",
+                background: matrixMode ? 'rgba(0, 255, 0, 0.1)' : 'rgba(48, 10, 36, 0.8)',
+                border: matrixMode ? '2px solid #00ff00' : '2px solid #729fcf',
+                color: matrixMode ? '#00ff00' : '#729fcf'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = matrixMode ? '#00ff00' : '#729fcf';
+                e.currentTarget.style.color = matrixMode ? '#000' : '#2c001e';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = matrixMode ? 'rgba(0, 255, 0, 0.1)' : 'rgba(48, 10, 36, 0.8)';
+                e.currentTarget.style.color = matrixMode ? '#00ff00' : '#729fcf';
+              }}
+            >
+              {link.text}
+            </a>
+          ))}
         </div>
       </section>
 

@@ -23,10 +23,12 @@ export default defineConfig({
   },
   optimizeDeps: {
     include: ['buffer', 'process'],
+    exclude: ['@reown/appkit'],
     esbuildOptions: {
       define: {
         global: 'globalThis',
       },
+      sourcemap: false,
     },
   },
   build: {
