@@ -1,37 +1,46 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import V001EpicLaunch from './V001EpicLaunch'
-import NewApp from './NewApp'
-import TerminalApp from './TerminalApp'
-import DeFiTerminal from './defi/DeFiTerminal'
+import { lazy, Suspense } from 'react'
 import KoHLabs from './KoHLabs'
-import { SolanaWalletProvider } from './defi/WalletProvider'
-import { WagmiProvider } from './providers/WagmiProvider'
-import { SocialAuthProvider } from './providers/SocialAuthProvider'
-import { ThemeProvider } from './contexts/ThemeContext'
-import { ViewProvider } from './contexts/ViewContext'
+
+// Lazy load legacy apps to improve main page performance
+const TerminalApp = lazy(() => import('./TerminalApp'))
+const V001EpicLaunch = lazy(() => import('./V001EpicLaunch'))
+const NewApp = lazy(() => import('./NewApp'))
+const DeFiTerminal = lazy(() => import('./defi/DeFiTerminal'))
+const LegacyApps = lazy(() => import('./LegacyApps'))
+
+// Lazy load providers for legacy apps
+const LegacyProviders = lazy(() => import('./LegacyProviders'))
 
 function App() {
   return (
-    <ThemeProvider>
-      <ViewProvider>
-        <WagmiProvider>
-          <SolanaWalletProvider>
-            <SocialAuthProvider>
-              <Router>
-                <Routes>
-                  <Route path="/" element={<TerminalApp />} />
-                  <Route path="/landing" element={<NewApp />} />
-                  <Route path="/v0-0-1" element={<V001EpicLaunch />} />
-                  <Route path="/terminal" element={<TerminalApp />} />
-                  <Route path="/defi" element={<DeFiTerminal />} />
-                  <Route path="/kohlabs" element={<KoHLabs />} />
-                </Routes>
-              </Router>
-            </SocialAuthProvider>
-          </SolanaWalletProvider>
-        </WagmiProvider>
-      </ViewProvider>
-    </ThemeProvider>
+    <Router>
+      <Routes>
+        {/* Main landing page - loads immediately */}
+        <Route path="/" element={<KoHLabs />} />
+        
+        {/* Legacy apps - lazy loaded with providers */}
+        <Route path="/legacy/*" element={
+          <Suspense fallback={
+            <div className="min-h-screen bg-black flex items-center justify-center">
+              <div className="text-green-400 text-2xl font-mono animate-pulse">
+                Loading legacy app...
+              </div>
+            </div>
+          }>
+            <LegacyProviders>
+              <Routes>
+                <Route path="/" element={<LegacyApps />} />
+                <Route path="/terminal" element={<TerminalApp />} />
+                <Route path="/v0-0-1" element={<V001EpicLaunch />} />
+                <Route path="/landing" element={<NewApp />} />
+                <Route path="/defi" element={<DeFiTerminal />} />
+              </Routes>
+            </LegacyProviders>
+          </Suspense>
+        } />
+      </Routes>
+    </Router>
   )
 }
 

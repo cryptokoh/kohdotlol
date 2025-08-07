@@ -344,6 +344,11 @@ function KoHLabs() {
       <footer className="py-8 px-6 text-center border-t border-white/10 text-gray-500 font-mono">
         <p>© 2024 $koHLabs • Building in Public • Powered by Solana</p>
         <p className="mt-2 text-green-400">Not financial advice. DYOR. Build responsibly.</p>
+        <div className="mt-4">
+          <a href="/legacy" className="text-xs text-gray-600 hover:text-green-400 transition-colors">
+            View Legacy Apps →
+          </a>
+        </div>
       </footer>
 
       {/* Add custom styles for matrix mode */}
