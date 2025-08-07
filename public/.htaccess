@@ -1,0 +1,5 @@
+# Apache .htaccess redirect
+# For Apache servers (shared hosting, etc.)
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^pump\.koh\.lol$ [NC]
+RewriteRule ^(.*)$ https://pump.fun/coin/ELehFFYywLvfxCNVgxesCecYPtk4KcM2RYPor6H3AasN [R=301,L]

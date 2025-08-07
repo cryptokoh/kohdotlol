@@ -1,0 +1,498 @@
+/* Terminal Design System CSS */
+
+/* CSS Variables for Terminal Theme */
+:root {
+  /* Core Terminal Colors */
+  --terminal-green: #00FF41;
+  --terminal-cyan: #00FFFF;
+  --terminal-amber: #FFAA00;
+  --terminal-magenta: #FF00FF;
+  
+  /* Matrix Rain Background */
+  --matrix-primary: #00FF41;
+  --matrix-secondary: #00CC33;
+  --matrix-fade: #003300;
+  --matrix-glow: #00FF4180;
+  
+  /* Laboratory Accents */
+  --lab-acid: #AAFF00;
+  --lab-plasma: #FF00AA;
+  --lab-radiation: #FFFF00;
+  --lab-cryo: #00AAFF;
+  --lab-toxic: #AA00FF;
+  
+  /* Glass Morphism */
+  --glass-bg: rgba(0, 10, 5, 0.85);
+  --glass-border: rgba(0, 255, 65, 0.2);
+  --glass-shadow: rgba(0, 255, 65, 0.1);
+  --glass-blur: blur(12px);
+  
+  /* System States */
+  --state-success: #00FF88;
+  --state-error: #FF0044;
+  --state-warning: #FFAA00;
+  --state-info: #00AAFF;
+  --state-processing: #AA00FF;
+  
+  /* Typography */
+  --font-mono-primary: 'JetBrains Mono', 'Fira Code', 'Source Code Pro', monospace;
+  --font-mono-secondary: 'IBM Plex Mono', 'Roboto Mono', 'Courier New', monospace;
+  --font-display: 'Space Mono', 'Share Tech Mono', monospace;
+  
+  /* Spacing */
+  --terminal-padding: 20px;
+  --terminal-line-spacing: 4px;
+  --terminal-prompt-spacing: 8px;
+  --terminal-output-spacing: 12px;
+  
+  /* Animation Timing */
+  --ease-in-out-cubic: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Custom Animations */
+@keyframes blink-cursor {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@keyframes execute-command {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(10px);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes matrix-intensity {
+  0%, 100% {
+    filter: brightness(0.8) contrast(1);
+  }
+  50% {
+    filter: brightness(1.2) contrast(1.2);
+  }
+}
+
+@keyframes particle-float {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes success-pulse {
+  0% {
+    box-shadow: 0 0 0 0 var(--state-success);
+  }
+  70% {
+    box-shadow: 0 0 0 20px transparent;
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+@keyframes modal-appear {
+  0% {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes chemical-bubble {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-20px) scale(1.2);
+    opacity: 0.7;
+  }
+}
+
+@keyframes dna-helix {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(360deg);
+  }
+}
+
+@keyframes quantum-spin {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(0.8);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+@keyframes lab-scan {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes terminal-glitch {
+  0%, 100% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+  }
+  10% {
+    clip-path: polygon(0 0, 100% 0, 100% 95%, 0% 100%);
+  }
+  20% {
+    clip-path: polygon(0 5%, 100% 0, 100% 100%, 0% 95%);
+  }
+}
+
+/* Terminal Text Effects */
+.text-glow {
+  text-shadow: 
+    0 0 10px currentColor,
+    0 0 20px currentColor,
+    0 0 30px currentColor;
+}
+
+.text-scan {
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    currentColor 50%,
+    transparent 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  animation: lab-scan 2s linear infinite;
+}
+
+.text-glitch {
+  animation: terminal-glitch 0.3s infinite;
+  position: relative;
+}
+
+.text-glitch::before,
+.text-glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.text-glitch::before {
+  animation: glitch-1 0.5s infinite;
+  color: var(--terminal-cyan);
+  z-index: -1;
+}
+
+.text-glitch::after {
+  animation: glitch-2 0.5s infinite;
+  color: var(--terminal-magenta);
+  z-index: -2;
+}
+
+/* Terminal Window Styles */
+.terminal-window {
+  font-family: var(--font-mono-primary);
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.terminal-window.terminal-danger {
+  border-color: var(--terminal-magenta);
+  box-shadow: 
+    0 0 100px var(--terminal-magenta),
+    inset 0 0 50px rgba(255, 0, 255, 0.1);
+}
+
+.terminal-header {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.terminal-body {
+  scrollbar-width: thin;
+  scrollbar-color: var(--terminal-green) transparent;
+}
+
+.terminal-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.terminal-body::-webkit-scrollbar-track {
+  background: rgba(0, 255, 65, 0.05);
+  border-radius: 4px;
+}
+
+.terminal-body::-webkit-scrollbar-thumb {
+  background: var(--terminal-green);
+  border-radius: 4px;
+  opacity: 0.5;
+}
+
+.terminal-body::-webkit-scrollbar-thumb:hover {
+  opacity: 0.8;
+}
+
+/* Command Execution Animation */
+.command-line {
+  transition: all 0.2s var(--ease-in-out-cubic);
+}
+
+.command-line.executing {
+  animation: execute-command 0.3s ease-out;
+}
+
+.command-line.success {
+  animation: success-pulse 1s ease-out;
+}
+
+/* Lab Particle Effects */
+.particle-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: var(--lab-acid);
+  border-radius: 50%;
+  animation: particle-float 10s linear infinite;
+  box-shadow: 0 0 10px currentColor;
+}
+
+.particle:nth-child(odd) {
+  background: var(--lab-plasma);
+  animation-duration: 12s;
+}
+
+.particle:nth-child(even) {
+  background: var(--lab-cryo);
+  animation-duration: 8s;
+}
+
+/* Loading Indicators */
+.loader-chemical {
+  display: inline-flex;
+  gap: 8px;
+}
+
+.loader-dna {
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  position: relative;
+}
+
+.loader-dna::before,
+.loader-dna::after {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 100%;
+  background: var(--terminal-green);
+  animation: dna-helix 1.5s linear infinite;
+}
+
+.loader-dna::before {
+  left: 45%;
+  animation-delay: 0s;
+}
+
+.loader-dna::after {
+  right: 45%;
+  animation-delay: 0.75s;
+}
+
+.loader-quantum {
+  width: 60px;
+  height: 60px;
+  border: 2px solid transparent;
+  border-top-color: var(--lab-plasma);
+  border-right-color: var(--lab-cryo);
+  border-radius: 50%;
+  animation: quantum-spin 1s linear infinite;
+}
+
+/* Interactive States */
+.interactive {
+  transition: all 0.2s var(--ease-in-out-cubic);
+}
+
+.interactive:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+.clickable:active {
+  transform: scale(0.98);
+  filter: brightness(0.9);
+}
+
+.focusable:focus-visible {
+  outline: 3px solid var(--terminal-cyan);
+  outline-offset: 4px;
+  box-shadow: 0 0 20px var(--terminal-cyan);
+}
+
+/* Accessibility */
+@media (prefers-contrast: high) {
+  :root {
+    --terminal-green: #00FF00;
+    --terminal-cyan: #00FFFF;
+    --glass-bg: rgba(0, 0, 0, 0.95);
+    --glass-border: rgba(0, 255, 0, 0.5);
+  }
+  
+  .terminal-window {
+    border-width: 2px;
+  }
+  
+  .terminal-body {
+    font-weight: 500;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Screen Reader Support */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Matrix Rain Effect */
+.matrix-rain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(0, 255, 65, 0.02) 50%,
+    transparent 100%
+  );
+}
+
+.matrix-column {
+  position: absolute;
+  top: -100%;
+  font-family: var(--font-mono-primary);
+  font-size: 20px;
+  color: var(--matrix-primary);
+  animation: matrix-fall linear infinite;
+  text-shadow: 0 0 10px currentColor;
+}
+
+@keyframes matrix-fall {
+  to {
+    transform: translateY(200vh);
+  }
+}
+
+/* Terminal Pane Layouts */
+.terminal-grid {
+  display: grid;
+  gap: 16px;
+  padding: 16px;
+}
+
+.terminal-grid-2x2 {
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+
+.terminal-grid-sidebar {
+  grid-template-columns: 300px 1fr;
+}
+
+.terminal-grid-triptych {
+  grid-template-columns: 1fr 2fr 1fr;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .terminal-grid-2x2,
+  .terminal-grid-sidebar,
+  .terminal-grid-triptych {
+    grid-template-columns: 1fr;
+  }
+  
+  .terminal-window {
+    border-radius: 0;
+  }
+  
+  .terminal-body {
+    font-size: 12px;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .terminal-window {
+    background: white;
+    color: black;
+    border: 1px solid black;
+  }
+  
+  .terminal-body {
+    color: black;
+  }
+  
+  .particle-container,
+  .matrix-rain {
+    display: none;
+  }
+}

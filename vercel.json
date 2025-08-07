@@ -1,0 +1,15 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "destination": "https://pump.fun/coin/ELehFFYywLvfxCNVgxesCecYPtk4KcM2RYpor6H3AasN",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": "pump.koh.lol"
+        }
+      ]
+    }
+  ]
+}
