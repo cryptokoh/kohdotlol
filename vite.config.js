@@ -37,6 +37,10 @@ export default defineConfig({
         manualChunks(id) {
           // More granular chunking to reduce memory pressure
           if (id.includes('node_modules')) {
+            // Don't chunk ethers separately to avoid circular dependency issues
+            if (id.includes('ethers') || id.includes('@ethersproject')) {
+              return 'wallet-vendor'; // Group with other wallet libraries
+            }
             if (id.includes('react') || id.includes('react-dom') || id.includes('react-router')) {
               return 'react-vendor';
             }
@@ -54,9 +58,6 @@ export default defineConfig({
             }
             if (id.includes('@auth0') || id.includes('@farcaster')) {
               return 'auth-vendor';
-            }
-            if (id.includes('ethers') || id.includes('@ethersproject')) {
-              return 'ethers-vendor';
             }
             // Generic vendor chunk for other dependencies
             return 'vendor';

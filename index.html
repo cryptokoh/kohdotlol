@@ -51,6 +51,18 @@
       if (typeof global === 'undefined') {
         window.global = window;
       }
+      
+      // Clean up any stale service workers from extensions or previous builds
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.ready.then(registration => {
+          // Only unregister service workers not from our domain
+          if (!registration.scope.includes(window.location.origin)) {
+            registration.unregister();
+          }
+        }).catch(() => {
+          // Ignore errors from extension service workers
+        });
+      }
     </script>
   </head>
   <body>
