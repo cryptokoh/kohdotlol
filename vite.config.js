@@ -37,31 +37,33 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id) {
-          // More granular chunking to reduce memory pressure
+          // Simplified chunking to avoid circular dependencies
           if (id.includes('node_modules')) {
-            // Don't chunk ethers separately to avoid circular dependency issues
-            if (id.includes('ethers') || id.includes('@ethersproject')) {
-              return 'wallet-vendor'; // Group with other wallet libraries
-            }
+            // Keep React separate for better caching
             if (id.includes('react') || id.includes('react-dom') || id.includes('react-router')) {
               return 'react-vendor';
             }
+            // Group all wallet/crypto libraries together to avoid circular deps
+            if (id.includes('ethers') || 
+                id.includes('@ethersproject') || 
+                id.includes('wagmi') || 
+                id.includes('viem') || 
+                id.includes('@rainbow-me') ||
+                id.includes('@walletconnect') ||
+                id.includes('@coinbase') ||
+                id.includes('@reown') ||
+                id.includes('@base-org')) {
+              return 'wallet-vendor';
+            }
+            // Keep Three.js separate due to size
             if (id.includes('three') || id.includes('@react-three')) {
               return 'three-vendor';
             }
+            // Keep Solana separate
             if (id.includes('@solana') || id.includes('bs58') || id.includes('bn.js')) {
               return 'solana-vendor';
             }
-            if (id.includes('wagmi') || id.includes('viem') || id.includes('@rainbow-me')) {
-              return 'wallet-vendor';
-            }
-            if (id.includes('framer-motion')) {
-              return 'animation-vendor';
-            }
-            if (id.includes('@auth0') || id.includes('@farcaster')) {
-              return 'auth-vendor';
-            }
-            // Generic vendor chunk for other dependencies
+            // Everything else in vendor chunk
             return 'vendor';
           }
         },
