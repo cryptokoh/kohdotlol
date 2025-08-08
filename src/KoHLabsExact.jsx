@@ -6,6 +6,7 @@ function KoHLabsExact() {
   const [showTerminal, setShowTerminal] = useState(false)
   const [showClaude, setShowClaude] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [imageError, setImageError] = useState(false)
   const canvasRef = useRef(null)
   const matrixRainRef = useRef(null)
   const konamiRef = useRef([])
@@ -34,6 +35,11 @@ function KoHLabsExact() {
   const [currentCommand, setCurrentCommand] = useState('')
   const [commandHistory, setCommandHistory] = useState([])
   const [historyIndex, setHistoryIndex] = useState(-1)
+  
+  // Log mount to help debug
+  useEffect(() => {
+    console.log('KoHLabsExact component mounted')
+  }, [])
   
   const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a']
   const contractAddress = 'ELehFFYywLvfxCNVgxesCecYPtk4KcM2RYpor6H3AasN'
@@ -516,10 +522,12 @@ function KoHLabsExact() {
     return () => document.removeEventListener('click', handleClickOutside)
   }, [mobileMenuOpen])
 
-  return (
-    <div className={matrixMode ? 'matrix-mode' : ''}>
-      {/* Matrix Rain Canvas */}
-      <canvas ref={canvasRef} className="matrix-canvas" />
+  // Add error boundary
+  try {
+    return (
+      <div className={matrixMode ? 'matrix-mode' : ''}>
+        {/* Matrix Rain Canvas */}
+        <canvas ref={canvasRef} className="matrix-canvas" />
       
       {/* Claude Button */}
       <div 
@@ -900,7 +908,32 @@ function KoHLabsExact() {
       <section className="hero">
         <div className="hero-content">
           <div className="meme-container">
-            <img src="/kohlabs-meme.png" alt="$koHLabs Meme" className="meme-image" />
+            {!imageError ? (
+              <img 
+                src="/kohlabs-meme.png" 
+                alt="$koHLabs Meme" 
+                className="meme-image"
+                onError={() => {
+                  console.error('Failed to load meme image')
+                  setImageError(true)
+                }}
+              />
+            ) : (
+              <div className="meme-placeholder" style={{
+                width: '288px',
+                height: '288px',
+                borderRadius: '50%',
+                background: 'linear-gradient(135deg, #8ae234, #729fcf)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '72px',
+                fontWeight: 'bold',
+                color: '#0a0a0a'
+              }}>
+                $koH
+              </div>
+            )}
           </div>
           <h1>$koHLabs</h1>
           <p className="tagline">
@@ -1122,6 +1155,37 @@ function KoHLabsExact() {
       </footer>
     </div>
   )
+  } catch (error) {
+    console.error('Error rendering KoHLabsExact:', error)
+    // Fallback UI
+    return (
+      <div style={{
+        minHeight: '100vh',
+        background: '#0a0a0a',
+        color: '#8ae234',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontFamily: 'monospace',
+        padding: '20px'
+      }}>
+        <h1 style={{ fontSize: '72px', marginBottom: '20px' }}>$koHLabs</h1>
+        <p style={{ fontSize: '24px', marginBottom: '40px' }}>Degen to Regen • Vibe Coding • Real Builds</p>
+        <div style={{ 
+          padding: '20px 40px',
+          background: 'linear-gradient(135deg, #8ae234, #729fcf)',
+          borderRadius: '30px',
+          color: '#0a0a0a',
+          fontWeight: 'bold',
+          marginBottom: '20px'
+        }}>
+          Contract: ELehFFYywLvfxCNVgxesCecYPtk4KcM2RYpor6H3AasN
+        </div>
+        <p style={{ marginTop: '20px' }}>Loading full experience...</p>
+      </div>
+    )
+  }
 }
 
 export default KoHLabsExact
