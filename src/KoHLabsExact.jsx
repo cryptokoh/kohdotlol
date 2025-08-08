@@ -940,18 +940,22 @@ function KoHLabsExact() {
       <section className="hero">
         <div className="hero-content">
           <div className="meme-container">
-            {!imageError ? (
-              <img 
-                src="/kohlabs-meme.png" 
-                alt="$koHLabs Meme" 
-                className="meme-image"
-                onError={() => {
-                  console.error('Failed to load meme image')
-                  setImageError(true)
-                }}
-              />
-            ) : (
-              <div className="meme-placeholder" style={{
+            <div className="coin-flip-card">
+              <div className="coin-flip-inner">
+                {/* Front side - Meme image */}
+                <div className="coin-flip-front">
+                  {!imageError ? (
+                    <img 
+                      src="/kohlabs-meme.png" 
+                      alt="$koHLabs Meme" 
+                      className="meme-image"
+                      onError={() => {
+                        console.error('Failed to load meme image')
+                        setImageError(true)
+                      }}
+                    />
+                  ) : (
+                    <div className="meme-placeholder" style={{
                 width: '288px',
                 height: '288px',
                 borderRadius: '50%',
@@ -963,9 +967,45 @@ function KoHLabsExact() {
                 fontWeight: 'bold',
                 color: '#0a0a0a'
               }}>
-                $koH
+                      $koH
+                    </div>
+                  )}
+                </div>
+                
+                {/* Back side - Terminal window */}
+                <div className="coin-flip-back">
+                  <div className="terminal-coin">
+                    <div className="terminal-coin-header">
+                      <div className="terminal-coin-buttons">
+                        <span className="terminal-coin-btn red"></span>
+                        <span className="terminal-coin-btn yellow"></span>
+                        <span className="terminal-coin-btn green"></span>
+                      </div>
+                      <span className="terminal-coin-title">koHLabs@terminal</span>
+                    </div>
+                    <div className="terminal-coin-body">
+                      <div className="terminal-coin-line">
+                        <span className="terminal-coin-prompt">$</span>
+                        <span className="terminal-coin-text">./launch --moon</span>
+                      </div>
+                      <div className="terminal-coin-line">
+                        <span className="terminal-coin-output">🚀 Initializing $koHLabs...</span>
+                      </div>
+                      <div className="terminal-coin-line">
+                        <span className="terminal-coin-output">✅ Vibe: LOADED</span>
+                      </div>
+                      <div className="terminal-coin-line">
+                        <span className="terminal-coin-output">⚡ Degen Mode: ACTIVE</span>
+                      </div>
+                      <div className="terminal-coin-line">
+                        <span className="terminal-coin-prompt">$</span>
+                        <span className="terminal-coin-cursor">▊</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-            )}
+            </div>
           </div>
           <h1>$koHLabs</h1>
           <p className="tagline">

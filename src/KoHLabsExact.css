@@ -225,7 +225,160 @@ nav {
   display: inline-block;
   position: relative;
   margin-bottom: 40px;
-  animation: float 3s ease-in-out infinite;
+  perspective: 1000px;
+}
+
+/* Coin flip card styles */
+.coin-flip-card {
+  width: 288px;
+  height: 288px;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: floatAndFlip 8s ease-in-out infinite;
+}
+
+.coin-flip-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.8s;
+}
+
+.coin-flip-front,
+.coin-flip-back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.coin-flip-front {
+  z-index: 2;
+}
+
+.coin-flip-back {
+  transform: rotateY(180deg);
+  background: #0a0a0a;
+  border: 3px solid #8ae234;
+  box-shadow: 
+    0 0 30px rgba(138, 226, 52, 0.5),
+    inset 0 0 30px rgba(138, 226, 52, 0.1);
+}
+
+/* Combined float and flip animation */
+@keyframes floatAndFlip {
+  0%, 100% { 
+    transform: translateY(0px) rotateY(0deg);
+  }
+  12.5% {
+    transform: translateY(-10px) rotateY(0deg);
+  }
+  25% {
+    transform: translateY(-20px) rotateY(0deg);
+  }
+  37.5% {
+    transform: translateY(-10px) rotateY(90deg);
+  }
+  50% {
+    transform: translateY(0px) rotateY(180deg);
+  }
+  62.5% {
+    transform: translateY(-10px) rotateY(180deg);
+  }
+  75% {
+    transform: translateY(-20px) rotateY(180deg);
+  }
+  87.5% {
+    transform: translateY(-10px) rotateY(270deg);
+  }
+}
+
+/* Terminal on coin back */
+.terminal-coin {
+  width: 260px;
+  height: 260px;
+  background: linear-gradient(135deg, #1a0f1f, #0d0714);
+  border-radius: 12px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Ubuntu Mono', monospace;
+  font-size: 11px;
+}
+
+.terminal-coin-header {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  background: rgba(138, 226, 52, 0.1);
+  border-radius: 8px 8px 0 0;
+  margin-bottom: 10px;
+}
+
+.terminal-coin-buttons {
+  display: flex;
+  gap: 6px;
+  margin-right: 10px;
+}
+
+.terminal-coin-btn {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.terminal-coin-btn.red {
+  background: #ff5f56;
+}
+
+.terminal-coin-btn.yellow {
+  background: #ffbd2e;
+}
+
+.terminal-coin-btn.green {
+  background: #27c93f;
+}
+
+.terminal-coin-title {
+  color: #8ae234;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.terminal-coin-body {
+  flex: 1;
+  padding: 10px;
+  overflow: hidden;
+}
+
+.terminal-coin-line {
+  margin-bottom: 6px;
+  color: #8ae234;
+}
+
+.terminal-coin-prompt {
+  color: #729fcf;
+  margin-right: 6px;
+}
+
+.terminal-coin-text {
+  color: #edd400;
+}
+
+.terminal-coin-output {
+  color: #8ae234;
+  opacity: 0.9;
+}
+
+.terminal-coin-cursor {
+  animation: blink 1s infinite;
+  color: #8ae234;
 }
 
 @keyframes float {
