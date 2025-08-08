@@ -880,7 +880,17 @@ function KoHLabsExact() {
       {/* Navigation */}
       <nav>
         <div className="nav-container">
-          <a href="#" className="logo">$koHLabs</a>
+          <div className="nav-left">
+            <a href="#" className="logo">$koHLabs</a>
+            <div className="contract-pill navbar-ca" onClick={copyContract} title="Click to copy contract address">
+              <span className="contract-label">CA:</span>
+              <span className="contract-text">{contractAddress.slice(0, 4)}...{contractAddress.slice(-4)}</span>
+              <svg className="copy-icon" width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+              </svg>
+              {copiedContract && <span className="copied-tooltip">Copied!</span>}
+            </div>
+          </div>
           
           {/* Mobile Menu Toggle */}
           <button 
@@ -896,14 +906,6 @@ function KoHLabsExact() {
           </button>
           
           <div className="nav-center">
-            <div className="contract-pill" onClick={copyContract} title="Click to copy contract address">
-              <span className="contract-label">CA:</span>
-              <span className="contract-text">{contractAddress.slice(0, 4)}...{contractAddress.slice(-4)}</span>
-              <svg className="copy-icon" width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
-              </svg>
-              {copiedContract && <span className="copied-tooltip">Copied!</span>}
-            </div>
             {/* Social icons - moved here for mobile layout */}
             <div className="social-controls">
               <a href="https://t.me/koh_labs" target="_blank" rel="noopener noreferrer" className="social-control telegram" title="Telegram">

@@ -56,6 +56,12 @@ nav {
   transform: translateX(-5px);
 }
 
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .nav-center {
   position: absolute;
   left: 50%;
@@ -76,6 +82,13 @@ nav {
   font-family: 'Ubuntu Mono', monospace;
   font-size: 12px;
   position: relative;
+}
+
+/* CA element in navbar - tighter alignment */
+.navbar-ca {
+  margin-left: 0;
+  padding: 5px 10px;
+  font-size: 11px;
 }
 
 .contract-pill:hover {
@@ -189,6 +202,8 @@ nav {
   font-weight: bold;
   color: #8ae234;
   text-decoration: none;
+  display: flex;
+  align-items: center;
 }
 
 .nav-links {
@@ -1884,10 +1899,22 @@ footer {
     position: relative;
   }
   
-  .logo {
-    font-size: 20px;
+  .nav-left {
     order: 1;
     flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .logo {
+    font-size: 20px;
+  }
+  
+  .navbar-ca {
+    font-size: 10px;
+    padding: 4px 8px;
+    margin-left: 0;
   }
   
   .mobile-menu-toggle {
