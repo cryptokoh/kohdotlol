@@ -99,12 +99,28 @@ function KoHLabsExact() {
     { type: 'output', text: '', delay: 7000 },
     { type: 'success', text: '✅ Trading bot created successfully!', delay: 7200 },
     { type: 'output', text: '', delay: 7400 },
-    { type: 'command', text: 'npm run test', delay: 7600 },
-    { type: 'test', text: 'PASS  src/trading-bot.test.ts', delay: 8000 },
-    { type: 'test', text: '  ✓ should execute trades successfully (42ms)', delay: 8200 },
-    { type: 'test', text: '  ✓ should handle slippage correctly (23ms)', delay: 8400 },
-    { type: 'test', text: '  ✓ should validate token addresses (15ms)', delay: 8600 },
-    { type: 'output', text: '', delay: 8800 },
+    { type: 'bash-header', text: '● Bash(git add -A && git commit -m "Add Solana trading bot")', delay: 7600 },
+    { type: 'bash-output', text: '  ⎿  [main 1a2b3c4] Add Solana trading bot', delay: 7800 },
+    { type: 'bash-output', text: '      2 files changed, 145 insertions(+)', delay: 8000 },
+    { type: 'bash-output', text: '      create mode 100644 src/trading-bot.ts', delay: 8200 },
+    { type: 'output', text: '', delay: 8400 },
+    { type: 'bash-header', text: '● Bash(git push origin main)', delay: 8600 },
+    { type: 'bash-output', text: '  ⎿  To github.com:kohlabs/trading-bot.git', delay: 8800 },
+    { type: 'bash-output', text: '        9a8b7c6..1a2b3c4  main -> main', delay: 9000 },
+    { type: 'output', text: '', delay: 9200 },
+    { type: 'todos-header', text: '● Update Todos', delay: 9400 },
+    { type: 'todos', text: '  ⎿  ☒ Analyze pump.fun token structure', delay: 9600 },
+    { type: 'todos', text: '     ☒ Implement Jupiter aggregation', delay: 9800 },
+    { type: 'todos', text: '     ☒ Add slippage protection (3%)', delay: 10000 },
+    { type: 'todos', text: '     ☒ Create trading bot class', delay: 10200 },
+    { type: 'todos', text: '     ☐ Add monitoring dashboard', delay: 10400 },
+    { type: 'output', text: '', delay: 10600 },
+    { type: 'command', text: 'npm run test', delay: 10800 },
+    { type: 'test', text: 'PASS  src/trading-bot.test.ts', delay: 11200 },
+    { type: 'test', text: '  ✓ should execute trades successfully (42ms)', delay: 11400 },
+    { type: 'test', text: '  ✓ should handle slippage correctly (23ms)', delay: 11600 },
+    { type: 'test', text: '  ✓ should validate token addresses (15ms)', delay: 11800 },
+    { type: 'output', text: '', delay: 12000 },
     { type: 'success', text: 'Test Suites: 1 passed, 1 total', delay: 9000 },
     { type: 'success', text: 'Tests: 3 passed, 3 total', delay: 9200 },
     { type: 'output', text: '', delay: 9400 },
@@ -140,11 +156,14 @@ function KoHLabsExact() {
         setClaudeOutput(prev => [...prev, currentLine])
         claudeTypingRef.current = (claudeTypingRef.current || 0) + 1
         
-        // Auto-scroll to bottom
+        // Auto-scroll to bottom with smooth animation
         setTimeout(() => {
-          const claudeBody = document.querySelector('.claude-modal-body')
+          const claudeBody = document.querySelector('.claude-terminal-body')
           if (claudeBody) {
-            claudeBody.scrollTop = claudeBody.scrollHeight
+            claudeBody.scrollTo({
+              top: claudeBody.scrollHeight,
+              behavior: 'smooth'
+            })
           }
         }, 50)
         
@@ -624,6 +643,18 @@ function KoHLabsExact() {
                   )}
                   {line.type === 'success' && (
                     <span className="claude-success">{line.text}</span>
+                  )}
+                  {line.type === 'bash-header' && (
+                    <span className="claude-bash-header">{line.text}</span>
+                  )}
+                  {line.type === 'bash-output' && (
+                    <span className="claude-bash-output">{line.text}</span>
+                  )}
+                  {line.type === 'todos-header' && (
+                    <span className="claude-todos-header">{line.text}</span>
+                  )}
+                  {line.type === 'todos' && (
+                    <span className="claude-todos">{line.text}</span>
                   )}
                   {line.type === 'test' && (
                     <span className="claude-test">{line.text}</span>
