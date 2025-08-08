@@ -64,9 +64,9 @@ function KoHLabsExact() {
   // Claude Code CLI Simulation Script
   const claudeScript = [
     { type: 'command', text: 'claude-code --dangerously-accept-all-prompts', delay: 0 },
-    { type: 'system', text: '🤖 Claude Code v3.5 - AI-Powered Development Assistant', delay: 500 },
+    { type: 'system', text: '🤖 Claude Code Opus 4.1 - AI-Powered Development Assistant', delay: 500 },
     { type: 'system', text: '⚠️  Running in dangerous mode - all prompts auto-accepted', delay: 700 },
-    { type: 'system', text: '📊 Model: Claude 3.5 Sonnet | Context: 200K tokens | Tools: Enabled', delay: 900 },
+    { type: 'system', text: '📊 Model: Opus 4.1 | Context: 200K tokens | Tools: Enabled', delay: 900 },
     { type: 'output', text: '', delay: 1000 },
     { type: 'claude', text: 'Analyzing $koHLabs project structure...', delay: 1200 },
     { type: 'tree', text: '📁 kohlabs/', delay: 1400 },
@@ -591,7 +591,7 @@ function KoHLabsExact() {
                 <span className="terminal-button yellow"></span>
                 <span className="terminal-button green"></span>
               </div>
-              <div className="claude-terminal-title">Claude Code v3.5 - Terminal</div>
+              <div className="claude-terminal-title">Claude Code Opus 4.1 - Terminal</div>
               <div className="claude-modal-controls">
                 <button 
                   className="claude-speed-btn"
@@ -702,7 +702,7 @@ function KoHLabsExact() {
                 <span className="terminal-button yellow"></span>
                 <span className="terminal-button green"></span>
               </div>
-              <div className="claude-title">Claude Code v3.5 - AI Development Assistant</div>
+              <div className="claude-title">Claude Code Opus 4.1 - AI Development Assistant</div>
               <div className="claude-modal-controls">
                 <button 
                   className="claude-speed-btn"
