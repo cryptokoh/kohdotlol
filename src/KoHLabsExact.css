@@ -10,9 +10,8 @@ body {
   font-family: 'Ubuntu', sans-serif;
   background: #0a0a0a;
   background-image: 
-    radial-gradient(circle at 20% 50%, rgba(138, 226, 52, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(114, 159, 207, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 40% 20%, rgba(252, 175, 62, 0.05) 0%, transparent 50%);
+    radial-gradient(circle at 20% 50%, rgba(138, 226, 52, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(114, 159, 207, 0.03) 0%, transparent 50%);
   min-height: 100vh;
   color: #ffffff;
   overflow-x: hidden;
@@ -20,7 +19,8 @@ body {
 
 /* Navigation */
 nav {
-  background: linear-gradient(to bottom, #4a4a4a 0%, #3c3c3c 100%);
+  background: rgba(20, 20, 20, 0.8);
+  backdrop-filter: blur(10px);
   padding: 15px 30px;
   border-bottom: 1px solid #1a1a1a;
   position: fixed;
@@ -500,30 +500,22 @@ nav {
   align-items: center;
   gap: 12px;
   padding: 12px 24px;
-  background: linear-gradient(135deg, #8ae234, #729fcf);
+  background: rgba(138, 226, 52, 0.08);
+  border: 1px solid rgba(138, 226, 52, 0.2);
   border-radius: 30px;
   cursor: pointer;
   transition: all 0.3s;
   position: relative;
-  animation: shimmer 3s ease-in-out infinite;
-  box-shadow: 0 4px 20px rgba(138, 226, 52, 0.4);
-}
-
-@keyframes shimmer {
-  0%, 100% { 
-    background: linear-gradient(135deg, #8ae234, #729fcf);
-    box-shadow: 0 4px 20px rgba(138, 226, 52, 0.4);
-  }
-  50% { 
-    background: linear-gradient(135deg, #729fcf, #8ae234);
-    box-shadow: 0 4px 30px rgba(114, 159, 207, 0.6);
-  }
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .contract-hero-pill:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 30px rgba(138, 226, 52, 0.6);
+  background: rgba(138, 226, 52, 0.12);
+  border-color: rgba(138, 226, 52, 0.4);
+  box-shadow: 0 4px 15px rgba(138, 226, 52, 0.15);
+  transform: translateY(-2px);
 }
+
 
 .contract-hero-label {
   font-family: 'Ubuntu Mono', monospace;
