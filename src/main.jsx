@@ -1,6 +1,7 @@
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import App from './App.jsx'
+// Use clean app without wallet dependencies for now
+import App from './AppClean.jsx'
 
 // Add debugging for production
 console.log('main.jsx loaded')
