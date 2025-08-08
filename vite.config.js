@@ -23,7 +23,13 @@ export default defineConfig({
   },
   optimizeDeps: {
     include: ['buffer', 'process'],
-    exclude: ['@reown/appkit'],
+    exclude: [
+      '@reown/appkit',
+      '@wagmi/core',
+      '@wagmi/connectors',
+      'wagmi',
+      'viem'
+    ],
     esbuildOptions: {
       define: {
         global: 'globalThis',

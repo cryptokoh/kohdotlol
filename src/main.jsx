@@ -1,30 +1,22 @@
-import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 
-// Add error handler for initialization issues
-window.addEventListener('error', (event) => {
-  if (event.message && event.message.includes('Cannot access')) {
-    console.warn('Initialization error detected, attempting recovery...', event)
-    // Don't prevent default to see the error in console
-  }
-})
-
 // Add debugging for production
 console.log('main.jsx loaded')
 
-const rootElement = document.getElementById('root')
-if (!rootElement) {
-  console.error('Root element not found!')
-} else {
+// Wait for DOM to be ready
+function mountApp() {
+  const rootElement = document.getElementById('root')
+  if (!rootElement) {
+    console.error('Root element not found!')
+    return
+  }
+  
   console.log('Mounting React app to root element')
   try {
-    createRoot(rootElement).render(
-      <StrictMode>
-        <App />
-      </StrictMode>,
-    )
+    // Remove StrictMode to avoid double initialization issues
+    createRoot(rootElement).render(<App />)
     console.log('React app mounted successfully')
   } catch (error) {
     console.error('Error mounting React app:', error)
@@ -57,4 +49,11 @@ if (!rootElement) {
       </div>
     `
   }
+}
+
+// Mount app when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', mountApp)
+} else {
+  mountApp()
 }
