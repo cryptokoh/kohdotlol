@@ -1008,19 +1008,17 @@ function KoHLabsExact() {
             </div>
           </div>
           
-          <div className="hero-title-row">
-            <h1>$koHLabs</h1>
-            
-            {/* Contract Address inline */}
-            <div className="contract-hero-inline" onClick={copyContract}>
-              <div className="contract-hero-pill">
-                <span className="contract-hero-label">CA</span>
-                <span className="contract-hero-address">{contractAddress.slice(0, 6)}...{contractAddress.slice(-4)}</span>
-                <svg className="contract-hero-copy" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
-                </svg>
-                {copiedContract && <span className="contract-hero-copied">Copied!</span>}
-              </div>
+          <h1>$koHLabs</h1>
+          
+          {/* Contract Address below title */}
+          <div className="contract-hero-centered" onClick={copyContract}>
+            <div className="contract-hero-pill">
+              <span className="contract-hero-label">CA:</span>
+              <span className="contract-hero-address">{contractAddress.slice(0, 6)}...{contractAddress.slice(-4)}</span>
+              <svg className="contract-hero-copy" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+              </svg>
+              {copiedContract && <span className="contract-hero-copied">Copied!</span>}
             </div>
           </div>
           
