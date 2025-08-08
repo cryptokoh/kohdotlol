@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import './KoHLabsExact.css'
 
 function KoHLabsExact() {
+  // Main landing page component for $koHLabs
   const [matrixMode, setMatrixMode] = useState(false)
   const [showTerminal, setShowTerminal] = useState(false)
   const [showClaude, setShowClaude] = useState(false)
