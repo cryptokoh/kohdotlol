@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import './KoHLabsExact.css'
+import { createMegaScript } from './config/claudeScripts'
 
 function KoHLabsExact() {
   // Main landing page component for $koHLabs
@@ -61,8 +62,11 @@ function KoHLabsExact() {
     setTimeout(() => setCopiedContract(false), 2000)
   }
 
-  // Claude Code CLI Simulation Script
-  const claudeScript = [
+  // Claude Code CLI Simulation Script - Now with endless content!
+  const claudeScript = createMegaScript()
+  
+  // Original compact script for reference (commented out)
+  const originalClaudeScript = [
     { type: 'command', text: 'claude-code --dangerously-accept-all-prompts', delay: 0 },
     { type: 'system', text: '🤖 Claude Code Opus 4.1 - AI-Powered Development Assistant', delay: 500 },
     { type: 'system', text: '⚠️  Running in dangerous mode - all prompts auto-accepted', delay: 700 },
@@ -134,7 +138,7 @@ function KoHLabsExact() {
     { type: 'prompt', text: 'Ready for next command...', delay: 11600 }
   ]
 
-  // Start Claude simulation
+  // Start Claude simulation with endless loop
   const startClaudeSimulation = () => {
     setShowClaude(true)
     setClaudeOutput([])
@@ -144,16 +148,36 @@ function KoHLabsExact() {
     const speedMultipliers = [2, 1, 0.3]
     const currentMultiplier = speedMultipliers[claudeSpeed]
     
-    // Start the typing animation
+    // Start the typing animation with endless loop
     const runScript = () => {
+      // Check if we've reached the end of the script
       if (claudeTypingRef.current >= claudeScript.length) {
+        // Reset to beginning for endless loop
+        claudeTypingRef.current = 4 // Skip the intro lines on loop
+        setClaudeOutput([]) // Clear output for fresh start
+        
+        // Add a transition message
+        setClaudeOutput([
+          { type: 'system', text: '🔄 Endless mode - Starting next iteration...', delay: 0 },
+          { type: 'output', text: '', delay: 100 }
+        ])
+        
+        // Continue with slight delay
+        setTimeout(() => runScript(), 2000 * currentMultiplier)
         return
       }
       
       const currentLine = claudeScript[claudeTypingRef.current]
       
       setTimeout(() => {
-        setClaudeOutput(prev => [...prev, currentLine])
+        setClaudeOutput(prev => {
+          // Limit output to last 100 lines to prevent memory issues
+          const newOutput = [...prev, currentLine]
+          if (newOutput.length > 100) {
+            return newOutput.slice(-100)
+          }
+          return newOutput
+        })
         claudeTypingRef.current = (claudeTypingRef.current || 0) + 1
         
         // Auto-scroll to bottom with smooth animation
