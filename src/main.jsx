@@ -3,24 +3,23 @@ import './index.css'
 // Use clean app without wallet dependencies for now
 import App from './AppClean.jsx'
 
-// Add debugging for production
-console.log('main.jsx loaded')
+// Debugging removed for production
 
 // Wait for DOM to be ready
 function mountApp() {
   const rootElement = document.getElementById('root')
   if (!rootElement) {
-    console.error('Root element not found!')
+    // Root element not found - fail silently in production
     return
   }
   
-  console.log('Mounting React app to root element')
+  // Mounting React app to root element
   try {
     // Remove StrictMode to avoid double initialization issues
     createRoot(rootElement).render(<App />)
-    console.log('React app mounted successfully')
+    // React app mounted successfully
   } catch (error) {
-    console.error('Error mounting React app:', error)
+    // Error mounting React app - show fallback UI
     // Fallback UI on error
     rootElement.innerHTML = `
       <div style="

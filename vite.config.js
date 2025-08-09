@@ -39,7 +39,14 @@ export default defineConfig({
   },
   build: {
     sourcemap: false, // Disable sourcemaps to reduce memory usage
-    minify: 'esbuild', // Use esbuild for faster builds with less memory
+    minify: 'terser', // Better minification for production
+    terserOptions: {
+      compress: {
+        drop_console: true, // Remove console logs in production
+        drop_debugger: true, // Remove debugger statements
+        pure_funcs: ['console.log', 'console.error', 'console.warn'],
+      },
+    },
     rollupOptions: {
       output: {
         manualChunks(id) {

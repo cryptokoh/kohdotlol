@@ -196,6 +196,16 @@ nav {
   transform: scale(1.1);
 }
 
+.social-control.farcaster {
+  background: #8a63d2;
+}
+
+.social-control.farcaster:hover {
+  background: #7c4dff;
+  box-shadow: 0 0 10px rgba(140, 99, 210, 0.5);
+  transform: scale(1.1);
+}
+
 .logo {
   font-family: 'Ubuntu Mono', monospace;
   font-size: 24px;

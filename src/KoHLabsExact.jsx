@@ -39,7 +39,7 @@ function KoHLabsExact() {
   
   // Log mount to help debug
   useEffect(() => {
-    console.log('KoHLabsExact component mounted')
+    // Component mounted - removed debug logging for production
   }, [])
   
   const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a']
@@ -275,8 +275,7 @@ function KoHLabsExact() {
       setShowMatrixText(true)
       setTimeout(() => setShowMatrixText(false), 3000)
       
-      console.log('%c SYSTEM: ACCESS GRANTED', 'color: #00ff00; font-size: 20px; font-weight: bold;')
-      console.log('%c Welcome to the Matrix, koH', 'color: #00ff00; font-size: 16px;')
+      // Matrix mode activated - visual feedback only
     } else {
       // Exiting Matrix mode
       if (matrixRainRef.current) {
@@ -289,7 +288,7 @@ function KoHLabsExact() {
         ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height)
       }
       
-      console.log('%c SYSTEM: RETURNING TO REALITY', 'color: #8ae234; font-size: 16px; font-weight: bold;')
+      // Returning to reality - matrix mode deactivated
     }
   }
 
@@ -923,6 +922,11 @@ function KoHLabsExact() {
                   <path d="M12 2l2.4 7.4h7.6l-6 4.6 2.4 7.4-6.4-4.6-6.4 4.6 2.4-7.4-6-4.6h7.6z"/>
                 </svg>
               </a>
+              <a href="https://farcaster.xyz/koh" target="_blank" rel="noopener noreferrer" className="social-control farcaster" title="Farcaster">
+                <svg width="8" height="8" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M18.24 7.17v-.82c0-2.64 0-3.98-.52-4.98a3.7 3.7 0 0 0-.39-.57l-.11-.1c-.13-.11-.28-.2-.44-.27C15.91 0 14.72 0 12.34 0h-.69c-2.38 0-3.56 0-4.43.43a3.7 3.7 0 0 0-.94.94C5.85 2.24 5.85 3.42 5.85 5.8v11.6c0 1.16 0 2.05.05 2.76.06.8.2 1.48.53 2.07.36.63.9 1.17 1.52 1.52.6.33 1.28.47 2.08.53.71.05 1.6.05 2.76.05s2.05 0 2.76-.05c.8-.06 1.48-.2 2.08-.53a3.84 3.84 0 0 0 1.52-1.52c.33-.6.47-1.28.53-2.08.05-.71.05-1.6.05-2.76V14.84l-2.26-2.26v3.46c0 .48 0 .73-.1.89a.84.84 0 0 1-.32.33c-.16.09-.4.09-.89.09s-.73 0-.89-.1a.84.84 0 0 1-.33-.32c-.09-.16-.09-.4-.09-.89v-6.2c0-.49 0-.73.1-.9.07-.14.18-.25.32-.32.16-.1.4-.1.89-.1h6.2c.48 0 .73 0 .89.1.14.07.25.18.32.32.1.17.1.41.1.9z"/>
+                </svg>
+              </a>
             </div>
           </div>
           <div className="nav-right">
@@ -952,7 +956,7 @@ function KoHLabsExact() {
                       alt="$koHLabs Meme" 
                       className="meme-image"
                       onError={() => {
-                        console.error('Failed to load meme image')
+                        // Failed to load meme image
                         setImageError(true)
                       }}
                     />
@@ -1232,7 +1236,7 @@ function KoHLabsExact() {
     </div>
   )
   } catch (error) {
-    console.error('Error rendering KoHLabsExact:', error)
+    // Error rendering KoHLabsExact - show error boundary
     // Fallback UI
     return (
       <div style={{
