@@ -42,6 +42,28 @@ function KoHLabsExact() {
   useEffect(() => {
     // Component mounted - removed debug logging for production
   }, [])
+
+  // Handle ESC key to close modals
+  useEffect(() => {
+    const handleEscKey = (event) => {
+      if (event.key === 'Escape') {
+        if (showClaude) {
+          setShowClaude(false)
+        }
+        if (showTerminal) {
+          setShowTerminal(false)
+        }
+      }
+    }
+
+    if (showClaude || showTerminal) {
+      document.addEventListener('keydown', handleEscKey)
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscKey)
+    }
+  }, [showClaude, showTerminal])
   
   const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a']
   const contractAddress = 'ELehFFYywLvfxCNVgxesCecYPtk4KcM2RYpor6H3AasN'
@@ -606,8 +628,8 @@ function KoHLabsExact() {
 
       {/* Claude Code CLI Modal - Terminal Only */}
       {showClaude && (
-        <div className="claude-modal-overlay" onClick={() => setShowClaude(false)}>
-          <div className="claude-terminal-modal" onClick={(e) => e.stopPropagation()}>
+        <div className="claude-modal-overlay">
+          <div className="claude-terminal-modal">
             <div className="claude-terminal-header">
               <div className="claude-modal-buttons">
                 <span className="terminal-button red" onClick={() => setShowClaude(false)}></span>
@@ -841,8 +863,8 @@ function KoHLabsExact() {
 
       {/* Terminal Modal */}
       {showTerminal && (
-        <div className="terminal-modal-overlay" onClick={() => setShowTerminal(false)}>
-          <div className="terminal-modal" onClick={(e) => e.stopPropagation()}>
+        <div className="terminal-modal-overlay">
+          <div className="terminal-modal">
             <div className="terminal-modal-header">
               <div className="terminal-modal-buttons">
                 <span className="terminal-button red" onClick={() => setShowTerminal(false)}></span>
