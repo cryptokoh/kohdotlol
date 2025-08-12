@@ -67,9 +67,10 @@ function NavigationBar({ contractAddress }) {
           <div className={`nav-links ${mobileMenuOpen ? 'mobile-open' : ''}`}>
             <a href="#mission" onClick={() => setMobileMenuOpen(false)}>Mission</a>
             <a href="/operations" className="operations-link" onClick={() => setMobileMenuOpen(false)}>Operations</a>
+            <a href="/live" className="live-link" onClick={() => setMobileMenuOpen(false)}>🔴 Live</a>
             <a href="#terminal" onClick={() => setMobileMenuOpen(false)}>Terminal</a>
             <a href="#socials" onClick={() => setMobileMenuOpen(false)}>Connect</a>
-            <a href="https://pump.fun/coin/ELehFFYywLvfxCNVgxesCecYPtk4KcM2RYpor6H3AasN" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)}>Live</a>
+            <a href="https://pump.fun/coin/ELehFFYywLvfxCNVgxesCecYPtk4KcM2RYpor6H3AasN" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)}>Pump</a>
             <a href="https://www.mexc.com/dex/pumpfun-mexc?ca=koHLabs&currency=SOL" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)}>MEXC</a>
           </div>
         </div>
