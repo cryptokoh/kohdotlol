@@ -2463,13 +2463,6 @@ footer {
   .navbar-ca.zora-ca {
     display: none; /* Hide on mobile to save space */
   }
-}
-
-/* Show Zora CA on tablets and above */
-@media (min-width: 768px) {
-  .navbar-ca.zora-ca {
-    display: inline-flex;
-  }
   
   .mobile-menu-toggle {
     display: block;
@@ -2768,6 +2761,13 @@ footer {
   .zora-link {
     width: 100%;
     text-align: center;
+  }
+}
+
+/* Show Zora CA on tablets and desktop */
+@media (min-width: 769px) {
+  .navbar-ca.zora-ca {
+    display: inline-flex !important;
   }
 }
 
