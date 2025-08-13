@@ -5,5 +5,9 @@ https://pump.koh.lol/* https://pump.fun/coin/ELehFFYywLvfxCNVgxesCecYPtk4KcM2RYp
 # Redirect tg.koh.lol subdomain to KoHLabs telegram
 https://tg.koh.lol/* https://t.me/koh_labs 301!
 
+# Redirect twitch.koh.lol subdomain to Twitch channel
+https://twitch.koh.lol/* https://twitch.tv/cryptokoh 301!
+http://twitch.koh.lol/* https://twitch.tv/cryptokoh 301!
+
 # SPA fallback - serve index.html for all routes (must be last)
 /*    /index.html   200
