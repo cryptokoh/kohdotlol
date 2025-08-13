@@ -9,6 +9,7 @@ function KoHLabsExact() {
   const [showClaude, setShowClaude] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [imageError, setImageError] = useState(false)
+  const [showSupport, setShowSupport] = useState(false)
   const canvasRef = useRef(null)
   const matrixRainRef = useRef(null)
   const konamiRef = useRef([])
@@ -53,17 +54,20 @@ function KoHLabsExact() {
         if (showTerminal) {
           setShowTerminal(false)
         }
+        if (showSupport) {
+          setShowSupport(false)
+        }
       }
     }
 
-    if (showClaude || showTerminal) {
+    if (showClaude || showTerminal || showSupport) {
       document.addEventListener('keydown', handleEscKey)
     }
 
     return () => {
       document.removeEventListener('keydown', handleEscKey)
     }
-  }, [showClaude, showTerminal])
+  }, [showClaude, showTerminal, showSupport])
   
   const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a']
   const contractAddress = 'ELehFFYywLvfxCNVgxesCecYPtk4KcM2RYpor6H3AasN'
@@ -621,6 +625,15 @@ function KoHLabsExact() {
         {matrixMode ? 'EXIT' : 'MATRIX'}
       </div>
       
+      {/* Support Button */}
+      <div 
+        className="support-toggle" 
+        onClick={() => setShowSupport(true)}
+        title="Support koH Labs"
+      >
+        💎
+      </div>
+      
       {/* Matrix Flash Text */}
       <div className={`matrix-text ${showMatrixText ? 'show' : ''}`}>
         {matrixText}
@@ -722,6 +735,24 @@ function KoHLabsExact() {
                     <span className="claude-tree">{line.text}</span>
                   )}
                   {line.type === 'output' && <br />}
+                  {line.type === 'vibing' && (
+                    <span className="claude-vibing">{line.text}</span>
+                  )}
+                  {line.type === 'matrix' && (
+                    <span className="claude-matrix">{line.text}</span>
+                  )}
+                  {line.type === 'diff-add' && (
+                    <span className="claude-diff-add">{line.text}</span>
+                  )}
+                  {line.type === 'diff-remove' && (
+                    <span className="claude-diff-remove">{line.text}</span>
+                  )}
+                  {line.type === 'code-fast' && (
+                    <span className="claude-code-fast">{line.text}</span>
+                  )}
+                  {line.type === 'build-fast' && (
+                    <span className="claude-build-fast">{line.text}</span>
+                  )}
                 </div>
               ))}
               
@@ -917,6 +948,154 @@ function KoHLabsExact() {
                   )}
                 </div>
               ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Support Modal */}
+      {showSupport && (
+        <div className="support-modal-overlay">
+          <div className="support-modal">
+            <div className="support-modal-header">
+              <div className="terminal-modal-buttons">
+                <span className="terminal-button red" onClick={() => setShowSupport(false)}></span>
+                <span className="terminal-button yellow"></span>
+                <span className="terminal-button green"></span>
+              </div>
+              <div className="support-modal-title">koH Labs Support Terminal v1.0</div>
+              <div className="terminal-modal-controls">
+                <button 
+                  className="terminal-close-btn"
+                  onClick={() => setShowSupport(false)}
+                  title="Close"
+                >
+                  ✕
+                </button>
+              </div>
+            </div>
+            <div className="support-modal-body">
+              <div className="support-terminal-line">
+                <span className="support-prompt">$</span>
+                <span className="support-command"> cat /home/koh/lore.txt</span>
+              </div>
+              <div className="support-terminal-line support-output">
+                ═══════════════════════════════════════════════════════
+              </div>
+              <div className="support-terminal-line support-system">
+                📖 THE LORE OF koH LABS
+              </div>
+              <div className="support-terminal-line support-output">
+                ═══════════════════════════════════════════════════════
+              </div>
+              <div className="support-terminal-line support-output"></div>
+              <div className="support-terminal-line support-text">
+                In the beginning, there was Zora...
+              </div>
+              <div className="support-terminal-line support-text">
+                The creator coin launched on Base L2, establishing koH's
+              </div>
+              <div className="support-terminal-line support-text">
+                presence in the onchain creator economy.
+              </div>
+              <div className="support-terminal-line support-output"></div>
+              <div className="support-terminal-line support-text">
+                Then came Pump.fun on Solana - the streaming coin,
+              </div>
+              <div className="support-terminal-line support-text">
+                where koH builds live, codes in public, and vibes
+              </div>
+              <div className="support-terminal-line support-text">
+                with the community 24/7. Dev tokens locked. Fair launch.
+              </div>
+              <div className="support-terminal-line support-output"></div>
+              <div className="support-terminal-line support-system">
+                💎 SUPPORT koH LABS
+              </div>
+              <div className="support-terminal-line support-output">
+                ───────────────────────────────────────────────────────
+              </div>
+              <div className="support-terminal-line support-output"></div>
+              
+              {/* Zora Creator Coin */}
+              <div className="support-terminal-line">
+                <span className="support-prompt">$</span>
+                <span className="support-command"> echo $ZORA_CREATOR_COIN</span>
+              </div>
+              <div className="support-card zora-card">
+                <div className="support-card-header">
+                  <span className="support-card-icon">🟣</span>
+                  <span className="support-card-title">Zora Creator Coin (Base L2)</span>
+                </div>
+                <div className="support-card-content">
+                  <div className="support-address">
+                    <span className="support-label">Contract:</span>
+                    <span className="support-mono">0x577dCA90068DB5A60782112823bABB32333CC88A</span>
+                  </div>
+                  <div className="support-links">
+                    <a href="https://zora.co/@koh" target="_blank" rel="noopener noreferrer" className="support-link">
+                      🔗 zora.co/@koh
+                    </a>
+                    <a href="https://zora.co/invite/koh" target="_blank" rel="noopener noreferrer" className="support-link invite">
+                      ✨ Join Zora (Get Rewards)
+                    </a>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Pump.fun Token */}
+              <div className="support-terminal-line">
+                <span className="support-prompt">$</span>
+                <span className="support-command"> echo $PUMP_FUN_TOKEN</span>
+              </div>
+              <div className="support-card pump-card">
+                <div className="support-card-header">
+                  <span className="support-card-icon">🚀</span>
+                  <span className="support-card-title">Pump.fun Streaming Coin (Solana)</span>
+                </div>
+                <div className="support-card-content">
+                  <div className="support-address">
+                    <span className="support-label">Contract:</span>
+                    <span className="support-mono">ELehFFYywLvfxCNVgxesCecYPtk4KcM2RYpor6H3AasN</span>
+                  </div>
+                  <div className="support-links">
+                    <a href="https://pump.fun/coin/ELehFFYywLvfxCNVgxesCecYPtk4KcM2RYpor6H3AasN" target="_blank" rel="noopener noreferrer" className="support-link">
+                      🔗 Pump.fun Page
+                    </a>
+                    <a href="https://pump.koh.lol" target="_blank" rel="noopener noreferrer" className="support-link">
+                      📺 Live Stream
+                    </a>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="support-terminal-line support-output"></div>
+              <div className="support-terminal-line support-system">
+                🌟 WHY SUPPORT?
+              </div>
+              <div className="support-terminal-line support-output">
+                ───────────────────────────────────────────────────────
+              </div>
+              <div className="support-terminal-line support-text">
+                • Building in public since day 1
+              </div>
+              <div className="support-terminal-line support-text">
+                • 100% transparent development
+              </div>
+              <div className="support-terminal-line support-text">
+                • Community-driven roadmap
+              </div>
+              <div className="support-terminal-line support-text">
+                • Open source everything
+              </div>
+              <div className="support-terminal-line support-text">
+                • Vibe coding sessions daily
+              </div>
+              <div className="support-terminal-line support-output"></div>
+              <div className="support-terminal-line">
+                <span className="support-prompt">$</span>
+                <span className="support-cursor">▊</span>
+              </div>
             </div>
           </div>
         </div>

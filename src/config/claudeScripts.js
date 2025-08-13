@@ -1,6 +1,61 @@
 // Extensive Claude Code Opus 4.1 Automation Scripts
 // Showcasing koH Labs' diverse production capabilities
 
+// Matrix characters for vibing effect
+const matrixChars = '日ﾊﾐﾋｰｳｼﾅﾓﾆｻﾜﾂｵﾘｱﾎﾃﾏｹﾒｴｶｷﾑﾕﾗｾﾈｽﾀﾇﾍ01234567890!@#$%^&*()_+-=[]{}|;:,.<>?'
+
+// Generate random matrix rain text
+function generateMatrixRain(lines = 5) {
+  const result = []
+  for (let i = 0; i < lines; i++) {
+    let line = ''
+    for (let j = 0; j < Math.floor(Math.random() * 80) + 40; j++) {
+      line += matrixChars[Math.floor(Math.random() * matrixChars.length)]
+    }
+    result.push({ type: 'matrix', text: line, delay: 10 })
+  }
+  return result
+}
+
+// Generate vibing sequence
+function generateVibingSequence() {
+  return [
+    { type: 'vibing', text: 'Vibing...', delay: 100 },
+    ...generateMatrixRain(3),
+    { type: 'matrix-fast', text: '▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓', delay: 5 },
+    { type: 'matrix-fast', text: '░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░', delay: 5 },
+    { type: 'matrix-fast', text: '█▀█ █▀█ █▀█ █▀▀ █▀▀ █▀ █▀ █ █▄░█ █▀▀ ░░░', delay: 5 },
+    { type: 'matrix-fast', text: '█▀▀ █▀▄ █▄█ █▄▄ ██▄ ▄█ ▄█ █ █░▀█ █▄█ ▄▄▄', delay: 5 },
+    { type: 'matrix-fast', text: '░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░', delay: 5 },
+    ...generateMatrixRain(2),
+    { type: 'diff-add', text: '+ Added 1337 lines of pure vibe energy', delay: 20 },
+    { type: 'diff-add', text: '+ Optimized consciousness algorithms', delay: 20 },
+    { type: 'diff-remove', text: '- Removed all doubts and limitations', delay: 20 },
+    { type: 'diff-add', text: '+ Injected maximum creative flow', delay: 20 },
+    { type: 'matrix-fast', text: '▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓', delay: 5 },
+    { type: 'system', text: '⚡ VIBE CHECK: MAXIMUM ⚡', delay: 50 },
+    { type: 'output', text: '', delay: 100 }
+  ]
+}
+
+// Function to inject vibing sequences into scripts
+function injectVibingSequences(script) {
+  const enhancedScript = []
+  let lineCount = 0
+  
+  for (const line of script) {
+    enhancedScript.push(line)
+    lineCount++
+    
+    // Every 15-20 lines, add a vibing sequence
+    if (lineCount % Math.floor(Math.random() * 5 + 15) === 0) {
+      enhancedScript.push(...generateVibingSequence())
+    }
+  }
+  
+  return enhancedScript
+}
+
 export const claudeScripts = {
   // Base blockchain development
   baseBlockchain: [
@@ -430,9 +485,11 @@ export function createMegaScript() {
   // Add intro
   allScripts.push(...intro)
   
-  // Add each script with transitions
+  // Add each script with transitions and vibing
   Object.values(claudeScripts).forEach((script, index) => {
-    allScripts.push(...script)
+    // Inject vibing sequences into each script
+    const enhancedScript = injectVibingSequences(script)
+    allScripts.push(...enhancedScript)
     if (index < Object.values(claudeScripts).length - 1) {
       allScripts.push(...transitions)
     }
