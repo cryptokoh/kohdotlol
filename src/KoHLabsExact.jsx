@@ -10,6 +10,13 @@ function KoHLabsExact() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [imageError, setImageError] = useState(false)
   const [showSupport, setShowSupport] = useState(false)
+  const [showStaking, setShowStaking] = useState(false)
+  const [stakedAmount, setStakedAmount] = useState(0)
+  const [stakingInput, setStakingInput] = useState('')
+  const [totalStaked, setTotalStaked] = useState(42069)
+  const [apy, setApy] = useState(420)
+  const [rewards, setRewards] = useState(0)
+  const [stakingHistory, setStakingHistory] = useState([])
   const canvasRef = useRef(null)
   const matrixRainRef = useRef(null)
   const konamiRef = useRef([])
@@ -57,17 +64,20 @@ function KoHLabsExact() {
         if (showSupport) {
           setShowSupport(false)
         }
+        if (showStaking) {
+          setShowStaking(false)
+        }
       }
     }
 
-    if (showClaude || showTerminal || showSupport) {
+    if (showClaude || showTerminal || showSupport || showStaking) {
       document.addEventListener('keydown', handleEscKey)
     }
 
     return () => {
       document.removeEventListener('keydown', handleEscKey)
     }
-  }, [showClaude, showTerminal, showSupport])
+  }, [showClaude, showTerminal, showSupport, showStaking])
   
   const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a']
   const contractAddress = 'ELehFFYywLvfxCNVgxesCecYPtk4KcM2RYpor6H3AasN'
@@ -87,6 +97,75 @@ function KoHLabsExact() {
     setCopiedContract(true)
     setTimeout(() => setCopiedContract(false), 2000)
   }
+
+  // Staking simulation functions
+  const handleStake = () => {
+    const amount = parseFloat(stakingInput)
+    if (amount > 0) {
+      setStakedAmount(prev => prev + amount)
+      setTotalStaked(prev => prev + amount)
+      const timestamp = new Date().toLocaleTimeString()
+      setStakingHistory(prev => [
+        { type: 'stake', amount, timestamp, status: 'success' },
+        ...prev
+      ])
+      setStakingInput('')
+      
+      // Simulate rewards calculation
+      setTimeout(() => {
+        const reward = (amount * apy / 100 / 365).toFixed(4)
+        setRewards(prev => prev + parseFloat(reward))
+      }, 2000)
+    }
+  }
+
+  const handleUnstake = () => {
+    if (stakedAmount > 0) {
+      const timestamp = new Date().toLocaleTimeString()
+      setStakingHistory(prev => [
+        { type: 'unstake', amount: stakedAmount, timestamp, status: 'pending' },
+        ...prev
+      ])
+      setTotalStaked(prev => prev - stakedAmount)
+      
+      // Simulate unstaking delay
+      setTimeout(() => {
+        setStakingHistory(prev => 
+          prev.map(h => 
+            h.timestamp === timestamp 
+              ? { ...h, status: 'success' } 
+              : h
+          )
+        )
+        setStakedAmount(0)
+        setRewards(0)
+      }, 3000)
+    }
+  }
+
+  const handleClaimRewards = () => {
+    if (rewards > 0) {
+      const timestamp = new Date().toLocaleTimeString()
+      setStakingHistory(prev => [
+        { type: 'claim', amount: rewards, timestamp, status: 'success' },
+        ...prev
+      ])
+      setRewards(0)
+    }
+  }
+
+  // Update rewards every 5 seconds (simulation)
+  useEffect(() => {
+    if (stakedAmount > 0) {
+      const interval = setInterval(() => {
+        const dailyReward = (stakedAmount * apy / 100 / 365)
+        const rewardPerSecond = dailyReward / 86400
+        setRewards(prev => prev + rewardPerSecond * 5)
+      }, 5000)
+      
+      return () => clearInterval(interval)
+    }
+  }, [stakedAmount, apy])
 
   // Claude Code CLI Simulation Script - Now with endless content!
   const claudeScript = createMegaScript()
@@ -634,6 +713,15 @@ function KoHLabsExact() {
         💎
       </div>
       
+      {/* Staking Button */}
+      <div 
+        className="staking-toggle" 
+        onClick={() => setShowStaking(true)}
+        title="Stake $koHLabs"
+      >
+        🔒
+      </div>
+      
       {/* Matrix Flash Text */}
       <div className={`matrix-text ${showMatrixText ? 'show' : ''}`}>
         {matrixText}
@@ -1095,6 +1183,151 @@ function KoHLabsExact() {
               <div className="support-terminal-line">
                 <span className="support-prompt">$</span>
                 <span className="support-cursor">▊</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Staking Modal */}
+      {showStaking && (
+        <div className="staking-modal-overlay">
+          <div className="staking-modal">
+            <div className="staking-modal-header">
+              <div className="terminal-modal-buttons">
+                <span className="terminal-button red" onClick={() => setShowStaking(false)}></span>
+                <span className="terminal-button yellow"></span>
+                <span className="terminal-button green"></span>
+              </div>
+              <div className="staking-modal-title">koH Labs Staking Terminal [SIMULATION MODE]</div>
+              <div className="terminal-modal-controls">
+                <button 
+                  className="terminal-close-btn"
+                  onClick={() => setShowStaking(false)}
+                  title="Close"
+                >
+                  ✕
+                </button>
+              </div>
+            </div>
+            <div className="staking-modal-body">
+              {/* ASCII Art Header */}
+              <div className="staking-ascii">
+                <pre>{`
+╔════════════════════════════════════════════════════════╗
+║  ███████╗████████╗ █████╗ ██╗  ██╗██╗███╗   ██╗ ██████╗ ║
+║  ██╔════╝╚══██╔══╝██╔══██╗██║ ██╔╝██║████╗  ██║██╔════╝ ║
+║  ███████╗   ██║   ███████║█████╔╝ ██║██╔██╗ ██║██║  ███╗║
+║  ╚════██║   ██║   ██╔══██║██╔═██╗ ██║██║╚██╗██║██║   ██║║
+║  ███████║   ██║   ██║  ██║██║  ██╗██║██║ ╚████║╚██████╔╝║
+║  ╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝ ╚═════╝ ║
+╚════════════════════════════════════════════════════════╝
+                `}</pre>
+              </div>
+              
+              {/* Pool Stats */}
+              <div className="staking-stats">
+                <div className="stat-box">
+                  <span className="stat-label">Total Value Locked</span>
+                  <span className="stat-value">{totalStaked.toLocaleString()} $koHLabs</span>
+                </div>
+                <div className="stat-box">
+                  <span className="stat-label">Current APY</span>
+                  <span className="stat-value apy">{apy}%</span>
+                </div>
+                <div className="stat-box">
+                  <span className="stat-label">Your Staked</span>
+                  <span className="stat-value">{stakedAmount.toLocaleString()} $koHLabs</span>
+                </div>
+                <div className="stat-box">
+                  <span className="stat-label">Pending Rewards</span>
+                  <span className="stat-value rewards">{rewards.toFixed(6)} $koHLabs</span>
+                </div>
+              </div>
+
+              {/* Staking Interface */}
+              <div className="staking-interface">
+                <div className="staking-terminal-line">
+                  <span className="staking-prompt">$</span>
+                  <span className="staking-command"> stake --amount</span>
+                </div>
+                <div className="staking-input-group">
+                  <input
+                    type="number"
+                    className="staking-amount-input"
+                    placeholder="Enter amount to stake..."
+                    value={stakingInput}
+                    onChange={(e) => setStakingInput(e.target.value)}
+                    min="0"
+                    step="100"
+                  />
+                  <button 
+                    className="staking-btn stake"
+                    onClick={handleStake}
+                    disabled={!stakingInput || parseFloat(stakingInput) <= 0}
+                  >
+                    STAKE
+                  </button>
+                </div>
+
+                <div className="staking-actions">
+                  <button 
+                    className="staking-btn unstake"
+                    onClick={handleUnstake}
+                    disabled={stakedAmount === 0}
+                  >
+                    UNSTAKE ALL ({stakedAmount.toLocaleString()})
+                  </button>
+                  <button 
+                    className="staking-btn claim"
+                    onClick={handleClaimRewards}
+                    disabled={rewards === 0}
+                  >
+                    CLAIM REWARDS ({rewards.toFixed(6)})
+                  </button>
+                </div>
+              </div>
+
+              {/* History */}
+              <div className="staking-history">
+                <div className="staking-terminal-line">
+                  <span className="staking-prompt">$</span>
+                  <span className="staking-command"> tail -f /var/log/staking.log</span>
+                </div>
+                <div className="history-container">
+                  {stakingHistory.length === 0 ? (
+                    <div className="history-empty">No staking activity yet...</div>
+                  ) : (
+                    stakingHistory.slice(0, 10).map((entry, index) => (
+                      <div key={index} className={`history-entry ${entry.type} ${entry.status}`}>
+                        <span className="history-time">[{entry.timestamp}]</span>
+                        <span className="history-type">
+                          {entry.type === 'stake' && '➕ STAKE'}
+                          {entry.type === 'unstake' && '➖ UNSTAKE'}
+                          {entry.type === 'claim' && '💰 CLAIM'}
+                        </span>
+                        <span className="history-amount">{entry.amount.toLocaleString()} $koHLabs</span>
+                        <span className={`history-status ${entry.status}`}>
+                          {entry.status === 'success' && '✅'}
+                          {entry.status === 'pending' && '⏳'}
+                        </span>
+                      </div>
+                    ))
+                  )}
+                </div>
+              </div>
+
+              {/* Warning */}
+              <div className="staking-warning">
+                <span className="warning-icon">⚠️</span>
+                <span className="warning-text">
+                  SIMULATION MODE - This is not real staking. For educational purposes only!
+                </span>
+              </div>
+
+              <div className="staking-terminal-line">
+                <span className="staking-prompt">$</span>
+                <span className="staking-cursor">▊</span>
               </div>
             </div>
           </div>
