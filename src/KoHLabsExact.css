@@ -91,11 +91,28 @@ nav {
   font-size: 11px;
 }
 
+.navbar-ca.solana-ca {
+  background: linear-gradient(135deg, rgba(92, 191, 96, 0.1), rgba(138, 226, 52, 0.1));
+  border-color: #5cbf60;
+}
+
+.navbar-ca.zora-ca {
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(168, 85, 247, 0.1));
+  border-color: #7c3aed;
+  margin-left: 10px;
+}
+
 .contract-pill:hover {
   background: linear-gradient(135deg, rgba(138, 226, 52, 0.3), rgba(114, 159, 207, 0.3));
   border-color: #8ae234;
   transform: scale(1.05);
   box-shadow: 0 0 20px rgba(138, 226, 52, 0.5);
+}
+
+.navbar-ca.zora-ca:hover {
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.3), rgba(168, 85, 247, 0.3));
+  border-color: #a855f7;
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.5);
 }
 
 .contract-label {
@@ -2441,6 +2458,17 @@ footer {
     font-size: 10px;
     padding: 4px 8px;
     margin-left: 0;
+  }
+
+  .navbar-ca.zora-ca {
+    display: none; /* Hide on mobile to save space */
+  }
+}
+
+/* Show Zora CA on tablets and above */
+@media (min-width: 768px) {
+  .navbar-ca.zora-ca {
+    display: inline-flex;
   }
   
   .mobile-menu-toggle {

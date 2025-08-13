@@ -26,6 +26,7 @@ function KoHLabsExact() {
   const [matrixText, setMatrixText] = useState('FOLLOW THE WHITE RABBIT 🐰')
   const [showMatrixText, setShowMatrixText] = useState(false)
   const [copiedContract, setCopiedContract] = useState(false)
+  const [copiedZoraContract, setCopiedZoraContract] = useState(false)
   const [activeCard, setActiveCard] = useState(0)
   const [claudeOutput, setClaudeOutput] = useState([])
   const [claudeTypingIndex, setClaudeTypingIndex] = useState(0)
@@ -85,6 +86,7 @@ function KoHLabsExact() {
   
   const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a']
   const contractAddress = 'ELehFFYywLvfxCNVgxesCecYPtk4KcM2RYpor6H3AasN'
+  const zoraContractAddress = '0x577dCA90068DB5A60782112823bABB32333CC88A'
   
   const missionCards = [
     { icon: '🌉', title: 'The Bridge', desc: 'Bridging communities, protocols, and people in public. From shadow bridger to open connector - we link ecosystems and bring builders together.' },
@@ -100,6 +102,13 @@ function KoHLabsExact() {
     navigator.clipboard.writeText(contractAddress)
     setCopiedContract(true)
     setTimeout(() => setCopiedContract(false), 2000)
+  }
+
+  // Copy Zora contract address to clipboard
+  const copyZoraContract = () => {
+    navigator.clipboard.writeText(zoraContractAddress)
+    setCopiedZoraContract(true)
+    setTimeout(() => setCopiedZoraContract(false), 2000)
   }
 
   // Staking simulation functions
@@ -1537,13 +1546,21 @@ function KoHLabsExact() {
         <div className="nav-container">
           <div className="nav-left">
             <a href="#" className="logo">$koHLabs</a>
-            <div className="contract-pill navbar-ca" onClick={copyContract} title="Click to copy contract address">
-              <span className="contract-label">CA:</span>
+            <div className="contract-pill navbar-ca solana-ca" onClick={copyContract} title="Click to copy Solana contract address">
+              <span className="contract-label">SOL:</span>
               <span className="contract-text">{contractAddress.slice(0, 4)}...{contractAddress.slice(-4)}</span>
               <svg className="copy-icon" width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
               </svg>
               {copiedContract && <span className="copied-tooltip">Copied!</span>}
+            </div>
+            <div className="contract-pill navbar-ca zora-ca" onClick={copyZoraContract} title="Click to copy Zora contract address">
+              <span className="contract-label">ZORA:</span>
+              <span className="contract-text">{zoraContractAddress.slice(0, 6)}...{zoraContractAddress.slice(-4)}</span>
+              <svg className="copy-icon" width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+              </svg>
+              {copiedZoraContract && <span className="copied-tooltip">Copied!</span>}
             </div>
           </div>
           
