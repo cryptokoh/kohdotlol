@@ -41,7 +41,7 @@ function LiveStreams() {
     {
       id: 'twitch',
       name: 'Twitch',
-      url: 'https://twitch.tv/kohlabs',
+      url: 'https://twitch.tv/cryptokoh',
       icon: '🎮',
       color: '#9146ff',
       description: 'Live coding & gaming'

@@ -1453,7 +1453,7 @@ function KoHLabsExact() {
                     <div className="post-text">
                       Live coding session! Building a Jupiter v6 integrated trading bot.
                       250 wallets, intelligent balance management, pump.fun token support.
-                      Stream archived on Zora 🎬
+                      Streaming on twitch.tv/cryptokoh 🎮 Stream archived on Zora 🎬
                     </div>
                     <div className="post-stats">
                       <span>👁️ 2.5K views</span>
@@ -1581,6 +1581,11 @@ function KoHLabsExact() {
               <a href="https://farcaster.xyz/koh" target="_blank" rel="noopener noreferrer" className="social-control farcaster" title="Farcaster">
                 <svg width="8" height="8" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M18.24 7.17v-.82c0-2.64 0-3.98-.52-4.98a3.7 3.7 0 0 0-.39-.57l-.11-.1c-.13-.11-.28-.2-.44-.27C15.91 0 14.72 0 12.34 0h-.69c-2.38 0-3.56 0-4.43.43a3.7 3.7 0 0 0-.94.94C5.85 2.24 5.85 3.42 5.85 5.8v11.6c0 1.16 0 2.05.05 2.76.06.8.2 1.48.53 2.07.36.63.9 1.17 1.52 1.52.6.33 1.28.47 2.08.53.71.05 1.6.05 2.76.05s2.05 0 2.76-.05c.8-.06 1.48-.2 2.08-.53a3.84 3.84 0 0 0 1.52-1.52c.33-.6.47-1.28.53-2.08.05-.71.05-1.6.05-2.76V14.84l-2.26-2.26v3.46c0 .48 0 .73-.1.89a.84.84 0 0 1-.32.33c-.16.09-.4.09-.89.09s-.73 0-.89-.1a.84.84 0 0 1-.33-.32c-.09-.16-.09-.4-.09-.89v-6.2c0-.49 0-.73.1-.9.07-.14.18-.25.32-.32.16-.1.4-.1.89-.1h6.2c.48 0 .73 0 .89.1.14.07.25.18.32.32.1.17.1.41.1.9z"/>
+                </svg>
+              </a>
+              <a href="https://twitch.tv/cryptokoh" target="_blank" rel="noopener noreferrer" className="social-control twitch" title="Twitch">
+                <svg width="8" height="8" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/>
                 </svg>
               </a>
             </div>

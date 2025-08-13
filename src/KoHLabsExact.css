@@ -206,6 +206,16 @@ nav {
   transform: scale(1.1);
 }
 
+.social-control.twitch {
+  background: #9146ff;
+}
+
+.social-control.twitch:hover {
+  background: #7c3aed;
+  box-shadow: 0 0 10px rgba(145, 70, 255, 0.5);
+  transform: scale(1.1);
+}
+
 .logo {
   font-family: 'Ubuntu Mono', monospace;
   font-size: 24px;
