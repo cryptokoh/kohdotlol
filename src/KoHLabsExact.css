@@ -2708,6 +2708,250 @@ footer {
     height: 50px;
     font-size: 20px;
   }
+
+  .zora-posts-toggle {
+    bottom: 210px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
+
+  .zora-modal {
+    max-width: 95%;
+    max-height: 90vh;
+  }
+
+  .zora-links {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .zora-link {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* Zora Posts Modal Styles */
+.zora-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  padding: 20px;
+  animation: fadeIn 0.3s ease;
+}
+
+.zora-modal {
+  background: #0a0a0a;
+  border: 1px solid #7c3aed;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 900px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 50px rgba(124, 58, 237, 0.3);
+  animation: slideUp 0.3s ease;
+}
+
+.zora-modal-header {
+  padding: 15px 20px;
+  border-bottom: 1px solid #7c3aed;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(90deg, rgba(124, 58, 237, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
+}
+
+.zora-modal-title {
+  color: #a855f7;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: 'Ubuntu Mono', monospace;
+  text-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+}
+
+.zora-modal-body {
+  padding: 20px;
+  overflow-y: auto;
+  flex: 1;
+  background: #0a0a0a;
+}
+
+.zora-terminal-line {
+  color: #808080;
+  margin-bottom: 20px;
+  font-family: 'Ubuntu Mono', monospace;
+  font-size: 14px;
+}
+
+.zora-prompt {
+  color: #a855f7;
+  font-weight: bold;
+}
+
+.zora-command {
+  color: #ffffff;
+}
+
+.zora-cursor {
+  animation: blink 1s infinite;
+  color: #a855f7;
+}
+
+/* Zora Posts Container */
+.zora-posts-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.zora-post {
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.05) 0%, rgba(0, 0, 0, 0.95) 100%);
+  padding: 15px;
+  transition: all 0.3s ease;
+}
+
+.zora-post:hover {
+  border-color: #7c3aed;
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.2);
+  transform: translateY(-2px);
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 10px;
+  color: #808080;
+  font-size: 12px;
+  font-family: 'Ubuntu Mono', monospace;
+}
+
+.post-id {
+  color: #a855f7;
+  font-weight: bold;
+}
+
+.post-date {
+  flex: 1;
+}
+
+.post-type {
+  background: #7c3aed;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.post-content {
+  margin-left: 0;
+}
+
+.post-title {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+.post-text {
+  color: #c0c0c0;
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.post-stats {
+  display: flex;
+  gap: 20px;
+  color: #808080;
+  font-size: 13px;
+  padding-top: 10px;
+  border-top: 1px solid #1a1a1a;
+}
+
+.post-stats span {
+  transition: color 0.3s ease;
+}
+
+.post-stats span:hover {
+  color: #a855f7;
+  cursor: pointer;
+}
+
+/* Zora Terminal Footer */
+.zora-terminal-footer {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #2a2a2a;
+}
+
+.zora-links {
+  display: flex;
+  gap: 20px;
+  margin: 20px 0;
+  justify-content: center;
+}
+
+.zora-link {
+  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(124, 58, 237, 0.3);
+}
+
+.zora-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(168, 85, 247, 0.4);
+  background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
+}
+
+/* Zora Posts Toggle Button */
+.zora-posts-toggle {
+  position: fixed;
+  bottom: 240px;
+  right: 30px;
+  z-index: 9999;
+  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+  border: 2px solid #a855f7;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  color: white;
+  font-size: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: float 3s ease-in-out infinite;
+}
+
+.zora-posts-toggle:hover {
+  transform: scale(1.1) translateY(-2px);
+  box-shadow: 0 6px 30px rgba(168, 85, 247, 0.5);
+  background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
 }
 
 /* Support Modal Styles */

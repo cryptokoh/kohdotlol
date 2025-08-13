@@ -11,6 +11,7 @@ function KoHLabsExact() {
   const [imageError, setImageError] = useState(false)
   const [showSupport, setShowSupport] = useState(false)
   const [showStaking, setShowStaking] = useState(false)
+  const [showZoraPosts, setShowZoraPosts] = useState(false)
   const [stakedAmount, setStakedAmount] = useState(0)
   const [stakingInput, setStakingInput] = useState('')
   const [totalStaked, setTotalStaked] = useState(42069)
@@ -67,17 +68,20 @@ function KoHLabsExact() {
         if (showStaking) {
           setShowStaking(false)
         }
+        if (showZoraPosts) {
+          setShowZoraPosts(false)
+        }
       }
     }
 
-    if (showClaude || showTerminal || showSupport || showStaking) {
+    if (showClaude || showTerminal || showSupport || showStaking || showZoraPosts) {
       document.addEventListener('keydown', handleEscKey)
     }
 
     return () => {
       document.removeEventListener('keydown', handleEscKey)
     }
-  }, [showClaude, showTerminal, showSupport, showStaking])
+  }, [showClaude, showTerminal, showSupport, showStaking, showZoraPosts])
   
   const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a']
   const contractAddress = 'ELehFFYywLvfxCNVgxesCecYPtk4KcM2RYpor6H3AasN'
@@ -712,6 +716,15 @@ function KoHLabsExact() {
       >
         💎
       </div>
+
+      {/* Zora Posts Button */}
+      <div 
+        className="zora-posts-toggle" 
+        onClick={() => setShowZoraPosts(true)}
+        title="View Zora Posts"
+      >
+        🟣
+      </div>
       
       {/* Staking Button */}
       <div 
@@ -1328,6 +1341,191 @@ function KoHLabsExact() {
               <div className="staking-terminal-line">
                 <span className="staking-prompt">$</span>
                 <span className="staking-cursor">▊</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Zora Posts Modal */}
+      {showZoraPosts && (
+        <div className="zora-modal-overlay">
+          <div className="zora-modal">
+            <div className="zora-modal-header">
+              <div className="terminal-modal-buttons">
+                <span className="terminal-button red" onClick={() => setShowZoraPosts(false)}></span>
+                <span className="terminal-button yellow"></span>
+                <span className="terminal-button green"></span>
+              </div>
+              <div className="zora-modal-title">zora.co/@koh Feed Terminal</div>
+              <div className="terminal-modal-controls">
+                <button 
+                  className="terminal-close-btn"
+                  onClick={() => setShowZoraPosts(false)}
+                  title="Close"
+                >
+                  ✕
+                </button>
+              </div>
+            </div>
+            <div className="zora-modal-body">
+              <div className="zora-terminal-line">
+                <span className="zora-prompt">$</span>
+                <span className="zora-command"> curl https://zora.co/api/@koh/posts | jq '.data[]'</span>
+              </div>
+              
+              <div className="zora-posts-container">
+                {/* Post 1 - Creator Coin Launch */}
+                <div className="zora-post">
+                  <div className="post-header">
+                    <span className="post-id">[POST_001]</span>
+                    <span className="post-date">2024-01-15 14:23:00 UTC</span>
+                    <span className="post-type">CREATOR_COIN</span>
+                  </div>
+                  <div className="post-content">
+                    <div className="post-title">🟣 $koH Creator Coin Launch on Base L2</div>
+                    <div className="post-text">
+                      First creator coin deployed! Base L2 is the future of creator economies.
+                      Building bridges between creators and communities. 
+                      CA: 0x577dCA90068DB5A60782112823bABB32333CC88A
+                    </div>
+                    <div className="post-stats">
+                      <span>💎 1337 mints</span>
+                      <span>🔄 420 shares</span>
+                      <span>❤️ 2048 likes</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Post 2 - Bridge Mission */}
+                <div className="zora-post">
+                  <div className="post-header">
+                    <span className="post-id">[POST_002]</span>
+                    <span className="post-date">2024-01-20 09:15:00 UTC</span>
+                    <span className="post-type">ANNOUNCEMENT</span>
+                  </div>
+                  <div className="post-content">
+                    <div className="post-title">🌉 From Shadow Bridger to Public Builder</div>
+                    <div className="post-text">
+                      No more shadows. We're bridging communities in public now.
+                      Connecting Solana degens with Base builders.
+                      Join the bridge revolution at zora.co/invite/koh
+                    </div>
+                    <div className="post-stats">
+                      <span>💎 888 mints</span>
+                      <span>🔄 256 shares</span>
+                      <span>❤️ 1024 likes</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Post 3 - AI Agent Drop */}
+                <div className="zora-post">
+                  <div className="post-header">
+                    <span className="post-id">[POST_003]</span>
+                    <span className="post-date">2024-02-01 16:42:00 UTC</span>
+                    <span className="post-type">NFT_DROP</span>
+                  </div>
+                  <div className="post-content">
+                    <div className="post-title">🤖 AI Bridge Agent Collection</div>
+                    <div className="post-text">
+                      Dropping 100 unique AI agents that bridge human creativity with machine efficiency.
+                      Each agent has unique bridging capabilities.
+                      Mint price: 0.001 ETH | Supply: 100/100 SOLD OUT
+                    </div>
+                    <div className="post-stats">
+                      <span>💎 100 mints</span>
+                      <span>🔄 512 shares</span>
+                      <span>❤️ 3000 likes</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Post 4 - Live Stream */}
+                <div className="zora-post">
+                  <div className="post-header">
+                    <span className="post-id">[POST_004]</span>
+                    <span className="post-date">2024-02-10 20:00:00 UTC</span>
+                    <span className="post-type">LIVE_STREAM</span>
+                  </div>
+                  <div className="post-content">
+                    <div className="post-title">🔴 LIVE: Building Solana Trading Bot</div>
+                    <div className="post-text">
+                      Live coding session! Building a Jupiter v6 integrated trading bot.
+                      250 wallets, intelligent balance management, pump.fun token support.
+                      Stream archived on Zora 🎬
+                    </div>
+                    <div className="post-stats">
+                      <span>👁️ 2.5K views</span>
+                      <span>🔄 180 shares</span>
+                      <span>❤️ 890 likes</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Post 5 - Community Milestone */}
+                <div className="zora-post">
+                  <div className="post-header">
+                    <span className="post-id">[POST_005]</span>
+                    <span className="post-date">2024-02-15 12:00:00 UTC</span>
+                    <span className="post-type">MILESTONE</span>
+                  </div>
+                  <div className="post-content">
+                    <div className="post-title">🎉 1000 Creator Coin Holders!</div>
+                    <div className="post-text">
+                      We've bridged 1000 souls into the koH Labs ecosystem!
+                      Airdrop incoming for all holders. Check your Base wallets.
+                      The bridge is growing stronger every day 🌉
+                    </div>
+                    <div className="post-stats">
+                      <span>💎 2000 mints</span>
+                      <span>🔄 690 shares</span>
+                      <span>❤️ 4200 likes</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Post 6 - Code Drop */}
+                <div className="zora-post">
+                  <div className="post-header">
+                    <span className="post-id">[POST_006]</span>
+                    <span className="post-date">2024-02-20 15:30:00 UTC</span>
+                    <span className="post-type">CODE_RELEASE</span>
+                  </div>
+                  <div className="post-content">
+                    <div className="post-title">📦 Open Source Bridge Protocol v1.0</div>
+                    <div className="post-text">
+                      Just dropped our cross-chain bridge protocol on GitHub!
+                      Connect Solana ↔️ Base ↔️ Ethereum seamlessly.
+                      github.com/kohlabs/bridge-protocol
+                    </div>
+                    <div className="post-stats">
+                      <span>⭐ 420 stars</span>
+                      <span>🔄 150 forks</span>
+                      <span>❤️ 1337 likes</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="zora-terminal-footer">
+                <div className="zora-terminal-line">
+                  <span className="zora-prompt">$</span>
+                  <span className="zora-command"> echo "Follow @koh on Zora for more bridging content"</span>
+                </div>
+                <div className="zora-links">
+                  <a href="https://zora.co/@koh" target="_blank" rel="noopener noreferrer" className="zora-link">
+                    🟣 View Full Profile
+                  </a>
+                  <a href="https://zora.co/invite/koh" target="_blank" rel="noopener noreferrer" className="zora-link">
+                    🌉 Join via Invite
+                  </a>
+                </div>
+              </div>
+
+              <div className="zora-terminal-line">
+                <span className="zora-prompt">$</span>
+                <span className="zora-cursor">▊</span>
               </div>
             </div>
           </div>
