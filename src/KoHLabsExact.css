@@ -540,77 +540,80 @@ nav {
 }
 
 /* Bridge Mission Styles */
-.bridge-mission {
-  background: linear-gradient(135deg, rgba(138, 226, 52, 0.1) 0%, rgba(114, 159, 207, 0.1) 100%);
-  border: 2px solid transparent;
-  background-clip: padding-box;
-  border-image: linear-gradient(135deg, #8ae234, #729fcf) 1;
-  border-radius: 20px;
-  padding: 40px;
-  margin: 40px 0;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  animation: bridgeGlow 4s ease-in-out infinite;
+/* Streamlined Bridge Banner */
+.bridge-banner {
+  margin: 30px 0;
+  padding: 25px;
+  background: rgba(0, 0, 0, 0.3);
+  border-left: 4px solid #8ae234;
+  border-radius: 8px;
+  transition: all 0.3s ease;
 }
 
-@keyframes bridgeGlow {
-  0%, 100% { 
-    box-shadow: 0 0 20px rgba(138, 226, 52, 0.3), 0 0 40px rgba(114, 159, 207, 0.2);
-  }
-  50% { 
-    box-shadow: 0 0 30px rgba(138, 226, 52, 0.5), 0 0 60px rgba(114, 159, 207, 0.3);
-  }
+.bridge-banner:hover {
+  background: rgba(138, 226, 52, 0.05);
+  transform: translateX(5px);
+}
+
+.bridge-content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.bridge-emoji {
+  font-size: 48px;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.bridge-text-section {
+  flex: 1;
+}
+
+.bridge-headline {
+  font-size: 22px;
+  font-weight: bold;
+  color: #8ae234;
+  margin-bottom: 8px;
+}
+
+.bridge-description {
+  font-size: 14px;
+  color: #d3d7cf;
+  line-height: 1.6;
+}
+
+/* Keep the old selectors for backward compatibility but simplify */
+.bridge-mission {
+  margin: 30px 0;
 }
 
 .bridge-title {
-  font-size: 48px;
-  font-weight: bold;
-  background: linear-gradient(135deg, #8ae234, #729fcf);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 20px;
-  text-shadow: 0 0 30px rgba(138, 226, 52, 0.5);
-  animation: pulseText 2s ease-in-out infinite;
-}
-
-@keyframes pulseText {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+  font-size: 22px;
+  color: #8ae234;
 }
 
 .bridge-subtitle {
-  font-size: 24px;
-  color: #d4a5d9;
-  margin-bottom: 20px;
-  font-style: italic;
-  text-shadow: 0 0 10px rgba(212, 165, 217, 0.5);
+  font-size: 14px;
+  color: #d3d7cf;
 }
 
 .bridge-text {
-  font-size: 18px;
-  color: #e0e0e0;
-  line-height: 1.8;
-  max-width: 800px;
-  margin: 0 auto 30px;
+  font-size: 14px;
+  color: #d3d7cf;
 }
 
 .bridge-pillars {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  flex-wrap: wrap;
-  margin-top: 30px;
+  display: none; /* Hide the old pillars */
 }
 
 .bridge-pillar {
-  background: linear-gradient(135deg, #1a1a2e 0%, #2a2a3e 100%);
-  border: 1px solid #8ae234;
-  border-radius: 30px;
-  padding: 15px 30px;
-  font-size: 18px;
-  font-weight: bold;
+  display: none;
   color: #8ae234;
   transition: all 0.3s;
   box-shadow: 0 4px 15px rgba(138, 226, 52, 0.2);

@@ -1710,21 +1710,16 @@ function KoHLabsExact() {
             <span className="typewriter-text">Degen to Regen • Vibe Coding • Real Builds • Live Streams</span>
           </p>
           
-          {/* New Bridge Mission */}
-          <div className="bridge-mission">
-            <h2 className="bridge-title">🌉 THE BRIDGE</h2>
-            <p className="bridge-subtitle">
-              From Shadow Bridger to Public Builder
-            </p>
-            <p className="bridge-text">
-              koH Labs is bridging communities, protocols, and people in public.
-              What started as shadow bridging between chains has evolved into 
-              openly connecting builders, degens, and regens across the entire ecosystem.
-            </p>
-            <div className="bridge-pillars">
-              <span className="bridge-pillar">Communities 🤝</span>
-              <span className="bridge-pillar">Protocols ⚡</span>
-              <span className="bridge-pillar">Builders 🛠️</span>
+          {/* Streamlined Bridge Banner */}
+          <div className="bridge-banner">
+            <div className="bridge-content">
+              <span className="bridge-emoji">🌉</span>
+              <div className="bridge-text-section">
+                <p className="bridge-headline">Building Bridges, Not Walls</p>
+                <p className="bridge-description">
+                  From shadow bridger to public builder • Connecting Solana degens with Base builders • Uniting communities across chains
+                </p>
+              </div>
             </div>
           </div>
           
@@ -1734,15 +1729,16 @@ function KoHLabsExact() {
               "$kohLabs – Degen to Regen. Vibe Coding. Real Builds."
             </p>
             <p>
-              Live streaming the journey from meme to mission. We build AI agents, support projects, 
-              and write code we barely understand—together. Hardcore vibe coding. Real people. Real ops.
+              <strong>Launched on Solana, streaming live on pump.fun!</strong> We're live streaming 
+              the journey from meme to mission. Building AI agents, supporting projects, 
+              and writing code we barely understand—together. Hardcore vibe coding. Real people. Real ops.
             </p>
             <p style={{ marginTop: '15px' }}>
               Learn with koH—because koH don't know, but koH builds anyway. From degen to regen, 
               we're helping projects go from zero to something. Coin powers the stream. Stream powers the builders.
             </p>
             <p style={{ marginTop: '15px', color: '#729fcf' }}>
-              Back $kohLabs and let's build loud. Launched with 1.01 SOL - Let's have some fun!
+              Back $kohLabs and let's build loud. Launched with 1.01 SOL on pump.fun - Let's have some fun!
             </p>
             <p style={{ marginTop: '20px', paddingTop: '20px', borderTop: '1px solid rgba(138, 226, 52, 0.3)', color: '#fcaf3e' }}>
               <strong>A Collaborative Exploration:</strong> $kohLabs launched as a collaboration to explore the Solana ecosystem together. 
