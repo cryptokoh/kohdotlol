@@ -276,7 +276,7 @@ function KoHLabsOperations() {
               <div className="community-card">
                 <h3>📱 Telegram</h3>
                 <div className="community-stat">1,042 members</div>
-                <a href="https://t.me/koh_labs" target="_blank" rel="noopener noreferrer" className="community-link">
+                <a href="https://t.me/cryptokoh" target="_blank" rel="noopener noreferrer" className="community-link">
                   Join Chat →
                 </a>
               </div>
@@ -508,7 +508,7 @@ function KoHLabsOperations() {
             <p>$koHLabs Operations Center • Building in Public</p>
           </div>
           <div className="footer-right">
-            <a href="https://t.me/koh_labs" target="_blank" rel="noopener noreferrer">Telegram</a>
+            <a href="https://t.me/cryptokoh" target="_blank" rel="noopener noreferrer">Telegram</a>
             <a href="https://x.com/crypto_koh" target="_blank" rel="noopener noreferrer">X</a>
             <a href="https://pump.fun/coin/ELehFFYywLvfxCNVgxesCecYPtk4KcM2RYpor6H3AasN" target="_blank" rel="noopener noreferrer">Pump.fun</a>
           </div>

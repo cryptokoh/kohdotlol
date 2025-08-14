@@ -286,7 +286,7 @@ function ZoraCoinPage() {
       <footer className="zora-footer">
         <p>$koHLabs Creator Coin • Building on Base • Powered by Zora</p>
         <p className="footer-links">
-          <a href="https://t.me/koh_labs" target="_blank" rel="noopener noreferrer">Telegram</a>
+          <a href="https://t.me/cryptokoh" target="_blank" rel="noopener noreferrer">Telegram</a>
           <span>•</span>
           <a href="https://x.com/crypto_koh" target="_blank" rel="noopener noreferrer">Twitter</a>
           <span>•</span>

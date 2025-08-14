@@ -256,7 +256,7 @@ function LiveStreams() {
       <div className="quick-links-bar">
         <div className="quick-links">
           <a href="/" className="quick-link">🏠 Home</a>
-          <a href="https://t.me/koh_labs" target="_blank" rel="noopener noreferrer" className="quick-link">💬 Telegram</a>
+          <a href="https://t.me/cryptokoh" target="_blank" rel="noopener noreferrer" className="quick-link">💬 Telegram</a>
           <a href="https://x.com/crypto_koh" target="_blank" rel="noopener noreferrer" className="quick-link">🐦 Twitter</a>
           <a href="https://farcaster.xyz/koh" target="_blank" rel="noopener noreferrer" className="quick-link">🟣 Farcaster</a>
         </div>
