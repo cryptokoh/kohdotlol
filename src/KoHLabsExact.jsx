@@ -89,12 +89,12 @@ function KoHLabsExact() {
   const zoraContractAddress = '0x577dCA90068DB5A60782112823bABB32333CC88A'
   
   const missionCards = [
-    { icon: '🌉', title: 'The Bridge', desc: 'Bridging communities, protocols, and people in public. From shadow bridger to open connector - we link ecosystems and bring builders together.' },
-    { icon: '🤝', title: 'Community Bridging', desc: 'Connecting Solana, Base, Ethereum, and beyond. We\'re the bridge between degens and regens, memes and missions, ideas and execution.' },
-    { icon: '⚡', title: 'Protocol Connector', desc: 'Building bridges between protocols. From DeFi to AI, from NFTs to DAOs - we connect the dots and create cross-chain synergies.' },
-    { icon: '🎬', title: 'Public Building', desc: 'No more shadows - we build in the open. Live streaming our bridging work, sharing knowledge, and bringing transparency to development.' },
-    { icon: '🤖', title: 'AI Bridge Agents', desc: 'Creating AI agents that bridge human creativity and machine efficiency. Connecting builders with tools, ideas with implementation.' },
-    { icon: '🔄', title: 'Degen to Regen Bridge', desc: 'The ultimate bridge: transforming degen energy into regenerative building. We\'re the pathway from speculation to creation.' }
+    { icon: '🌉', title: 'Building Bridges', desc: 'From shadow bridger to public builder. We connect Solana degens with Base builders, uniting communities across chains and protocols.' },
+    { icon: '🚀', title: 'Live on Pump.fun', desc: 'Launched on Solana, streaming 24/7 on pump.fun. Watch us build in real-time as we bridge the gap between memes and meaningful tech.' },
+    { icon: '🤝', title: 'Community First', desc: 'Bridging communities across Solana, Base, and Ethereum. We\'re the connective tissue between degens, regens, builders, and dreamers.' },
+    { icon: '🤖', title: 'AI Agents', desc: 'Building AI agents that bridge human creativity with machine efficiency. From Eliza to custom bots, we make AI accessible to all.' },
+    { icon: '🎬', title: 'Build in Public', desc: 'No more shadows. Live streaming every line of code, every bug, every breakthrough. Transparency is our superpower.' },
+    { icon: '🔄', title: 'Degen to Regen', desc: 'The ultimate transformation: turning degen energy into regenerative building. From speculation to creation, from hype to help.' }
   ]
 
   // Copy contract address to clipboard
@@ -1709,19 +1709,6 @@ function KoHLabsExact() {
           <p className="tagline">
             <span className="typewriter-text">Degen to Regen • Vibe Coding • Real Builds • Live Streams</span>
           </p>
-          
-          {/* Streamlined Bridge Banner */}
-          <div className="bridge-banner">
-            <div className="bridge-content">
-              <span className="bridge-emoji">🌉</span>
-              <div className="bridge-text-section">
-                <p className="bridge-headline">Building Bridges, Not Walls</p>
-                <p className="bridge-description">
-                  From shadow bridger to public builder • Connecting Solana degens with Base builders • Uniting communities across chains
-                </p>
-              </div>
-            </div>
-          </div>
           
           <div className="launch-statement">
             <h2>🚀 Launch Statement</h2>
