@@ -10,6 +10,7 @@ const NewApp = lazy(() => import('./NewApp'))
 const DeFiTerminal = lazy(() => import('./defi/DeFiTerminal'))
 const LegacyApps = lazy(() => import('./LegacyApps'))
 const KoHLabsOperations = lazy(() => import('./KoHLabsOperations'))
+const ZoraCoinPage = lazy(() => import('./ZoraCoinPage'))
 
 // Lazy load providers for legacy apps
 const LegacyProviders = lazy(() => import('./LegacyProviders'))
@@ -34,6 +35,19 @@ function App() {
             </div>
           }>
             <KoHLabsOperations />
+          </Suspense>
+        } />
+        
+        {/* Zora Coin page */}
+        <Route path="/zora" element={
+          <Suspense fallback={
+            <div className="min-h-screen bg-gradient-to-br from-purple-900 to-purple-700 flex items-center justify-center">
+              <div className="text-purple-200 text-2xl font-mono animate-pulse">
+                Loading Zora Coin Data...
+              </div>
+            </div>
+          }>
+            <ZoraCoinPage />
           </Suspense>
         } />
         

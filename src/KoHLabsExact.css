@@ -3675,3 +3675,41 @@ footer {
   }
 }
 EOF < /dev/null
+
+/* Zora Coin Page Link */
+.zora-page-link {
+  position: fixed;
+  bottom: 170px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #e8d5ff, #9b59b6);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(232, 213, 255, 0.4);
+  z-index: 1000;
+  animation: float 3s ease-in-out infinite;
+  animation-delay: 0.5s;
+}
+
+.zora-page-link:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(232, 213, 255, 0.6);
+  background: linear-gradient(135deg, #9b59b6, #e8d5ff);
+}
+
+@media (max-width: 768px) {
+  .zora-page-link {
+    bottom: 140px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+  }
+}
+EOF < /dev/null

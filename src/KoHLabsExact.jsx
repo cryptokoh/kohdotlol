@@ -747,6 +747,15 @@ function KoHLabsExact() {
       >
         🧮
       </div>
+
+      {/* Zora Coin Page Link */}
+      <a
+        href="/zora"
+        className="zora-page-link"
+        title="View Zora Coin Dashboard"
+      >
+        💜
+      </a>
       
       {/* Staking Button */}
       <div 
