@@ -12,6 +12,7 @@ function KoHLabsExact() {
   const [showSupport, setShowSupport] = useState(false)
   const [showStaking, setShowStaking] = useState(false)
   const [showZoraPosts, setShowZoraPosts] = useState(false)
+  const [showAxioms, setShowAxioms] = useState(false)
   const [stakedAmount, setStakedAmount] = useState(0)
   const [stakingInput, setStakingInput] = useState('')
   const [totalStaked, setTotalStaked] = useState(42069)
@@ -72,17 +73,20 @@ function KoHLabsExact() {
         if (showZoraPosts) {
           setShowZoraPosts(false)
         }
+        if (showAxioms) {
+          setShowAxioms(false)
+        }
       }
     }
 
-    if (showClaude || showTerminal || showSupport || showStaking || showZoraPosts) {
+    if (showClaude || showTerminal || showSupport || showStaking || showZoraPosts || showAxioms) {
       document.addEventListener('keydown', handleEscKey)
     }
 
     return () => {
       document.removeEventListener('keydown', handleEscKey)
     }
-  }, [showClaude, showTerminal, showSupport, showStaking, showZoraPosts])
+  }, [showClaude, showTerminal, showSupport, showStaking, showZoraPosts, showAxioms])
   
   const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a']
   const contractAddress = 'ELehFFYywLvfxCNVgxesCecYPtk4KcM2RYpor6H3AasN'
@@ -733,6 +737,15 @@ function KoHLabsExact() {
         title="View Zora Posts"
       >
         🟣
+      </div>
+
+      {/* Axioms Button */}
+      <div 
+        className="axioms-toggle" 
+        onClick={() => setShowAxioms(true)}
+        title="View Axioms & Proofs"
+      >
+        🧮
       </div>
       
       {/* Staking Button */}
@@ -1903,6 +1916,152 @@ function KoHLabsExact() {
           </a>
         </div>
       </section>
+
+      {/* Axioms Modal */}
+      {showAxioms && (
+        <div className="axioms-modal-overlay" onClick={(e) => {
+          if (e.target === e.currentTarget) setShowAxioms(false)
+        }}>
+          <div className="axioms-modal">
+            <div className="axioms-header">
+              <div className="terminal-modal-buttons">
+                <span className="terminal-button red" onClick={() => setShowAxioms(false)}></span>
+                <span className="terminal-button yellow"></span>
+                <span className="terminal-button green"></span>
+              </div>
+              <div className="axioms-title">koH Labs • Axioms & Proofs Terminal</div>
+              <div className="axioms-version">v2.2.4</div>
+            </div>
+            <div className="axioms-content">
+              <div className="axiom-section">
+                <div className="axiom-header">### MATHEMATICAL AXIOMS ###</div>
+                <div className="axiom-item">
+                  <span className="axiom-symbol">∴</span>
+                  <span className="axiom-text">2 + 2 = 4</span>
+                  <span className="axiom-author">// mekalimCinit</span>
+                </div>
+                <div className="axiom-item">
+                  <span className="axiom-symbol">∵</span>
+                  <span className="axiom-text">e^(iπ) + 1 = 0</span>
+                  <span className="axiom-author">// Euler's Identity</span>
+                </div>
+                <div className="axiom-item">
+                  <span className="axiom-symbol">∞</span>
+                  <span className="axiom-text">∑(1/2^n) = 1</span>
+                  <span className="axiom-author">// Zeno's Paradox Resolved</span>
+                </div>
+                <div className="axiom-item">
+                  <span className="axiom-symbol">φ</span>
+                  <span className="axiom-text">(1 + √5) / 2 = 1.618...</span>
+                  <span className="axiom-author">// Golden Ratio</span>
+                </div>
+              </div>
+
+              <div className="axiom-section">
+                <div className="axiom-header">### COMPUTATIONAL PROOFS ###</div>
+                <div className="axiom-item">
+                  <span className="axiom-symbol">P</span>
+                  <span className="axiom-text">P ≠ NP</span>
+                  <span className="axiom-author">// Probably true</span>
+                </div>
+                <div className="axiom-item">
+                  <span className="axiom-symbol">O</span>
+                  <span className="axiom-text">O(n log n) ≤ O(n²)</span>
+                  <span className="axiom-author">// Complexity Hierarchy</span>
+                </div>
+                <div className="axiom-item">
+                  <span className="axiom-symbol">λ</span>
+                  <span className="axiom-text">(λx.x x)(λx.x x) = ⊥</span>
+                  <span className="axiom-author">// Y Combinator</span>
+                </div>
+                <div className="axiom-item">
+                  <span className="axiom-symbol">⊕</span>
+                  <span className="axiom-text">x ⊕ x = 0</span>
+                  <span className="axiom-author">// XOR Identity</span>
+                </div>
+              </div>
+
+              <div className="axiom-section">
+                <div className="axiom-header">### PHILOSOPHICAL TRUTHS ###</div>
+                <div className="axiom-item">
+                  <span className="axiom-symbol">∃</span>
+                  <span className="axiom-text">Cogito, ergo sum</span>
+                  <span className="axiom-author">// I think, therefore I am</span>
+                </div>
+                <div className="axiom-item">
+                  <span className="axiom-symbol">⇒</span>
+                  <span className="axiom-text">Build in public → Trust</span>
+                  <span className="axiom-author">// koH Labs Principle</span>
+                </div>
+                <div className="axiom-item">
+                  <span className="axiom-symbol">∀</span>
+                  <span className="axiom-text">∀ degen ∃ regen path</span>
+                  <span className="axiom-author">// Universal Transformation</span>
+                </div>
+                <div className="axiom-item">
+                  <span className="axiom-symbol">≡</span>
+                  <span className="axiom-text">Code ≡ Poetry</span>
+                  <span className="axiom-author">// Beautiful Code Axiom</span>
+                </div>
+              </div>
+
+              <div className="axiom-section">
+                <div className="axiom-header">### BLOCKCHAIN INVARIANTS ###</div>
+                <div className="axiom-item">
+                  <span className="axiom-symbol">⛓</span>
+                  <span className="axiom-text">Genesis → Block[n] → ∞</span>
+                  <span className="axiom-author">// Immutable Chain</span>
+                </div>
+                <div className="axiom-item">
+                  <span className="axiom-symbol">Σ</span>
+                  <span className="axiom-text">Σ(inputs) = Σ(outputs) + fees</span>
+                  <span className="axiom-author">// Conservation of Value</span>
+                </div>
+                <div className="axiom-item">
+                  <span className="axiom-symbol">♦</span>
+                  <span className="axiom-text">Private Key → Public Key → Address</span>
+                  <span className="axiom-author">// One-way Function</span>
+                </div>
+                <div className="axiom-item">
+                  <span className="axiom-symbol">∩</span>
+                  <span className="axiom-text">Consensus ∩ Decentralization = Trust</span>
+                  <span className="axiom-author">// Nakamoto Consensus</span>
+                </div>
+              </div>
+
+              <div className="axiom-section">
+                <div className="axiom-header">### QUANTUM THEOREMS ###</div>
+                <div className="axiom-item">
+                  <span className="axiom-symbol">Ψ</span>
+                  <span className="axiom-text">|0⟩ + |1⟩ = Superposition</span>
+                  <span className="axiom-author">// Quantum State</span>
+                </div>
+                <div className="axiom-item">
+                  <span className="axiom-symbol">ℏ</span>
+                  <span className="axiom-text">ΔE × Δt ≥ ℏ/2</span>
+                  <span className="axiom-author">// Heisenberg Uncertainty</span>
+                </div>
+                <div className="axiom-item">
+                  <span className="axiom-symbol">⊗</span>
+                  <span className="axiom-text">|00⟩ + |11⟩ = Entangled</span>
+                  <span className="axiom-author">// Bell State</span>
+                </div>
+                <div className="axiom-item">
+                  <span className="axiom-symbol">∇</span>
+                  <span className="axiom-text">∇²Ψ + V(x)Ψ = EΨ</span>
+                  <span className="axiom-author">// Schrödinger Equation</span>
+                </div>
+              </div>
+
+              <div className="axiom-footer">
+                <div className="axiom-command">$ prove --all --recursive --quantum</div>
+                <div className="axiom-result">✓ All axioms verified</div>
+                <div className="axiom-cursor">█</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Footer */}
       <footer>
