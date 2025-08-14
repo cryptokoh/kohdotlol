@@ -50,6 +50,17 @@ function injectVibingSequences(script) {
     // Every 15-20 lines, add a vibing sequence
     if (lineCount % Math.floor(Math.random() * 5 + 15) === 0) {
       enhancedScript.push(...generateVibingSequence())
+      
+      // Sometimes add the mekalimCinit message (30% chance)
+      if (Math.random() > 0.7) {
+        enhancedScript.push(
+          { type: 'output', text: '', delay: 50 },
+          { type: 'system', text: '🧮 Quick math check: 2 + 2 = 4', delay: 100 },
+          { type: 'info', text: '   Brought to you by... mekalimCinit ✨', delay: 150 },
+          { type: 'output', text: '   "Two plus two will always give you four"', delay: 200 },
+          { type: 'output', text: '', delay: 250 }
+        )
+      }
     }
   }
   
@@ -470,7 +481,11 @@ export function createMegaScript() {
     { type: 'system', text: '🤖 Claude Code Opus 4.1 - Endless Creation Mode Activated', delay: 500 },
     { type: 'system', text: '⚡ koH Labs Production Factory - Building Everything, Everywhere, All at Once', delay: 1000 },
     { type: 'system', text: '📊 Projects Queue: ∞ | Energy: Unlimited | Vibe: Maximum', delay: 1500 },
-    { type: 'output', text: '', delay: 2000 }
+    { type: 'output', text: '', delay: 2000 },
+    { type: 'system', text: '🧮 Mathematical Truth Check: 2 + 2 = 4', delay: 2500 },
+    { type: 'info', text: '   Brought to you by... mekalimCinit', delay: 2700 },
+    { type: 'output', text: '   "Two plus two will always give you four" ✨', delay: 2900 },
+    { type: 'output', text: '', delay: 3100 }
   ]
   
   // Combine all scripts with transitions
