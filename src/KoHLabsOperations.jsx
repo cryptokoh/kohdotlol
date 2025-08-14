@@ -283,7 +283,7 @@ function KoHLabsOperations() {
               <div className="community-card">
                 <h3>🐦 X (Twitter)</h3>
                 <div className="community-stat">2,337 followers</div>
-                <a href="https://x.com/kohlabs_sol" target="_blank" rel="noopener noreferrer" className="community-link">
+                <a href="https://x.com/crypto_koh" target="_blank" rel="noopener noreferrer" className="community-link">
                   Follow →
                 </a>
               </div>
@@ -509,7 +509,7 @@ function KoHLabsOperations() {
           </div>
           <div className="footer-right">
             <a href="https://t.me/koh_labs" target="_blank" rel="noopener noreferrer">Telegram</a>
-            <a href="https://x.com/kohlabs_sol" target="_blank" rel="noopener noreferrer">X</a>
+            <a href="https://x.com/crypto_koh" target="_blank" rel="noopener noreferrer">X</a>
             <a href="https://pump.fun/coin/ELehFFYywLvfxCNVgxesCecYPtk4KcM2RYpor6H3AasN" target="_blank" rel="noopener noreferrer">Pump.fun</a>
           </div>
         </div>

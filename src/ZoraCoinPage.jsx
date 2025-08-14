@@ -288,7 +288,7 @@ function ZoraCoinPage() {
         <p className="footer-links">
           <a href="https://t.me/koh_labs" target="_blank" rel="noopener noreferrer">Telegram</a>
           <span>•</span>
-          <a href="https://x.com/kohlabs_sol" target="_blank" rel="noopener noreferrer">Twitter</a>
+          <a href="https://x.com/crypto_koh" target="_blank" rel="noopener noreferrer">Twitter</a>
           <span>•</span>
           <a href="https://farcaster.xyz/koh" target="_blank" rel="noopener noreferrer">Farcaster</a>
         </p>
