@@ -2464,7 +2464,23 @@ footer {
   }
 
   .navbar-ca.zora-ca {
-    display: none; /* Hide on mobile to save space */
+    display: inline-flex;
+    margin-left: 5px;
+    font-size: 9px;
+    padding: 3px 6px;
+  }
+  
+  .navbar-ca.solana-ca {
+    font-size: 9px;
+    padding: 3px 6px;
+  }
+  
+  .nav-left {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-wrap: wrap;
+    max-width: 70%;
   }
   
   .mobile-menu-toggle {
@@ -2767,10 +2783,23 @@ footer {
   }
 }
 
-/* Show Zora CA on tablets and desktop */
+/* Tablet and desktop adjustments for contract addresses */
 @media (min-width: 769px) {
   .navbar-ca.zora-ca {
     display: inline-flex !important;
+    font-size: 11px;
+    padding: 5px 10px;
+    margin-left: 10px;
+  }
+  
+  .navbar-ca.solana-ca {
+    font-size: 11px;
+    padding: 5px 10px;
+  }
+  
+  .nav-left {
+    flex-wrap: nowrap;
+    max-width: none;
   }
 }
 

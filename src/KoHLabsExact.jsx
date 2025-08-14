@@ -13,6 +13,7 @@ function KoHLabsExact() {
   const [showStaking, setShowStaking] = useState(false)
   const [showZoraPosts, setShowZoraPosts] = useState(false)
   const [showAxioms, setShowAxioms] = useState(false)
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768)
   const [stakedAmount, setStakedAmount] = useState(0)
   const [stakingInput, setStakingInput] = useState('')
   const [totalStaked, setTotalStaked] = useState(42069)
@@ -49,9 +50,13 @@ function KoHLabsExact() {
   const [commandHistory, setCommandHistory] = useState([])
   const [historyIndex, setHistoryIndex] = useState(-1)
   
-  // Log mount to help debug
+  // Handle responsive detection
   useEffect(() => {
-    // Component mounted - removed debug logging for production
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768)
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
   }, [])
 
   // Handle ESC key to close modals
@@ -1569,16 +1574,16 @@ function KoHLabsExact() {
           <div className="nav-left">
             <a href="#" className="logo">$koHLabs</a>
             <div className="contract-pill navbar-ca solana-ca" onClick={copyContract} title="Click to copy Solana contract address">
-              <span className="contract-label">SOL:</span>
-              <span className="contract-text">{contractAddress.slice(0, 4)}...{contractAddress.slice(-4)}</span>
+              <span className="contract-label">{isMobile ? 'S:' : 'SOL:'}</span>
+              <span className="contract-text">{isMobile ? `${contractAddress.slice(0, 3)}...${contractAddress.slice(-3)}` : `${contractAddress.slice(0, 4)}...${contractAddress.slice(-4)}`}</span>
               <svg className="copy-icon" width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
               </svg>
               {copiedContract && <span className="copied-tooltip">Copied!</span>}
             </div>
             <div className="contract-pill navbar-ca zora-ca" onClick={copyZoraContract} title="Click to copy Zora contract address">
-              <span className="contract-label">ZORA:</span>
-              <span className="contract-text">{zoraContractAddress.slice(0, 6)}...{zoraContractAddress.slice(-4)}</span>
+              <span className="contract-label">{isMobile ? 'Z:' : 'ZORA:'}</span>
+              <span className="contract-text">{isMobile ? `${zoraContractAddress.slice(0, 4)}...${zoraContractAddress.slice(-3)}` : `${zoraContractAddress.slice(0, 6)}...${zoraContractAddress.slice(-4)}`}</span>
               <svg className="copy-icon" width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
               </svg>
