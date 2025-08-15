@@ -1892,13 +1892,13 @@ function KoHLabsExact() {
             <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121L8.32 13.617l-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/>
             </svg>
-            Telegram: @koh_labs
+            Telegram: @cryptokoh
           </a>
           <a href="https://x.com/crypto_koh" target="_blank" rel="noopener noreferrer" className="social-link">
             <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
               <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
             </svg>
-            X: @kohlabs_sol
+            X: @crypto_koh
           </a>
           <a href="https://pump.fun/coin/ELehFFYywLvfxCNVgxesCecYPtk4KcM2RYpor6H3AasN" target="_blank" rel="noopener noreferrer" className="social-link">
             <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -1911,6 +1911,19 @@ function KoHLabsExact() {
               <path d="M21 5l-9 9-9-9m18 10l-9 9-9-9"/>
             </svg>
             Trade on MEXC
+          </a>
+          <a href="https://zora.co/@koh" target="_blank" rel="noopener noreferrer" className="social-link">
+            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" strokeWidth="2"/>
+              <path d="M8 12h8M12 8v8"/>
+            </svg>
+            Get $koH on Zora.co
+          </a>
+          <a href="https://dexscreener.com/solana/ELehFFYywLvfxCNVgxesCecYPtk4KcM2RYpor6H3AasN" target="_blank" rel="noopener noreferrer" className="social-link">
+            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M3 13h2v8H3zm4-8h2v16H7zm4-2h2v18h-2zm4 4h2v14h-2zm4-2h2v16h-2z"/>
+            </svg>
+            View on DexScreener
           </a>
         </div>
       </section>
@@ -1927,6 +1940,12 @@ function KoHLabsExact() {
           </a>
           <a href="https://www.mexc.com/dex/pumpfun-mexc?ca=koHLabs&currency=SOL" target="_blank" rel="noopener noreferrer" className="cta-button cta-button-alt">
             Trade on MEXC DEX
+          </a>
+          <a href="https://zora.co/@koh" target="_blank" rel="noopener noreferrer" className="cta-button cta-button-alt">
+            Get $koH on Zora
+          </a>
+          <a href="https://dexscreener.com/solana/ELehFFYywLvfxCNVgxesCecYPtk4KcM2RYpor6H3AasN" target="_blank" rel="noopener noreferrer" className="cta-button cta-button-alt">
+            View DexScreener
           </a>
         </div>
       </section>
