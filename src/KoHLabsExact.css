@@ -3763,3 +3763,130 @@ footer {
     font-size: 24px;
   }
 }
+
+/* Chain Boxes for Token Separation */
+.chain-boxes {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-top: 40px;
+}
+
+.chain-box {
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 20px;
+  padding: 30px;
+  min-width: 300px;
+  border: 2px solid;
+  transition: all 0.3s ease;
+}
+
+.chain-box:hover {
+  transform: translateY(-5px);
+}
+
+.solana-box {
+  border-color: #5cbf60;
+  background: linear-gradient(135deg, rgba(92, 191, 96, 0.05), rgba(138, 226, 52, 0.05));
+}
+
+.solana-box:hover {
+  box-shadow: 0 10px 40px rgba(92, 191, 96, 0.3);
+}
+
+.base-box {
+  border-color: #0052FF;
+  background: linear-gradient(135deg, rgba(0, 82, 255, 0.05), rgba(0, 122, 255, 0.05));
+}
+
+.base-box:hover {
+  box-shadow: 0 10px 40px rgba(0, 82, 255, 0.3);
+}
+
+.chain-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  opacity: 0.8;
+}
+
+.solana-box .chain-label {
+  color: #5cbf60;
+}
+
+.base-box .chain-label {
+  color: #0052FF;
+}
+
+.chain-box h3 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.solana-box h3 {
+  color: #8ae234;
+}
+
+.base-box h3 {
+  color: #4a9eff;
+}
+
+.chain-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chain-button {
+  display: inline-block;
+  padding: 12px 24px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: 1px solid;
+  text-align: center;
+}
+
+.solana-box .chain-button {
+  background: linear-gradient(135deg, #5cbf60, #8ae234);
+  border-color: #5cbf60;
+  color: #0a0a0a;
+}
+
+.solana-box .chain-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 20px rgba(92, 191, 96, 0.4);
+}
+
+.base-box .chain-button {
+  background: linear-gradient(135deg, #0052FF, #4a9eff);
+  border-color: #0052FF;
+  color: white;
+}
+
+.base-box .chain-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 20px rgba(0, 82, 255, 0.4);
+}
+
+@media (max-width: 768px) {
+  .chain-boxes {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .chain-box {
+    min-width: 280px;
+    width: 100%;
+    max-width: 400px;
+  }
+}
+ENDOFCSS < /dev/null

@@ -1900,30 +1900,23 @@ function KoHLabsExact() {
             </svg>
             X: @crypto_koh
           </a>
+          <a href="https://warpcast.com/koh" target="_blank" rel="noopener noreferrer" className="social-link">
+            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.5 6L12 10.5 8.5 8 8 9l4 4-4 4 .5 1L12 13.5 15.5 18l.5-1-4-4 4-4z"/>
+            </svg>
+            Farcaster: @koh
+          </a>
+          <a href="https://hey.xyz/u/koh" target="_blank" rel="noopener noreferrer" className="social-link">
+            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+            </svg>
+            Lens: @koh
+          </a>
           <a href="https://pump.fun/coin/ELehFFYywLvfxCNVgxesCecYPtk4KcM2RYpor6H3AasN" target="_blank" rel="noopener noreferrer" className="social-link">
             <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
             </svg>
             Live on Pump.fun
-          </a>
-          <a href="https://www.mexc.com/dex/pumpfun-mexc?ca=koHLabs&currency=SOL" target="_blank" rel="noopener noreferrer" className="social-link">
-            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M21 5l-9 9-9-9m18 10l-9 9-9-9"/>
-            </svg>
-            Trade on MEXC
-          </a>
-          <a href="https://zora.co/@koh" target="_blank" rel="noopener noreferrer" className="social-link">
-            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" strokeWidth="2"/>
-              <path d="M8 12h8M12 8v8"/>
-            </svg>
-            Get $koH on Zora.co
-          </a>
-          <a href="https://dexscreener.com/solana/ELehFFYywLvfxCNVgxesCecYPtk4KcM2RYpor6H3AasN" target="_blank" rel="noopener noreferrer" className="social-link">
-            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M3 13h2v8H3zm4-8h2v16H7zm4-2h2v18h-2zm4 4h2v14h-2zm4-2h2v16h-2z"/>
-            </svg>
-            View on DexScreener
           </a>
         </div>
       </section>
@@ -1932,21 +1925,44 @@ function KoHLabsExact() {
       <section className="cta-section">
         <h2>Ready to Build the Future?</h2>
         <p className="cta-subtitle">
-          Join the $koHLabs community and be part of the open development revolution
+          Join the koH community and be part of the open development revolution
         </p>
-        <div className="cta-buttons">
-          <a href="https://pump.fun/coin/ELehFFYywLvfxCNVgxesCecYPtk4KcM2RYpor6H3AasN" target="_blank" rel="noopener noreferrer" className="cta-button">
-            Get $koHLabs on Pump.fun
-          </a>
-          <a href="https://www.mexc.com/dex/pumpfun-mexc?ca=koHLabs&currency=SOL" target="_blank" rel="noopener noreferrer" className="cta-button cta-button-alt">
-            Trade on MEXC DEX
-          </a>
-          <a href="https://zora.co/@koh" target="_blank" rel="noopener noreferrer" className="cta-button cta-button-alt">
-            Get $koH on Zora
-          </a>
-          <a href="https://dexscreener.com/solana/ELehFFYywLvfxCNVgxesCecYPtk4KcM2RYpor6H3AasN" target="_blank" rel="noopener noreferrer" className="cta-button cta-button-alt">
-            View DexScreener
-          </a>
+        <div className="chain-boxes">
+          <div className="chain-box solana-box">
+            <div className="chain-label">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M21.53 8.17l-3.07-3.05a.75.75 0 00-1.06 0l-3.05 3.05a.75.75 0 000 1.06l3.05 3.05a.75.75 0 001.06 0l3.07-3.05a.75.75 0 000-1.06zm-18 0l3.07-3.05a.75.75 0 011.06 0l3.05 3.05a.75.75 0 010 1.06l-3.05 3.05a.75.75 0 01-1.06 0L2.53 9.23a.75.75 0 010-1.06zm9-5.64l3.05 3.05a.75.75 0 010 1.06l-3.05 3.07a.75.75 0 01-1.06 0l-3.07-3.07a.75.75 0 010-1.06l3.07-3.05a.75.75 0 011.06 0z"/>
+              </svg>
+              <span>Solana</span>
+            </div>
+            <h3>$koHLabs</h3>
+            <div className="chain-buttons">
+              <a href="https://pump.fun/coin/ELehFFYywLvfxCNVgxesCecYPtk4KcM2RYpor6H3AasN" target="_blank" rel="noopener noreferrer" className="chain-button">
+                Get on Pump.fun
+              </a>
+              <a href="https://www.mexc.com/dex/pumpfun-mexc?ca=koHLabs&currency=SOL" target="_blank" rel="noopener noreferrer" className="chain-button">
+                Trade on MEXC
+              </a>
+            </div>
+          </div>
+          <div className="chain-box base-box">
+            <div className="chain-label">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" strokeWidth="2"/>
+                <circle cx="12" cy="12" r="3" fill="currentColor"/>
+              </svg>
+              <span>Base</span>
+            </div>
+            <h3>$koH</h3>
+            <div className="chain-buttons">
+              <a href="https://zora.co/@koh" target="_blank" rel="noopener noreferrer" className="chain-button">
+                Get on Zora.co
+              </a>
+              <a href="https://dexscreener.com/base/0x577dCA90068DB5A60782112823bABB32333CC88A" target="_blank" rel="noopener noreferrer" className="chain-button">
+                View DexScreener
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 
