@@ -2039,6 +2039,145 @@ footer {
   text-shadow: 0 0 5px rgba(100, 217, 137, 0.3);
 }
 
+/* Number flipper animations for streaming rewards */
+.reward-flipper {
+  display: inline-flex;
+  font-family: 'Cascadia Code', 'Ubuntu Mono', monospace;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.05em;
+}
+
+.reward-integer {
+  font-weight: bold;
+  color: #8aff52;
+}
+
+.reward-dot {
+  margin: 0 1px;
+  opacity: 0.8;
+  color: #5cbf60;
+}
+
+.reward-digit {
+  display: inline-block;
+  position: relative;
+  min-width: 0.6ch;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+/* Different flip speeds for different digit positions */
+.reward-digit.slow-flip {
+  animation: digitFlip 3s ease-in-out infinite;
+}
+
+.reward-digit.medium-flip {
+  animation: digitFlip 1.5s ease-in-out infinite;
+}
+
+.reward-digit.fast-flip {
+  animation: digitFlip 0.5s ease-in-out infinite;
+}
+
+/* Glowing effect for rapidly changing digits */
+.reward-digit.digit-6,
+.reward-digit.digit-7 {
+  color: #c0ff80;
+  text-shadow: 0 0 8px rgba(192, 255, 128, 0.8);
+  animation: digitPulse 0.3s ease-in-out infinite;
+}
+
+.reward-digit.digit-4,
+.reward-digit.digit-5 {
+  color: #a8ff60;
+  text-shadow: 0 0 6px rgba(168, 255, 96, 0.6);
+}
+
+.reward-digit.digit-0,
+.reward-digit.digit-1,
+.reward-digit.digit-2,
+.reward-digit.digit-3 {
+  color: #7adf50;
+}
+
+@keyframes digitFlip {
+  0%, 100% {
+    transform: rotateX(0deg);
+  }
+  50% {
+    transform: rotateX(180deg);
+  }
+}
+
+@keyframes digitPulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.1);
+    filter: brightness(1.3);
+  }
+}
+
+/* Terminal glow effect for rewards section */
+.staking-stats .stat-box:has(.rewards) {
+  position: relative;
+  overflow: hidden;
+}
+
+.staking-stats .stat-box:has(.rewards)::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(138, 255, 82, 0.1) 0%, transparent 70%);
+  animation: rewardGlow 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes rewardGlow {
+  0%, 100% {
+    transform: rotate(0deg) scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: rotate(180deg) scale(1.2);
+    opacity: 0.6;
+  }
+}
+
+/* Matrix rain effect for staking terminal */
+.staking-terminal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(92, 191, 96, 0.03) 2px,
+      rgba(92, 191, 96, 0.03) 4px
+    );
+  pointer-events: none;
+  animation: matrixScan 8s linear infinite;
+}
+
+@keyframes matrixScan {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(20px);
+  }
+}
+
 /* Staking Interface */
 .staking-interface {
   margin-bottom: 30px;
@@ -3355,6 +3494,145 @@ footer {
 .stat-value.rewards {
   color: #64d989;
   text-shadow: 0 0 5px rgba(100, 217, 137, 0.3);
+}
+
+/* Number flipper animations for streaming rewards */
+.reward-flipper {
+  display: inline-flex;
+  font-family: 'Cascadia Code', 'Ubuntu Mono', monospace;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.05em;
+}
+
+.reward-integer {
+  font-weight: bold;
+  color: #8aff52;
+}
+
+.reward-dot {
+  margin: 0 1px;
+  opacity: 0.8;
+  color: #5cbf60;
+}
+
+.reward-digit {
+  display: inline-block;
+  position: relative;
+  min-width: 0.6ch;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+/* Different flip speeds for different digit positions */
+.reward-digit.slow-flip {
+  animation: digitFlip 3s ease-in-out infinite;
+}
+
+.reward-digit.medium-flip {
+  animation: digitFlip 1.5s ease-in-out infinite;
+}
+
+.reward-digit.fast-flip {
+  animation: digitFlip 0.5s ease-in-out infinite;
+}
+
+/* Glowing effect for rapidly changing digits */
+.reward-digit.digit-6,
+.reward-digit.digit-7 {
+  color: #c0ff80;
+  text-shadow: 0 0 8px rgba(192, 255, 128, 0.8);
+  animation: digitPulse 0.3s ease-in-out infinite;
+}
+
+.reward-digit.digit-4,
+.reward-digit.digit-5 {
+  color: #a8ff60;
+  text-shadow: 0 0 6px rgba(168, 255, 96, 0.6);
+}
+
+.reward-digit.digit-0,
+.reward-digit.digit-1,
+.reward-digit.digit-2,
+.reward-digit.digit-3 {
+  color: #7adf50;
+}
+
+@keyframes digitFlip {
+  0%, 100% {
+    transform: rotateX(0deg);
+  }
+  50% {
+    transform: rotateX(180deg);
+  }
+}
+
+@keyframes digitPulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.1);
+    filter: brightness(1.3);
+  }
+}
+
+/* Terminal glow effect for rewards section */
+.staking-stats .stat-box:has(.rewards) {
+  position: relative;
+  overflow: hidden;
+}
+
+.staking-stats .stat-box:has(.rewards)::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(138, 255, 82, 0.1) 0%, transparent 70%);
+  animation: rewardGlow 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes rewardGlow {
+  0%, 100% {
+    transform: rotate(0deg) scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: rotate(180deg) scale(1.2);
+    opacity: 0.6;
+  }
+}
+
+/* Matrix rain effect for staking terminal */
+.staking-terminal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(92, 191, 96, 0.03) 2px,
+      rgba(92, 191, 96, 0.03) 4px
+    );
+  pointer-events: none;
+  animation: matrixScan 8s linear infinite;
+}
+
+@keyframes matrixScan {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(20px);
+  }
 }
 
 /* Staking Interface */

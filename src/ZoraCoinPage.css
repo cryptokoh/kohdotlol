@@ -225,6 +225,20 @@
   position: relative;
 }
 
+.chart-source {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.875rem;
+  font-style: italic;
+}
+
+.dexscreener-embed-container {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(155, 89, 182, 0.3);
+  border-radius: 12px;
+  padding: 1rem;
+  overflow: hidden;
+}
+
 .chart-grid {
   display: flex;
   align-items: flex-end;

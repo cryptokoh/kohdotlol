@@ -142,49 +142,39 @@ function ZoraCoinPage() {
         </div>
       </section>
       
-      {/* Chart Section */}
+      {/* Chart Section - DexScreener Embed */}
       <section className="zora-chart-section">
         <div className="chart-header">
-          <h2>Price Chart</h2>
-          <div className="timeframe-selector">
-            <button 
-              className={selectedTimeframe === '1h' ? 'active' : ''}
-              onClick={() => setSelectedTimeframe('1h')}
-            >1H</button>
-            <button 
-              className={selectedTimeframe === '24h' ? 'active' : ''}
-              onClick={() => setSelectedTimeframe('24h')}
-            >24H</button>
-            <button 
-              className={selectedTimeframe === '7d' ? 'active' : ''}
-              onClick={() => setSelectedTimeframe('7d')}
-            >7D</button>
-            <button 
-              className={selectedTimeframe === '30d' ? 'active' : ''}
-              onClick={() => setSelectedTimeframe('30d')}
-            >30D</button>
-          </div>
+          <h2>Live Price Chart</h2>
+          <div className="chart-source">Powered by DexScreener</div>
         </div>
-        <div className="chart-container">
-          <div className="chart-grid">
-            {chartData.map((point, i) => (
-              <div 
-                key={i} 
-                className="chart-bar"
-                style={{ 
-                  height: `${((point.price - 0.00035) / 0.0001) * 100}%`,
-                  minHeight: '2px'
-                }}
-                title={`${point.time}: $${point.price.toFixed(6)}`}
-              />
-            ))}
-          </div>
-          <div className="chart-labels">
-            <span>24h ago</span>
-            <span>18h</span>
-            <span>12h</span>
-            <span>6h</span>
-            <span>Now</span>
+        <div className="dexscreener-embed-container">
+          <style>{`
+            #dexscreener-embed {
+              position: relative;
+              width: 100%;
+              padding-bottom: 125%;
+            }
+            @media(min-width: 1400px) {
+              #dexscreener-embed {
+                padding-bottom: 65%;
+              }
+            }
+            #dexscreener-embed iframe {
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              top: 0;
+              left: 0;
+              border: 0;
+              border-radius: 12px;
+            }
+          `}</style>
+          <div id="dexscreener-embed">
+            <iframe 
+              src="https://dexscreener.com/base/0x37f383ecfe8942e0c2b4b64853aa65f752dc365c791ba29da8168f2589ec2223?embed=1&loadChartSettings=0&chartLeftToolbar=0&chartDefaultOnMobile=1&chartTheme=dark&theme=dark&chartStyle=0&chartType=usd&interval=15"
+              title="DexScreener Chart"
+            />
           </div>
         </div>
       </section>

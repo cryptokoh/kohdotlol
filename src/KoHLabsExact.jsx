@@ -176,18 +176,40 @@ function KoHLabsExact() {
     }
   }
 
-  // Update rewards every 5 seconds (simulation)
+  // Update rewards every second for smoother animation (simulation)
   useEffect(() => {
     if (stakedAmount > 0) {
       const interval = setInterval(() => {
         const dailyReward = (stakedAmount * apy / 100 / 365)
         const rewardPerSecond = dailyReward / 86400
-        setRewards(prev => prev + rewardPerSecond * 5)
-      }, 5000)
+        setRewards(prev => prev + rewardPerSecond)
+      }, 1000)
       
       return () => clearInterval(interval)
     }
   }, [stakedAmount, apy])
+
+  // Format reward number with flipping animation digits
+  const formatRewardWithFlip = (num) => {
+    const parts = num.toFixed(8).split('.')
+    const integerPart = parts[0]
+    const decimalPart = parts[1]
+    
+    return (
+      <span className="reward-flipper">
+        <span className="reward-integer">{integerPart}</span>
+        <span className="reward-dot">.</span>
+        {decimalPart.split('').map((digit, index) => (
+          <span 
+            key={index} 
+            className={`reward-digit digit-${index} ${index > 5 ? 'fast-flip' : index > 3 ? 'medium-flip' : 'slow-flip'}`}
+          >
+            {digit}
+          </span>
+        ))}
+      </span>
+    )
+  }
 
   // Claude Code CLI Simulation Script - Now with endless content!
   const claudeScript = createMegaScript()
@@ -1290,7 +1312,9 @@ function KoHLabsExact() {
                 </div>
                 <div className="stat-box">
                   <span className="stat-label">Pending Rewards</span>
-                  <span className="stat-value rewards">{rewards.toFixed(6)} $koHLabs</span>
+                  <span className="stat-value rewards">
+                    {formatRewardWithFlip(rewards)} $koHLabs
+                  </span>
                 </div>
               </div>
 
@@ -1332,7 +1356,7 @@ function KoHLabsExact() {
                     onClick={handleClaimRewards}
                     disabled={rewards === 0}
                   >
-                    CLAIM REWARDS ({rewards.toFixed(6)})
+                    CLAIM REWARDS ({formatRewardWithFlip(rewards)})
                   </button>
                 </div>
               </div>
