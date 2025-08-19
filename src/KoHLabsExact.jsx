@@ -230,59 +230,59 @@ function KoHLabsExact() {
     { type: 'tree', text: '  └── 📄 tsconfig.json', delay: 1900 },
     { type: 'progress', text: '▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ 100%', delay: 2000 },
     { type: 'output', text: '', delay: 2200 },
-    { type: 'command', text: 'claude "Build a Solana trading bot for pump.fun tokens"', delay: 2500 },
-    { type: 'claude', text: 'I\'ll help you build a Solana trading bot for pump.fun tokens. Let me create a comprehensive solution.', delay: 3000 },
+    { type: 'command', text: 'claude "Deploy multi-chain smart contracts on Base and EVM networks"', delay: 2500 },
+    { type: 'claude', text: 'I\'ll help you deploy smart contracts across Base and EVM-compatible chains. Let me create a comprehensive solution.', delay: 3000 },
     { type: 'output', text: '', delay: 3500 },
-    { type: 'file', text: '📄 Creating src/trading-bot.ts...', delay: 3800 },
-    { type: 'code', text: 'import { Connection, Keypair, PublicKey } from \'@solana/web3.js\'', delay: 4000 },
-    { type: 'code', text: 'import { Jupiter } from \'@jup-ag/core\'', delay: 4200 },
-    { type: 'code', text: 'import { TOKEN_PROGRAM_ID } from \'@solana/spl-token\'', delay: 4400 },
+    { type: 'file', text: '📄 Creating contracts/BaseToken.sol...', delay: 3800 },
+    { type: 'code', text: 'pragma solidity ^0.8.20;', delay: 4000 },
+    { type: 'code', text: 'import "@openzeppelin/contracts/token/ERC20/ERC20.sol";', delay: 4200 },
+    { type: 'code', text: 'import "@openzeppelin/contracts/access/Ownable.sol";', delay: 4400 },
     { type: 'code', text: '', delay: 4600 },
-    { type: 'code', text: 'class PumpFunTradingBot {', delay: 4800 },
-    { type: 'code', text: '  private connection: Connection', delay: 5000 },
-    { type: 'code', text: '  private jupiter: Jupiter', delay: 5200 },
-    { type: 'code', text: '  private wallet: Keypair', delay: 5400 },
-    { type: 'code', text: '', delay: 5600 },
-    { type: 'code', text: '  async executeTrade(tokenMint: string, amount: number) {', delay: 5800 },
-    { type: 'code', text: '    // AI-optimized trading logic', delay: 6000 },
-    { type: 'code', text: '    const routes = await this.jupiter.computeRoutes(...)', delay: 6200 },
-    { type: 'code', text: '    return await this.jupiter.exchange(routes[0])', delay: 6400 },
-    { type: 'code', text: '  }', delay: 6600 },
-    { type: 'code', text: '}', delay: 6800 },
-    { type: 'output', text: '', delay: 7000 },
-    { type: 'success', text: '✅ Trading bot created successfully!', delay: 7200 },
-    { type: 'output', text: '', delay: 7400 },
-    { type: 'bash-header', text: '● Bash(git add -A && git commit -m "Add Solana trading bot")', delay: 7600 },
-    { type: 'bash-output', text: '  ⎿  [main 1a2b3c4] Add Solana trading bot', delay: 7800 },
-    { type: 'bash-output', text: '      2 files changed, 145 insertions(+)', delay: 8000 },
-    { type: 'bash-output', text: '      create mode 100644 src/trading-bot.ts', delay: 8200 },
-    { type: 'output', text: '', delay: 8400 },
-    { type: 'bash-header', text: '● Bash(git push origin main)', delay: 8600 },
-    { type: 'bash-output', text: '  ⎿  To github.com:kohlabs/trading-bot.git', delay: 8800 },
-    { type: 'bash-output', text: '        9a8b7c6..1a2b3c4  main -> main', delay: 9000 },
+    { type: 'code', text: 'contract BaseToken is ERC20, Ownable {', delay: 4800 },
+    { type: 'code', text: '  mapping(address => bool) public bridges;', delay: 5000 },
+    { type: 'code', text: '  uint256 public chainId;', delay: 5200 },
+    { type: 'code', text: '  ', delay: 5400 },
+    { type: 'code', text: '  constructor() ERC20("koH", "KOH") {', delay: 5600 },
+    { type: 'code', text: '    _mint(msg.sender, 1000000 * 10**18);', delay: 5800 },
+    { type: 'code', text: '    chainId = block.chainid; // Base: 8453', delay: 6000 },
+    { type: 'code', text: '  }', delay: 6200 },
+    { type: 'code', text: '  ', delay: 6400 },
+    { type: 'code', text: '  // Cross-chain bridge support', delay: 6600 },
+    { type: 'code', text: '  function bridgeMint(address to, uint256 amount) external {', delay: 6800 },
+    { type: 'code', text: '    require(bridges[msg.sender], "Not authorized bridge");', delay: 7000 },
+    { type: 'code', text: '    _mint(to, amount);', delay: 7200 },
+    { type: 'code', text: '  }', delay: 7400 },
+    { type: 'code', text: '}', delay: 7600 },
+    { type: 'output', text: '', delay: 7800 },
+    { type: 'success', text: '✅ Base smart contract created!', delay: 8000 },
+    { type: 'output', text: '', delay: 8200 },
+    { type: 'bash-header', text: '● Bash(forge build && forge deploy --chain base)', delay: 8400 },
+    { type: 'bash-output', text: '  ⎿  Compiling contracts...', delay: 8600 },
+    { type: 'bash-output', text: '      Deploying to Base (Chain ID: 8453)', delay: 8800 },
+    { type: 'bash-output', text: '      Contract deployed at: 0xA887D87409842a58E8d197f61D714A47E73b1b07', delay: 9000 },
     { type: 'output', text: '', delay: 9200 },
     { type: 'todos-header', text: '● Update Todos', delay: 9400 },
-    { type: 'todos', text: '  ⎿  ☒ Analyze pump.fun token structure', delay: 9600 },
-    { type: 'todos', text: '     ☒ Implement Jupiter aggregation', delay: 9800 },
-    { type: 'todos', text: '     ☒ Add slippage protection (3%)', delay: 10000 },
-    { type: 'todos', text: '     ☒ Create trading bot class', delay: 10200 },
-    { type: 'todos', text: '     ☐ Add monitoring dashboard', delay: 10400 },
+    { type: 'todos', text: '  ⎿  ☒ Create ERC-20 token contract', delay: 9600 },
+    { type: 'todos', text: '     ☒ Implement cross-chain bridge support', delay: 9800 },
+    { type: 'todos', text: '     ☒ Deploy to Base mainnet', delay: 10000 },
+    { type: 'todos', text: '     ☒ Verify on BaseScan', delay: 10200 },
+    { type: 'todos', text: '     ☐ Deploy to Ethereum, Arbitrum, Optimism', delay: 10400 },
     { type: 'output', text: '', delay: 10600 },
-    { type: 'command', text: 'npm run test', delay: 10800 },
-    { type: 'test', text: 'PASS  src/trading-bot.test.ts', delay: 11200 },
-    { type: 'test', text: '  ✓ should execute trades successfully (42ms)', delay: 11400 },
-    { type: 'test', text: '  ✓ should handle slippage correctly (23ms)', delay: 11600 },
-    { type: 'test', text: '  ✓ should validate token addresses (15ms)', delay: 11800 },
+    { type: 'command', text: 'npm run test:contracts', delay: 10800 },
+    { type: 'test', text: 'PASS  test/BaseToken.test.ts', delay: 11200 },
+    { type: 'test', text: '  ✓ should deploy with correct supply (42ms)', delay: 11400 },
+    { type: 'test', text: '  ✓ should support bridge minting (23ms)', delay: 11600 },
+    { type: 'test', text: '  ✓ should validate chain ID (15ms)', delay: 11800 },
     { type: 'output', text: '', delay: 12000 },
     { type: 'success', text: 'Test Suites: 1 passed, 1 total', delay: 9000 },
     { type: 'success', text: 'Tests: 3 passed, 3 total', delay: 9200 },
     { type: 'output', text: '', delay: 9400 },
-    { type: 'command', text: 'git add . && git commit -m "feat: add AI-powered pump.fun trading bot 🚀"', delay: 9600 },
-    { type: 'git', text: '[main 8ae234a] feat: add AI-powered pump.fun trading bot 🚀', delay: 10000 },
-    { type: 'git', text: ' 3 files changed, 234 insertions(+)', delay: 10200 },
+    { type: 'command', text: 'git add . && git commit -m "feat: deploy multi-chain ERC-20 on Base 🔷"', delay: 9600 },
+    { type: 'git', text: '[main 8ae234a] feat: deploy multi-chain ERC-20 on Base 🔷', delay: 10000 },
+    { type: 'git', text: ' 4 files changed, 324 insertions(+)', delay: 10200 },
     { type: 'output', text: '', delay: 10400 },
-    { type: 'claude', text: '🎉 Project complete! Your Solana trading bot is ready for pump.fun tokens.', delay: 10600 },
-    { type: 'claude', text: 'The bot includes Jupiter integration, slippage protection, and AI-optimized routing.', delay: 11000 },
+    { type: 'claude', text: '🎉 Contract deployed! Your token is live on Base and ready for EVM expansion.', delay: 10600 },
+    { type: 'claude', text: 'Cross-chain bridges configured for Ethereum, Arbitrum, and Optimism networks.', delay: 11000 },
     { type: 'output', text: '', delay: 11400 },
     { type: 'prompt', text: 'Ready for next command...', delay: 11600 }
   ]
@@ -975,14 +975,14 @@ function KoHLabsExact() {
                 </div>
                 <div className="claude-explorer">
                   <div className="claude-folder expanded">
-                    <span className="folder-icon">▼</span> SOLANA-TRADING-BOT
+                    <span className="folder-icon">▼</span> BASE-EVM-CONTRACTS
                   </div>
                   <div className="claude-file-tree">
-                    <div className="claude-file">📄 package.json</div>
-                    <div className="claude-file active">📄 index.js</div>
-                    <div className="claude-file">📄 trading-bot.js</div>
-                    <div className="claude-file">📄 jupiter-api.js</div>
-                    <div className="claude-file">📄 wallet-manager.js</div>
+                    <div className="claude-file">📄 hardhat.config.ts</div>
+                    <div className="claude-file active">📄 BaseToken.sol</div>
+                    <div className="claude-file">📄 CrossChainBridge.sol</div>
+                    <div className="claude-file">📄 deploy.ts</div>
+                    <div className="claude-file">📄 foundry.toml</div>
                     <div className="claude-file">📄 .env</div>
                     <div className="claude-folder">
                       <span className="folder-icon">▶</span> src
@@ -999,11 +999,11 @@ function KoHLabsExact() {
                 {/* Tabs 
                 <div className="claude-tabs">
                   <div className="claude-tab active">
-                    <span>index.js</span>
+                    <span>BaseToken.sol</span>
                     <span className="tab-close">×</span>
                   </div>
                   <div className="claude-tab">
-                    <span>trading-bot.js</span>
+                    <span>deploy.ts</span>
                     <span className="tab-close">×</span>
                   </div>
                 </div>
@@ -1509,10 +1509,10 @@ function KoHLabsExact() {
                     <span className="post-type">LIVE_STREAM</span>
                   </div>
                   <div className="post-content">
-                    <div className="post-title">🔴 LIVE: Building Solana Trading Bot</div>
+                    <div className="post-title">🔴 LIVE: Deploying Base & EVM Smart Contracts</div>
                     <div className="post-text">
-                      Live coding session! Building a Jupiter v6 integrated trading bot.
-                      250 wallets, intelligent balance management, pump.fun token support.
+                      Live coding session! Deploying multi-chain ERC-20 contracts on Base.
+                      Cross-chain bridges, Ethereum compatibility, L2 optimization.
                       Streaming on twitch.tv/cryptokoh 🎮 Stream archived on Zora 🎬
                     </div>
                     <div className="post-stats">
