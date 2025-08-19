@@ -60,12 +60,20 @@ nav {
   display: flex;
   align-items: center;
   gap: 12px;
+  z-index: 2;
+  position: relative;
 }
 
 .nav-center {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.nav-center .social-controls {
+  pointer-events: auto;
 }
 
 /* Contract Pill in Nav */
@@ -82,6 +90,7 @@ nav {
   font-family: 'Ubuntu Mono', monospace;
   font-size: 12px;
   position: relative;
+  z-index: 3;
 }
 
 /* CA element in navbar - tighter alignment */
@@ -89,6 +98,8 @@ nav {
   margin-left: 0;
   padding: 5px 10px;
   font-size: 11px;
+  position: relative;
+  z-index: 3;
 }
 
 .navbar-ca.solana-ca {
@@ -1006,6 +1017,297 @@ nav {
 .mission-card p {
   color: #d3d3d3;
   line-height: 1.6;
+}
+
+/* Projects Section */
+.projects-section {
+  padding: 80px 20px;
+  background: linear-gradient(135deg, #0a0f0a 0%, #1a1f1a 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.projects-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #8ae234, transparent);
+  animation: shimmer 3s infinite;
+}
+
+.projects-section h2 {
+  font-size: 42px;
+  text-align: center;
+  margin-bottom: 60px;
+  color: #8ae234;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  text-shadow: 0 0 20px rgba(138, 226, 52, 0.3);
+}
+
+.project-showcase {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.project-card {
+  background: linear-gradient(135deg, #1a1f1a 0%, #0f1410 100%);
+  border: 2px solid #8ae234;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5),
+              0 0 60px rgba(138, 226, 52, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #8ae234, #729fcf, #fcaf3e, #8ae234);
+  border-radius: 20px;
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.3s ease;
+  animation: gradientRotate 4s linear infinite;
+}
+
+.project-card:hover::before {
+  opacity: 0.3;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.7),
+              0 0 80px rgba(138, 226, 52, 0.2);
+}
+
+@keyframes gradientRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(138, 226, 52, 0.2);
+}
+
+.project-title {
+  font-size: 32px;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin: 0;
+}
+
+.project-icon {
+  font-size: 36px;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.project-status {
+  background: linear-gradient(135deg, #5cbf60, #8ae234);
+  color: #0a0f0a;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.project-description {
+  margin-bottom: 30px;
+}
+
+.project-description p {
+  color: #a8b2a8;
+  font-size: 18px;
+  line-height: 1.8;
+  margin: 0;
+}
+
+.project-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px;
+  background: rgba(138, 226, 52, 0.05);
+  border: 1px solid rgba(138, 226, 52, 0.2);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.feature-item:hover {
+  background: rgba(138, 226, 52, 0.1);
+  border-color: rgba(138, 226, 52, 0.4);
+  transform: translateX(5px);
+}
+
+.feature-icon {
+  font-size: 24px;
+}
+
+.feature-item span:last-child {
+  color: #e0e0e0;
+  font-size: 14px;
+}
+
+.project-tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.tech-badge {
+  background: linear-gradient(135deg, #729fcf, #5c7caf);
+  color: #ffffff;
+  padding: 6px 14px;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+.tech-badge:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 15px rgba(114, 159, 207, 0.4);
+}
+
+.project-links {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.project-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+
+.project-link.demo {
+  background: linear-gradient(135deg, #8ae234, #5cbf60);
+  color: #0a0f0a;
+}
+
+.project-link.demo:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(138, 226, 52, 0.4);
+}
+
+.project-link.github {
+  background: linear-gradient(135deg, #3a3f3a, #2a2f2a);
+  color: #ffffff;
+  border: 1px solid #5a5f5a;
+}
+
+.project-link.github:hover {
+  background: linear-gradient(135deg, #4a4f4a, #3a3f3a);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.project-stats {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 30px;
+  border-top: 1px solid rgba(138, 226, 52, 0.2);
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-value {
+  display: block;
+  font-size: 28px;
+  font-weight: bold;
+  color: #8ae234;
+  margin-bottom: 8px;
+  text-shadow: 0 0 10px rgba(138, 226, 52, 0.4);
+}
+
+.stat-label {
+  color: #808080;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Responsive adjustments for projects section */
+@media (max-width: 768px) {
+  .projects-section {
+    padding: 60px 15px;
+  }
+  
+  .projects-section h2 {
+    font-size: 32px;
+    margin-bottom: 40px;
+  }
+  
+  .project-card {
+    padding: 25px;
+  }
+  
+  .project-title {
+    font-size: 24px;
+  }
+  
+  .project-features {
+    grid-template-columns: 1fr;
+  }
+  
+  .project-links {
+    flex-direction: column;
+  }
+  
+  .project-stats {
+    flex-direction: column;
+    gap: 20px;
+  }
 }
 
 /* Socials Section */
@@ -2631,6 +2933,8 @@ footer {
     display: flex;
     gap: 10px;
     align-items: center;
+    z-index: 1;
+    pointer-events: auto;
   }
   
   .contract-pill {
@@ -4116,6 +4420,25 @@ footer {
   color: #4a9eff;
 }
 
+.chain-ca {
+  font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.6);
+  word-break: break-all;
+  margin-bottom: 10px;
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.chain-description {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
 .chain-buttons {
   display: flex;
   flex-direction: column;
@@ -4167,4 +4490,3 @@ footer {
     max-width: 400px;
   }
 }
-ENDOFCSS < /dev/null
