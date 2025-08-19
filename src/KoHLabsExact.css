@@ -1250,6 +1250,16 @@ nav {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
+.project-link.hand {
+  background: linear-gradient(135deg, #fcaf3e, #e89f1e);
+  color: #0a0f0a;
+}
+
+.project-link.hand:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(252, 175, 62, 0.4);
+}
+
 .project-stats {
   display: flex;
   justify-content: space-around;
@@ -4386,6 +4396,15 @@ footer {
   box-shadow: 0 10px 40px rgba(0, 82, 255, 0.3);
 }
 
+.zora-box {
+  border-color: #a855f7;
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.05), rgba(147, 51, 234, 0.05));
+}
+
+.zora-box:hover {
+  box-shadow: 0 10px 40px rgba(168, 85, 247, 0.3);
+}
+
 .chain-label {
   display: flex;
   align-items: center;
@@ -4406,6 +4425,10 @@ footer {
   color: #0052FF;
 }
 
+.zora-box .chain-label {
+  color: #a855f7;
+}
+
 .chain-box h3 {
   font-size: 2rem;
   margin-bottom: 20px;
@@ -4418,6 +4441,10 @@ footer {
 
 .base-box h3 {
   color: #4a9eff;
+}
+
+.zora-box h3 {
+  color: #c084fc;
 }
 
 .chain-ca {
