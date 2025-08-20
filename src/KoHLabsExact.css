@@ -4459,6 +4459,35 @@ footer {
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+.chain-ca.clickable {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.chain-ca.clickable:hover {
+  background: rgba(138, 226, 52, 0.1);
+  border-color: rgba(138, 226, 52, 0.3);
+  color: rgba(255, 255, 255, 0.9);
+  transform: translateY(-1px);
+}
+
+.chain-ca.clickable:active {
+  transform: translateY(0);
+}
+
+.copied-text {
+  color: #8ae234;
+  font-weight: bold;
+  animation: fadeIn 0.3s ease;
+  margin-left: 10px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 .chain-description {
   font-size: 12px;
   color: rgba(255, 255, 255, 0.7);

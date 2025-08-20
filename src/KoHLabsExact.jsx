@@ -29,6 +29,7 @@ function KoHLabsExact() {
   const [showMatrixText, setShowMatrixText] = useState(false)
   const [copiedContract, setCopiedContract] = useState(false)
   const [copiedZoraContract, setCopiedZoraContract] = useState(false)
+  const [copiedBaseContract, setCopiedBaseContract] = useState(false)
   const [activeCard, setActiveCard] = useState(0)
   const [claudeOutput, setClaudeOutput] = useState([])
   const [claudeTypingIndex, setClaudeTypingIndex] = useState(0)
@@ -96,6 +97,7 @@ function KoHLabsExact() {
   const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a']
   const contractAddress = 'ELehFFYywLvfxCNVgxesCecYPtk4KcM2RYpor6H3AasN'
   const zoraContractAddress = '0x577dCA90068DB5A60782112823bABB32333CC88A'
+  const baseContractAddress = '0xA887D87409842a58E8d197f61D714A47E73b1b07'
   
   const missionCards = [
     { icon: '🌉', title: 'Building Bridges', desc: 'From shadow bridger to public builder. We connect Solana degens with Base builders, uniting communities across chains and protocols.' },
@@ -118,6 +120,13 @@ function KoHLabsExact() {
     navigator.clipboard.writeText(zoraContractAddress)
     setCopiedZoraContract(true)
     setTimeout(() => setCopiedZoraContract(false), 2000)
+  }
+
+  // Copy Base contract address to clipboard
+  const copyBaseContract = () => {
+    navigator.clipboard.writeText(baseContractAddress)
+    setCopiedBaseContract(true)
+    setTimeout(() => setCopiedBaseContract(false), 2000)
   }
 
   // Staking simulation functions
@@ -2072,7 +2081,14 @@ function KoHLabsExact() {
               <span>Base</span>
             </div>
             <h3>$koH/WETH</h3>
-            <p className="chain-ca">CA: 0xA887D87409842a58E8d197f61D714A47E73b1b07</p>
+            <p 
+              className="chain-ca clickable"
+              onClick={copyBaseContract}
+              title="Click to copy contract address"
+            >
+              CA: {baseContractAddress}
+              {copiedBaseContract && <span className="copied-text"> ✓ Copied!</span>}
+            </p>
             <p className="chain-description">Launched on retake.tv via Clanker deployment</p>
             <div className="chain-buttons">
               <a href="https://dexscreener.com/base/0xA887D87409842a58E8d197f61D714A47E73b1b07" target="_blank" rel="noopener noreferrer" className="chain-button">
