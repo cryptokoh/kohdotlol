@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react'
 export default function HeroSection() {
   const [mounted, setMounted] = useState(false)
   const [glitchActive, setGlitchActive] = useState(false)
+  const [subtitleTyped, setSubtitleTyped] = useState('')
+  const [subtitleDone, setSubtitleDone] = useState(false)
 
   useEffect(() => {
     const timer = setTimeout(() => setMounted(true), 100)
@@ -16,6 +18,26 @@ export default function HeroSection() {
     }, 5000 + Math.random() * 5000)
     return () => clearInterval(interval)
   }, [])
+
+  // Typing animation for subtitle
+  useEffect(() => {
+    if (!mounted) return
+    const text = 'Lover of Life'
+    const delay = 1200
+    const t = setTimeout(() => {
+      let i = 0
+      const iv = setInterval(() => {
+        i++
+        setSubtitleTyped(text.slice(0, i))
+        if (i >= text.length) {
+          clearInterval(iv)
+          setSubtitleDone(true)
+        }
+      }, 70)
+      return () => clearInterval(iv)
+    }, delay)
+    return () => clearTimeout(t)
+  }, [mounted])
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -53,7 +75,6 @@ export default function HeroSection() {
             >
               koH
             </span>
-            {/* Glitch echo layers */}
             {glitchActive && (
               <>
                 <span
@@ -75,20 +96,26 @@ export default function HeroSection() {
           </h1>
         </div>
 
-        {/* Subtitle */}
+        {/* Subtitle with typing animation */}
         <div
           className={`transition-all duration-1000 delay-700 ${
             mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
           }`}
         >
-          <p className="mt-6 text-[13px] md:text-[15px] tracking-[0.2em] uppercase text-white/20 font-['Space_Mono']">
-            Lover of Life
+          <p className="mt-6 text-[13px] md:text-[15px] tracking-[0.2em] uppercase text-white/20 font-['Space_Mono'] h-6">
+            {subtitleTyped}
+            {mounted && !subtitleDone && (
+              <span
+                className="inline-block w-[2px] bg-white/40 ml-[1px] align-baseline"
+                style={{ height: '0.9em', animation: 'blink 1s step-end infinite' }}
+              />
+            )}
           </p>
         </div>
 
         {/* Decorative line */}
         <div
-          className={`transition-all duration-1500 delay-1000 ${
+          className={`transition-all duration-[1500ms] delay-1000 ${
             mounted ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'
           }`}
         >
@@ -102,7 +129,7 @@ export default function HeroSection() {
           }`}
         >
           <p className="mt-8 text-[13px] md:text-sm leading-relaxed text-white/15 max-w-md mx-auto font-['Inter']">
-            Builder. Creator. Human.
+            Defender of Dignity. Builder of Quiet Systems.
             <br />
             The ultimate portfolio — a life lived with purpose.
           </p>
@@ -110,13 +137,13 @@ export default function HeroSection() {
 
         {/* Scroll indicator */}
         <div
-          className={`absolute bottom-12 left-1/2 -translate-x-1/2 transition-all duration-1000 delay-[1800ms] ${
+          className={`absolute bottom-12 left-1/2 -translate-x-1/2 transition-all duration-1000 delay-[2200ms] ${
             mounted ? 'opacity-100' : 'opacity-0'
           }`}
         >
           <div className="flex flex-col items-center gap-3">
             <span className="text-[9px] tracking-[0.4em] uppercase text-white/10 font-['Space_Mono']">
-              Scroll
+              Read the manifesto
             </span>
             <div className="w-px h-8 bg-gradient-to-b from-white/15 to-transparent animate-pulse" />
           </div>

@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
 
 const navLinks = [
-  { label: 'Ethos', href: '#ethos' },
-  { label: 'Vision', href: '#vision' },
+  { label: 'Manifesto', href: '#manifesto' },
   { label: 'Portfolio', href: '#portfolio' },
   { label: 'Connect', href: '#connect' },
 ]
@@ -15,8 +14,7 @@ export default function NavBar() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50)
 
-      // Determine active section
-      const sections = navLinks.map(l => l.href.slice(1))
+      const sections = navLinks.map((l) => l.href.slice(1))
       for (let i = sections.length - 1; i >= 0; i--) {
         const el = document.getElementById(sections[i])
         if (el && el.getBoundingClientRect().top <= 200) {

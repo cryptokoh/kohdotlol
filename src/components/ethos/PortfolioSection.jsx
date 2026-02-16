@@ -2,28 +2,34 @@ import { useEffect, useRef, useState } from 'react'
 
 const projects = [
   {
-    tag: 'DeFi',
-    title: 'Project Title',
-    description: 'Placeholder — describe your project here. What was built, why it matters, and the impact it made.',
-    tech: ['React', 'Solana', 'Web3'],
+    tag: 'Featured',
+    title: '16 Days Live',
+    description:
+      'koH went live for 16 consecutive days — coding, building, and operationally shipping FlowBond\'s premier applications. Every line of code written in public. Every decision made transparently. A living proof of the manifesto.',
+    tech: ['React', 'Solana', 'Web3', 'Vite'],
     accent: '#00f0ff',
+    status: 'Shipped',
+    link: '/legacy',
+  },
+  {
+    tag: 'Platform',
+    title: 'koH.lol',
+    description:
+      'This site — a terminal-native portfolio, DeFi interface, and living documentation of what it means to build in public with care and intention.',
+    tech: ['React', 'Tailwind', 'Three.js'],
+    accent: '#8a5cf5',
     status: 'Live',
+    link: '/legacy',
   },
   {
     tag: 'Community',
-    title: 'Project Title',
-    description: 'Placeholder — another project showcase. Your best work, front and center.',
-    tech: ['Node.js', 'WebSocket', 'AI'],
-    accent: '#8a5cf5',
-    status: 'Building',
-  },
-  {
-    tag: 'Content',
-    title: 'Project Title',
-    description: 'Placeholder — content creation, streaming, community building. The human side of tech.',
-    tech: ['Live', 'YouTube', 'Twitch'],
+    title: 'Live Operations',
+    description:
+      'Streaming the build process — not for content, but for connection. Real-time coding, real-time decisions, real-time learning with the community.',
+    tech: ['Twitch', 'YouTube', 'Community'],
     accent: '#c4a76c',
     status: 'Ongoing',
+    link: '/legacy/live',
   },
 ]
 
@@ -45,10 +51,16 @@ function ProjectCard({ project, index }) {
     return () => observer.disconnect()
   }, [])
 
+  const CardWrapper = project.link ? 'a' : 'div'
+  const linkProps = project.link
+    ? { href: project.link }
+    : {}
+
   return (
-    <div
+    <CardWrapper
       ref={ref}
-      className={`group relative transition-all duration-700 ${
+      {...linkProps}
+      className={`group relative block transition-all duration-700 ${
         visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
       }`}
       style={{ transitionDelay: `${index * 200}ms` }}
@@ -57,7 +69,9 @@ function ProjectCard({ project, index }) {
         {/* Top accent bar */}
         <div
           className="h-px w-full"
-          style={{ background: `linear-gradient(90deg, ${project.accent}33, transparent)` }}
+          style={{
+            background: `linear-gradient(90deg, ${project.accent}33, transparent)`,
+          }}
         />
 
         <div className="p-8 md:p-10">
@@ -86,7 +100,7 @@ function ProjectCard({ project, index }) {
           </h3>
 
           {/* Description */}
-          <p className="text-[13px] leading-[1.8] text-white/20 font-['Inter'] mb-8">
+          <p className="text-[13px] leading-[1.8] text-white/25 font-['Inter'] mb-8">
             {project.description}
           </p>
 
@@ -101,6 +115,25 @@ function ProjectCard({ project, index }) {
               </span>
             ))}
           </div>
+
+          {/* Arrow for linked cards */}
+          {project.link && (
+            <div className="absolute top-8 right-8 md:top-10 md:right-10 text-white/10 group-hover:text-white/30 transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={1.5}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"
+                />
+              </svg>
+            </div>
+          )}
         </div>
 
         {/* Bottom hover line */}
@@ -109,7 +142,7 @@ function ProjectCard({ project, index }) {
           style={{ backgroundColor: project.accent, opacity: 0.3 }}
         />
       </div>
-    </div>
+    </CardWrapper>
   )
 }
 
@@ -139,7 +172,7 @@ export default function PortfolioSection() {
           <div className="flex items-center gap-4 mb-6">
             <div className="h-px w-12 bg-[#8a5cf5]/20" />
             <span className="text-[10px] tracking-[0.4em] uppercase text-[#8a5cf5]/40 font-['Space_Mono']">
-              Work
+              The Work
             </span>
           </div>
           <h2
@@ -147,14 +180,14 @@ export default function PortfolioSection() {
               visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             }`}
           >
-            The Portfolio
+            Portfolio
           </h2>
           <p
             className={`mt-4 text-sm text-white/15 font-['Inter'] max-w-lg leading-relaxed transition-all duration-1000 delay-200 ${
               visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             }`}
           >
-            A curated selection of builds, experiments, and shipped products.
+            Building in public means showing the work. Here&apos;s the proof.
           </p>
         </div>
 

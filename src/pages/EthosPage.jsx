@@ -1,8 +1,7 @@
 import GridBackground from '../components/ethos/GridBackground'
 import NavBar from '../components/ethos/NavBar'
 import HeroSection from '../components/ethos/HeroSection'
-import EthosSection from '../components/ethos/EthosSection'
-import VisionSection from '../components/ethos/VisionSection'
+import ManifestoSection from '../components/ethos/ManifestoSection'
 import PortfolioSection from '../components/ethos/PortfolioSection'
 import ConnectSection from '../components/ethos/ConnectSection'
 import Footer from '../components/ethos/Footer'
@@ -38,21 +37,16 @@ export default function EthosPage() {
       <main className="relative z-10">
         <HeroSection />
 
-        {/* Divider */}
+        {/* Transition into manifesto */}
         <div className="max-w-5xl mx-auto px-6 md:px-12">
           <div className="h-px bg-gradient-to-r from-transparent via-white/[0.04] to-transparent" />
         </div>
 
-        <EthosSection />
+        <ManifestoSection />
 
+        {/* Transition into portfolio */}
         <div className="max-w-5xl mx-auto px-6 md:px-12">
-          <div className="h-px bg-gradient-to-r from-transparent via-white/[0.04] to-transparent" />
-        </div>
-
-        <VisionSection />
-
-        <div className="max-w-5xl mx-auto px-6 md:px-12">
-          <div className="h-px bg-gradient-to-r from-transparent via-white/[0.04] to-transparent" />
+          <div className="h-px bg-gradient-to-r from-transparent via-[#8a5cf5]/10 to-transparent" />
         </div>
 
         <PortfolioSection />
