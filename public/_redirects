@@ -9,5 +9,8 @@ https://tg.koh.lol/* https://t.me/cryptokoh 301!
 https://twitch.koh.lol/* https://twitch.tv/cryptokoh 301!
 http://twitch.koh.lol/* https://twitch.tv/cryptokoh 301!
 
+# Redirect v1.koh.lol subdomain to /v1 (previous site)
+https://v1.koh.lol/* /v1 200!
+
 # SPA fallback - serve index.html for all routes (must be last)
 /*    /index.html   200
