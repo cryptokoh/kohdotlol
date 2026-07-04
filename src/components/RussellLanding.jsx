@@ -202,6 +202,65 @@ export default function RussellLanding() {
           </div>
         </div>
       </section>
+
+      <section className="russell-section">
+        <div className="russell-section__header">
+          <p className="eyebrow mono">Selected Experience</p>
+          <h2>Work that led to the frameworks</h2>
+        </div>
+        <div className="russell-experience">
+          <article>
+            <span className="mono note-label">2019 to 2024</span>
+            <h3>KohX LLC, Ballwin, MO</h3>
+            <p>
+              Founded Kindness of Humanity Exchange around proof-of-stake blockchain ideas for charities and impact
+              organizations. Spoke at tech conferences and worked with Blockchain Center Miami on education for
+              mining and cybersecurity basics.
+            </p>
+          </article>
+          <article>
+            <span className="mono note-label">2009 to 2018</span>
+            <h3>RA Resources, Arlington, TX</h3>
+            <p>
+              Ran device repair and troubleshooting work focused on Android hardware, then broadened the business
+              into general electronics support and technical help.
+            </p>
+          </article>
+          <article>
+            <span className="mono note-label">2008 to 2009</span>
+            <h3>Desktop Disposal, LLC</h3>
+            <p>
+              Managed sales, inventory, warehouse flow, and refurbished equipment resale through e-commerce
+              channels.
+            </p>
+          </article>
+          <article>
+            <span className="mono note-label">2002 to 2007</span>
+            <h3>Pinnacle Solutions</h3>
+            <p>
+              Handled tech support, file work, customer service, and sales support while building early systems
+              thinking around business and operations.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section className="russell-section russell-section--split">
+        <div>
+          <p className="eyebrow mono">Technical Foundation</p>
+          <h2>Support, systems, and shipping habits</h2>
+        </div>
+        <div className="russell-prose">
+          <p>
+            Built web hosting at 15, worked with cPanel, Plesk, Service Desk Plus, and IRC-era support flows, and
+            stayed fluent across Windows, Adobe tools, networking, hardware repair, and Linux.
+          </p>
+          <p>
+            The resume is intentionally written to show range without losing the through line: community systems,
+            commerce systems, and public-facing infrastructure.
+          </p>
+        </div>
+      </section>
     </main>
   )
 }
