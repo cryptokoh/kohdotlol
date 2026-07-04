@@ -101,7 +101,6 @@ export default function RussellLanding() {
   const [videoReady, setVideoReady] = useState(false)
   const videoRef = useRef(null)
 
-  const resumeUrl = '/russell-herod-resume.md'
   const videoUrl = '/videos/russell-herod-resume.mp4'
 
   useEffect(() => {
@@ -150,26 +149,12 @@ export default function RussellLanding() {
               Hardware support, device repair, e-commerce, blockchain education, community platforms, and public-good infrastructure.
             </p>
           </div>
-
-          <div className="russell-actions">
-            <a className="button button--primary mono" href={resumeUrl} download>
-              Download Resume MD
-            </a>
-            <a
-              className="button button--secondary mono"
-              href="https://www.linkedin.com/in/russell-herod-841372192/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Get in touch
-            </a>
-          </div>
         </div>
 
         <div className="russell-media-shell">
           <div className="russell-media-label mono">
             <span>{statusText}</span>
-            <span>HyperFrames resume cut</span>
+            <span>HyperFrames presentation cut</span>
           </div>
 
           <div className={`russell-loader ${ready ? 'is-hidden' : ''}`} aria-hidden={ready}>
@@ -203,7 +188,7 @@ export default function RussellLanding() {
           </div>
           <div>
             <span className="mono note-label">Next step</span>
-            <p>LinkedIn is the contact path. The resume MD stays downloadable for job sites.</p>
+            <p>Resume MD remains available at the page root for job-site submission.</p>
           </div>
         </div>
       </section>
