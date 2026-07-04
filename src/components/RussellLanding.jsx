@@ -142,12 +142,15 @@ export default function RussellLanding() {
   return (
     <main className="russell-page">
       <section className="russell-hero">
-        <div className="russell-copy">
-          <p className="eyebrow mono">Resume / Frameworks / Public Work</p>
-          <h1>Russell Herod</h1>
-          <p className="lede">
-            Hardware support, device repair, e-commerce, blockchain education, community platforms, and public-good infrastructure.
-          </p>
+        <div className="russell-header">
+          <div className="russell-copy">
+            <p className="eyebrow mono">Resume / Frameworks / Public Work</p>
+            <h1>Russell Herod</h1>
+            <p className="lede">
+              Hardware support, device repair, e-commerce, blockchain education, community platforms, and public-good infrastructure.
+            </p>
+          </div>
+
           <div className="russell-actions">
             <a className="button button--primary mono" href={resumeUrl} download>
               Download Resume MD
@@ -160,16 +163,6 @@ export default function RussellLanding() {
             >
               Get in touch
             </a>
-          </div>
-          <div className="russell-notes">
-            <div>
-              <span className="mono note-label">Frameworks</span>
-              <p>Harmonik, DANZ / FlowB, Nored Farms, HAND Protocol</p>
-            </div>
-            <div>
-              <span className="mono note-label">Next step</span>
-              <p>Contact wiring is intentionally deferred until the rest of the goal lands.</p>
-            </div>
           </div>
         </div>
 
@@ -200,6 +193,17 @@ export default function RussellLanding() {
               poster="/kohlabs-meme.png"
             />
             <div className="russell-media__veil" />
+          </div>
+        </div>
+
+        <div className="russell-footer">
+          <div>
+            <span className="mono note-label">Frameworks</span>
+            <p>Harmonik, DANZ / FlowB, Nored Farms, HAND Protocol</p>
+          </div>
+          <div>
+            <span className="mono note-label">Next step</span>
+            <p>LinkedIn is the contact path. The resume MD stays downloadable for job sites.</p>
           </div>
         </div>
       </section>
