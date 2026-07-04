@@ -142,28 +142,6 @@ export default function RussellLanding() {
   return (
     <main className="russell-page">
       <section className="russell-hero">
-        <div className={`russell-loader ${ready ? 'is-hidden' : ''}`} aria-hidden={ready}>
-          <WireframeIntro />
-          <div className="russell-loader__label">
-            <span className="mono">Russell Herod</span>
-            <span className="mono russell-loader__status">{statusText}</span>
-          </div>
-        </div>
-
-        <div className={`russell-media ${ready ? 'is-visible' : ''}`}>
-          <video
-            ref={videoRef}
-            className="russell-video"
-            src={videoUrl}
-            playsInline
-            muted
-            loop
-            preload="auto"
-            autoPlay
-          />
-          <div className="russell-media__veil" />
-        </div>
-
         <div className="russell-copy">
           <p className="eyebrow mono">Resume / Frameworks / Public Work</p>
           <h1>Russell Herod</h1>
@@ -192,6 +170,36 @@ export default function RussellLanding() {
               <span className="mono note-label">Next step</span>
               <p>Contact wiring is intentionally deferred until the rest of the goal lands.</p>
             </div>
+          </div>
+        </div>
+
+        <div className="russell-media-shell">
+          <div className="russell-media-label mono">
+            <span>{statusText}</span>
+            <span>HyperFrames resume cut</span>
+          </div>
+
+          <div className={`russell-loader ${ready ? 'is-hidden' : ''}`} aria-hidden={ready}>
+            <WireframeIntro />
+            <div className="russell-loader__label">
+              <span className="mono">Russell Herod</span>
+              <span className="mono russell-loader__status">{statusText}</span>
+            </div>
+          </div>
+
+          <div className={`russell-media ${ready ? 'is-visible' : ''}`}>
+            <video
+              ref={videoRef}
+              className="russell-video"
+              src={videoUrl}
+              playsInline
+              muted
+              loop
+              preload="auto"
+              autoPlay
+              poster="/kohlabs-meme.png"
+            />
+            <div className="russell-media__veil" />
           </div>
         </div>
       </section>
