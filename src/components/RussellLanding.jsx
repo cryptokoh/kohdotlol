@@ -149,6 +149,16 @@ export default function RussellLanding() {
               Hardware support, device repair, e-commerce, blockchain education, community platforms, and public-good infrastructure.
             </p>
           </div>
+          <div className="russell-contact mono">
+            <span className="note-label">Contact</span>
+            <a
+              href="https://www.linkedin.com/in/russell-herod-841372192/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              LinkedIn
+            </a>
+          </div>
         </div>
 
         <div className="russell-media-shell">
@@ -175,7 +185,7 @@ export default function RussellLanding() {
               loop
               preload="auto"
               autoPlay
-              poster="/kohlabs-meme.png"
+              poster="/videos/russell-herod-resume-poster.jpg"
             />
             <div className="russell-media__veil" />
           </div>
