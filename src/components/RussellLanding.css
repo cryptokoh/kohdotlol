@@ -1,0 +1,210 @@
+:root {
+  color-scheme: dark;
+  --russell-bg: oklch(0.14 0.012 236);
+  --russell-surface: oklch(0.18 0.012 236 / 0.72);
+  --russell-surface-strong: oklch(0.22 0.015 236 / 0.9);
+  --russell-text: oklch(0.95 0.01 82);
+  --russell-muted: oklch(0.73 0.02 82);
+  --russell-gold: oklch(0.82 0.09 76);
+  --russell-blue: oklch(0.7 0.08 255);
+  --russell-border: oklch(0.38 0.015 236 / 0.45);
+}
+
+body {
+  background:
+    radial-gradient(90vw 70vw at 50% 15%, oklch(0.28 0.03 76 / 0.24), transparent 50%),
+    radial-gradient(70vw 60vw at 70% 70%, oklch(0.32 0.05 255 / 0.16), transparent 42%),
+    var(--russell-bg);
+  color: var(--russell-text);
+}
+
+.russell-page {
+  min-height: 100vh;
+}
+
+.russell-hero {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.russell-loader,
+.russell-media,
+.russell-copy {
+  position: absolute;
+  inset: 0;
+}
+
+.russell-loader {
+  display: grid;
+  place-items: center;
+  transition: opacity 0.7s ease, transform 0.7s ease;
+  background: linear-gradient(180deg, transparent, oklch(0.08 0.01 236 / 0.94));
+}
+
+.russell-loader.is-hidden {
+  opacity: 0;
+  transform: scale(1.02);
+  pointer-events: none;
+}
+
+.russell-wireframe-canvas {
+  position: absolute;
+  inset: 0;
+}
+
+.russell-loader__label {
+  position: relative;
+  z-index: 1;
+  margin-top: auto;
+  padding-bottom: 8vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  text-align: center;
+}
+
+.mono {
+  font-family: 'IBM Plex Mono', monospace;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.russell-loader__status {
+  color: var(--russell-muted);
+  font-size: 0.8rem;
+}
+
+.russell-media {
+  opacity: 0;
+  transform: scale(1.01);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  pointer-events: none;
+}
+
+.russell-media.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.russell-video,
+.russell-media__veil {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.russell-video {
+  object-fit: cover;
+}
+
+.russell-media__veil {
+  background:
+    linear-gradient(180deg, oklch(0.04 0.01 236 / 0.18), oklch(0.06 0.01 236 / 0.78)),
+    radial-gradient(80vw 60vw at 50% 50%, transparent 32%, oklch(0.05 0.01 236 / 0.4) 100%);
+}
+
+.russell-copy {
+  display: grid;
+  align-content: end;
+  padding: clamp(1.25rem, 3vw, 3rem);
+}
+
+.russell-copy::before {
+  content: '';
+  position: absolute;
+  inset: 1.25rem;
+  border: 1px solid var(--russell-border);
+  pointer-events: none;
+}
+
+.eyebrow {
+  color: var(--russell-gold);
+  font-size: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.russell-copy h1 {
+  max-width: 10ch;
+  font-size: clamp(4rem, 10vw, 8rem);
+  line-height: 0.92;
+  margin: 0;
+}
+
+.lede {
+  max-width: 62ch;
+  margin-top: 1.5rem;
+  font-size: clamp(1rem, 1.5vw, 1.35rem);
+  line-height: 1.5;
+  color: var(--russell-muted);
+}
+
+.russell-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-top: 2rem;
+}
+
+.button {
+  appearance: none;
+  border: 1px solid var(--russell-border);
+  border-radius: 999px;
+  background: var(--russell-surface);
+  color: var(--russell-text);
+  padding: 0.95rem 1.25rem;
+  text-decoration: none;
+  font-size: 0.82rem;
+}
+
+.button--primary {
+  background: linear-gradient(135deg, oklch(0.74 0.09 76 / 0.24), oklch(0.56 0.08 255 / 0.16));
+  border-color: oklch(0.78 0.08 76 / 0.55);
+}
+
+.button--secondary {
+  background: transparent;
+}
+
+.russell-notes {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: 62rem;
+  margin-top: 2rem;
+}
+
+.russell-notes > div {
+  padding: 1rem 1rem 1rem 0;
+  border-top: 1px solid var(--russell-border);
+}
+
+.note-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--russell-gold);
+  font-size: 0.72rem;
+}
+
+.russell-notes p {
+  margin: 0;
+  color: var(--russell-muted);
+  line-height: 1.45;
+}
+
+@media (max-width: 900px) {
+  .russell-copy {
+    align-content: start;
+    padding-top: 8.5rem;
+  }
+
+  .russell-copy h1 {
+    font-size: clamp(3rem, 18vw, 5rem);
+  }
+
+  .russell-notes {
+    grid-template-columns: 1fr;
+  }
+}

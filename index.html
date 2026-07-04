@@ -12,14 +12,14 @@
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="theme-color" content="#111827" />
+    <meta name="theme-color" content="#07080a" />
     
     <!-- PWA Meta -->
-    <meta name="application-name" content="$koHLabs" />
-    <meta name="apple-mobile-web-app-title" content="$koHLabs" />
-    <meta name="description" content="Degen to Regen • Vibe Coding • Real Builds • Live Streams" />
+    <meta name="application-name" content="Russell Herod" />
+    <meta name="apple-mobile-web-app-title" content="Russell Herod" />
+    <meta name="description" content="Russell Herod resume, frameworks, and mission infrastructure." />
     
-    <title>$koHLabs - Degen to Regen</title>
+    <title>Russell Herod</title>
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -54,19 +54,8 @@
       if (typeof global === 'undefined') {
         window.global = window;
       }
-      
-      // Clean up any stale service workers from extensions or previous builds
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.ready.then(registration => {
-          // Only unregister service workers not from our domain
-          if (!registration.scope.includes(window.location.origin)) {
-            registration.unregister();
-          }
-        }).catch(() => {
-          // Ignore errors from extension service workers
-        });
-      }
     </script>
+    <script src="/cleanup-sw.js"></script>
   </head>
   <body>
     <div id="root"></div>
@@ -74,7 +63,7 @@
     <noscript>
       <div style="
         min-height: 100vh;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: #07080a;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -82,7 +71,7 @@
         color: white;
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       ">
-        <h1 style="font-size: 3rem; margin: 0;">$koHLabs</h1>
+        <h1 style="font-size: 3rem; margin: 0;">Russell Herod</h1>
         <p style="font-size: 1.2rem; margin-top: 1rem;">JavaScript is required</p>
       </div>
     </noscript>
