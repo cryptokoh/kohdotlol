@@ -1,137 +1,172 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import './Portfolio.css'
 
-const ASCII_LOGO = `
-██╗  ██╗ ██████╗ ██╗  ██╗   ██╗      ██████╗ ██╗
-██║ ██╔╝██╔═══██╗██║  ██║   ██║     ██╔═══██╗██║
-█████╔╝ ██║   ██║███████║   ██║     ██║   ██║██║
-██╔═██╗ ██║   ██║██╔══██║   ██║     ██║   ██║██║
-██║  ██╗╚██████╔╝██║  ██║██╗███████╗╚██████╔╝███████╗
-╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═╝╚══════╝ ╚═════╝ ╚══════╝
-`.trim()
+const focusAreas = [
+  {
+    title: 'Public surfaces',
+    text: 'Landing pages, campaign sites, and clean presentation layers that feel specific instead of generic.'
+  },
+  {
+    title: 'Operator tooling',
+    text: 'Dashboards, intake flows, and small internal systems that keep the work moving without adding noise.'
+  },
+  {
+    title: 'Experiments',
+    text: 'Short runs, prototypes, and live builds that test a direction before it turns into a larger surface.'
+  }
+]
 
-const MINIMAL_LOGO = `
-┌─────────────────────────────────────────────────┐
-│  ▄ ▄▀▀ ▄  ▄     ▄   ▄▀▀ ▄                      │
-│  █▀▄ █▀█ █▀█ ▀ █   █▀█ █                       │
-│  ▀ ▀ ▀▀▀ ▀ ▀   ▀▀▀ ▀▀▀ ▀▀▀                     │
-└─────────────────────────────────────────────────┘
-`.trim()
-
-const CLEAN_LOGO = `
- ┬┌─┌─┐┬ ┬   ┬  ┌─┐┬
- ├┴┐│ ││ │   │  │ ││
- ┴ ┴└─┘└─┘ o └─┘└─┘┴─┘
-`.trim()
+const currentNotes = [
+  'Shipping lighter layouts with clearer hierarchy.',
+  'Keeping the visual language warm, calm, and legible.',
+  'Preserving the older builds as legacy routes instead of the homepage.'
+]
 
 export default function Portfolio() {
-  const [loaded, setLoaded] = useState(false)
-  const [showEthos, setShowEthos] = useState(false)
+  const [ready, setReady] = useState(false)
 
   useEffect(() => {
-    // Fade in the header
-    setTimeout(() => setLoaded(true), 100)
-    // Then show the ethos
-    setTimeout(() => setShowEthos(true), 800)
+    const id = window.requestAnimationFrame(() => setReady(true))
+    return () => window.cancelAnimationFrame(id)
   }, [])
 
   return (
-    <div className="min-h-screen bg-white relative overflow-hidden">
-      {/* Angled corner accent - elite style diagonal cut */}
-      <div
-        className="absolute top-0 right-0 w-48 h-48 bg-gradient-to-br from-teal-100 to-teal-200"
-        style={{
-          clipPath: 'polygon(100% 0, 0 0, 100% 100%)'
-        }}
-      />
+    <div className={`koh-home ${ready ? 'is-ready' : ''}`}>
+      <div className="koh-home__backdrop" aria-hidden="true" />
+      <div className="koh-home__grid" aria-hidden="true" />
 
-      {/* Subtle corner line detail */}
-      <div
-        className="absolute top-0 right-0 w-48 h-48 border-l-2 border-teal-300 opacity-60"
-        style={{
-          transform: 'rotate(45deg)',
-          transformOrigin: 'top right',
-          right: '68px',
-          top: '-68px'
-        }}
-      />
-
-      {/* Main content container */}
-      <div className="relative z-10 min-h-screen flex flex-col justify-center px-8 md:px-16 lg:px-24">
-
-        {/* ASCII Header */}
-        <header
-          className={`transition-all duration-1000 ease-out ${
-            loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-          }`}
-        >
-          <pre
-            className="font-mono text-teal-400 text-[8px] sm:text-[10px] md:text-xs lg:text-sm leading-tight tracking-tighter select-none"
-            style={{
-              textShadow: '0 0 20px rgba(94, 234, 212, 0.3)',
-              letterSpacing: '-0.05em'
-            }}
-          >
-            {CLEAN_LOGO}
-          </pre>
-
-          {/* Subtle underline accent */}
-          <div className="mt-4 w-24 h-px bg-gradient-to-r from-teal-300 to-transparent" />
-        </header>
-
-        {/* Ethos Section */}
-        <section
-          className={`mt-16 max-w-2xl transition-all duration-1000 delay-300 ease-out ${
-            showEthos ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-          }`}
-        >
-          <p className="text-teal-600 text-lg md:text-xl font-light leading-relaxed tracking-wide">
-            building tools for humans
-          </p>
-
-          <p className="mt-6 text-teal-400 text-sm md:text-base font-light leading-relaxed opacity-80">
-            developer · systems thinker · community builder
-          </p>
-
-          {/* Minimal nav hints */}
-          <nav className="mt-16 flex gap-8 text-teal-300 text-xs font-mono uppercase tracking-widest">
-            <span className="hover:text-teal-500 cursor-pointer transition-colors">
-              [ work ]
+      <header className="koh-nav">
+        <div className="koh-shell koh-nav__inner">
+          <a className="koh-brand" href="/" aria-label="koh.lol home">
+            <span className="koh-brand__mark" aria-hidden="true">koH</span>
+            <span className="koh-brand__text">
+              <span className="koh-brand__top">koh.lol</span>
+              <span className="koh-brand__bottom">public builds and notes</span>
             </span>
-            <span className="hover:text-teal-500 cursor-pointer transition-colors">
-              [ about ]
-            </span>
-            <span className="hover:text-teal-500 cursor-pointer transition-colors">
-              [ connect ]
-            </span>
+          </a>
+
+          <nav className="koh-nav__links" aria-label="Primary">
+            <a href="#work">Work</a>
+            <a href="#notes">Notes</a>
+            <a href="#connect">Connect</a>
           </nav>
+        </div>
+      </header>
+
+      <main>
+        <section className="koh-hero">
+          <div className="koh-shell koh-hero__inner">
+            <div className="koh-hero__copy">
+              <p className="koh-eyebrow">koh.lol / 2026</p>
+              <h1>Building clean web surfaces, tools, and experiments.</h1>
+              <p className="koh-lede">
+                The homepage is now tuned for clarity, not spectacle. It gives the work room to
+                breathe, keeps the structure legible on mobile, and leaves the older dark build
+                behind as a legacy route.
+              </p>
+
+              <div className="koh-actions">
+                <a className="koh-button koh-button--primary" href="#work">
+                  View work
+                </a>
+                <a className="koh-button koh-button--secondary" href="#notes">
+                  Read notes
+                </a>
+              </div>
+            </div>
+
+            <aside className="koh-panel">
+              <p className="koh-panel__label">Current focus</p>
+              <dl className="koh-keylist">
+                <div>
+                  <dt>Surface</dt>
+                  <dd>Public site, campaign pages, and microsites</dd>
+                </div>
+                <div>
+                  <dt>Style</dt>
+                  <dd>Warm editorial, amber accent, quiet contrast</dd>
+                </div>
+                <div>
+                  <dt>Priority</dt>
+                  <dd>Clear hierarchy, mobile fit, and low friction</dd>
+                </div>
+              </dl>
+            </aside>
+          </div>
         </section>
 
-        {/* Bottom corner detail - mirroring elite asymmetry */}
-        <div className="absolute bottom-8 left-8 flex items-center gap-3 text-teal-200 text-xs font-mono">
-          <span className="opacity-40">───</span>
-          <span className="opacity-60">2025</span>
+        <section className="koh-section" id="work">
+          <div className="koh-shell">
+            <div className="koh-section__heading">
+              <p className="koh-eyebrow">What the site holds</p>
+              <h2>Three lanes, one simpler presentation.</h2>
+              <p>
+                The current structure keeps the homepage focused on the work itself instead of
+                layering on effects that compete with the content.
+              </p>
+            </div>
+
+            <div className="koh-card-grid">
+              {focusAreas.map((item) => (
+                <article className="koh-card" key={item.title}>
+                  <h3>{item.title}</h3>
+                  <p>{item.text}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="koh-section koh-section--split" id="notes">
+          <div className="koh-shell koh-split">
+            <div className="koh-section__heading koh-section__heading--compact">
+              <p className="koh-eyebrow">Notes</p>
+              <h2>What changed in the newer style.</h2>
+              <p>
+                The page now reads as a calm public surface, with a softer palette, clearer type
+                scale, and less visual clutter.
+              </p>
+            </div>
+
+            <div className="koh-notes">
+              {currentNotes.map((note) => (
+                <article className="koh-note" key={note}>
+                  <p>{note}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="koh-section" id="connect">
+          <div className="koh-shell koh-cta">
+            <div>
+              <p className="koh-eyebrow">Connect</p>
+              <h2>Reach out when the next surface is ready.</h2>
+              <p>
+                The page is set up for small, specific updates. Drop in the next link, project,
+                or contact path when it is ready to ship.
+              </p>
+            </div>
+
+            <div className="koh-cta__actions">
+              <a className="koh-button koh-button--primary" href="mailto:hello@koh.lol">
+                Email
+              </a>
+              <a className="koh-button koh-button--secondary" href="/legacy">
+                Open legacy
+              </a>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer className="koh-footer">
+        <div className="koh-shell koh-footer__inner">
+          <p>koh.lol, newer homepage style.</p>
+          <p className="koh-footer__meta">Legacy routes stay available, but the homepage stays clean.</p>
         </div>
-
-        {/* Subtle grid pattern overlay */}
-        <div
-          className="absolute inset-0 pointer-events-none opacity-[0.02]"
-          style={{
-            backgroundImage: `
-              linear-gradient(rgba(94, 234, 212, 1) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(94, 234, 212, 1) 1px, transparent 1px)
-            `,
-            backgroundSize: '40px 40px'
-          }}
-        />
-      </div>
-
-      {/* Small angled accent bottom left */}
-      <div
-        className="absolute bottom-0 left-0 w-32 h-32 border-t border-teal-100"
-        style={{
-          clipPath: 'polygon(0 100%, 0 0, 100% 100%)'
-        }}
-      />
+      </footer>
     </div>
   )
 }

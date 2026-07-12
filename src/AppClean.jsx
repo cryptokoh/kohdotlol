@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { lazy, Suspense } from 'react'
 import ErrorBoundary from './components/ErrorBoundary'
+import Portfolio from './Portfolio'
 
 const ResumePage = lazy(() => import('./ResumePage'))
 const KoHLabsExact = lazy(() => import('./KoHLabsExact'))
@@ -22,8 +23,9 @@ function AppClean() {
     <ErrorBoundary>
       <Router>
         <Routes>
+          <Route path="/" element={<Portfolio />} />
           <Route
-            path="/"
+            path="/resume"
             element={
               <Suspense fallback={<LoadingState label="Loading Russell Herod..." />}>
                 <ResumePage />
@@ -32,6 +34,14 @@ function AppClean() {
           />
           <Route
             path="/labs"
+            element={
+              <Suspense fallback={<LoadingState label="Loading KoHLabs..." />}>
+                <KoHLabsExact />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/legacy"
             element={
               <Suspense fallback={<LoadingState label="Loading KoHLabs..." />}>
                 <KoHLabsExact />
@@ -54,14 +64,7 @@ function AppClean() {
               </Suspense>
             }
           />
-          <Route
-            path="*"
-            element={
-              <Suspense fallback={<LoadingState label="Loading Russell Herod..." />}>
-                <ResumePage />
-              </Suspense>
-            }
-          />
+          <Route path="*" element={<Portfolio />} />
         </Routes>
       </Router>
     </ErrorBoundary>
