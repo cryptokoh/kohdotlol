@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import './index.css'
 import './KoHLabsExact.css'
 import { createMegaScript } from './config/claudeScripts'
 
@@ -1691,7 +1692,7 @@ function KoHLabsExact() {
                 <div className="coin-flip-front">
                   {!imageError ? (
                     <img 
-                      src="/kohlabs-meme.png" 
+                      src="/kohlabs-meme.webp" 
                       alt="$koHLabs Meme" 
                       className="meme-image"
                       onError={() => {

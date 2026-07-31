@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import './index.css'
 import './LiveStreams.css'
 
 function LiveStreams() {

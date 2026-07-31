@@ -25,7 +25,7 @@ Technical operator and founder with experience across hardware support, device r
 2024 - Present | Austin, TX
 
 - Built and maintained multiple web platforms focused on community coordination, commerce, sales enablement, and public-good infrastructure.
-- Created projects including Harmonik, DANZ / FlowB, Nored Farms systems, and HAND Protocol tools.
+- Created projects including Harmonik, Nored Farms systems, and HAND Protocol tools.
 - Used AI-assisted workflows to speed up documentation, product planning, and multi-project development.
 
 ### KohX LLC, Founder
@@ -82,7 +82,5 @@ Coursework in business, math, science, and computer-related studies.
 ## Selected Projects
 
 - Harmonik, neighborhood community platform
-- DANZ / FlowB, coordination and agent tooling
 - Nored Farms, e-commerce and wholesale platform
 - HAND Protocol, nonprofit mission infrastructure
-

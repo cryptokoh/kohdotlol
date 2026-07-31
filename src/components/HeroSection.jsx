@@ -20,7 +20,7 @@ function HeroSection({ contractAddress }) {
               <div className="coin-flip-front">
                 {!imageError ? (
                   <img 
-                    src="/kohlabs-meme.png" 
+                    src="/kohlabs-meme.webp" 
                     alt="$koHLabs Meme" 
                     className="meme-image"
                     onError={() => {

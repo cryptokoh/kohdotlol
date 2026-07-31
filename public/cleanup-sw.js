@@ -1,22 +1,24 @@
-// Cleanup any stale service workers
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.getRegistrations().then(function(registrations) {
-    for(let registration of registrations) {
-      registration.unregister().then(function(success) {
-        if (success) {
-          console.log('Service worker unregistered:', registration.scope);
-        }
-      });
-    }
-  });
-}
+(() => {
+  const cleanupKey = 'kohdotlol-cache-cleanup-2026-07-05'
 
-// Clear caches
-if ('caches' in window) {
-  caches.keys().then(function(names) {
-    for (let name of names) {
-      caches.delete(name);
-      console.log('Cache cleared:', name);
-    }
-  });
-}
+  try {
+    if (window.localStorage.getItem(cleanupKey) === 'done') return
+    window.localStorage.setItem(cleanupKey, 'done')
+  } catch (error) {
+    return
+  }
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker
+      .getRegistrations()
+      .then((registrations) => Promise.all(registrations.map((registration) => registration.unregister())))
+      .catch(() => {})
+  }
+
+  if ('caches' in window) {
+    caches
+      .keys()
+      .then((names) => Promise.all(names.map((name) => caches.delete(name))))
+      .catch(() => {})
+  }
+})()

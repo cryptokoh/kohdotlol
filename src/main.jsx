@@ -1,5 +1,4 @@
 import { createRoot } from 'react-dom/client'
-import './index.css'
 import App from './App.jsx'
 
 // Debugging removed for production
@@ -11,25 +10,9 @@ function mountApp() {
     // Root element not found - fail silently in production
     return
   }
-
-  const clearRuntimeCaches = async () => {
-    try {
-      if ('serviceWorker' in navigator) {
-        const registrations = await navigator.serviceWorker.getRegistrations()
-        await Promise.all(registrations.map((registration) => registration.unregister()))
-      }
-      if ('caches' in window) {
-        const keys = await caches.keys()
-        await Promise.all(keys.map((key) => caches.delete(key)))
-      }
-    } catch (error) {
-      // Cache cleanup is best-effort.
-    }
-  }
   
   // Mounting React app to root element
   try {
-    void clearRuntimeCaches()
     // Remove StrictMode to avoid double initialization issues
     createRoot(rootElement).render(<App />)
     // React app mounted successfully

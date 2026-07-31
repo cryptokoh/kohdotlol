@@ -2,29 +2,21 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/kohlabs-meme.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/kohlabs-meme.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/kohlabs-meme.png" />
-    <link rel="shortcut icon" href="/kohlabs-meme.png" />
+    <link rel="icon" type="image/svg+xml" href="/russell-favicon.svg" />
     
     <!-- Mobile App Meta Tags -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-    <meta name="theme-color" content="#d97706" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="theme-color" content="#f6f0e7" />
     
     <!-- PWA Meta -->
-    <meta name="application-name" content="koh.lol" />
-    <meta name="apple-mobile-web-app-title" content="koh.lol" />
-    <meta name="description" content="koh.lol, a clean homepage for public builds, tools, and experiments." />
+    <meta name="application-name" content="koH · Love of Life" />
+    <meta name="apple-mobile-web-app-title" content="koH" />
+    <meta name="description" content="koH · Love of Life. Russell Herod's professional profile, selected work, and contact path." />
     
-    <title>koh.lol</title>
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&family=Inter:wght@100;200;300;400;500&display=swap" rel="stylesheet">
+    <title>koH · Love of Life | Russell Herod</title>
     
     <!-- Safe Area CSS Variables -->
     <style>
@@ -39,34 +31,9 @@
       input, textarea, select {
         font-size: 16px !important;
       }
-      
-      /* Hide scrollbars but keep functionality */
-      * {
-        scrollbar-width: none;
-        -ms-overflow-style: none;
-      }
-      *::-webkit-scrollbar {
-        display: none;
-      }
     </style>
     
-    <script>
-      if (typeof global === 'undefined') {
-        window.global = window;
-      }
-      
-      // Clean up any stale service workers from extensions or previous builds
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.ready.then(registration => {
-          // Only unregister service workers not from our domain
-          if (!registration.scope.includes(window.location.origin)) {
-            registration.unregister();
-          }
-        }).catch(() => {
-          // Ignore errors from extension service workers
-        });
-      }
-    </script>
+    <script src="/cleanup-sw.js"></script>
   </head>
   <body>
     <div id="root"></div>
@@ -74,15 +41,15 @@
     <noscript>
       <div style="
         min-height: 100vh;
-        background: linear-gradient(135deg, #f5efe6 0%, #fffaf2 100%);
+        background: #f6f0e7;
         display: flex;
         align-items: center;
         justify-content: center;
         flex-direction: column;
-        color: #1f1a17;
+        color: #22201d;
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       ">
-        <h1 style="font-size: 3rem; margin: 0;">koh.lol</h1>
+        <h1 style="font-size: 3rem; margin: 0;">koH · Love of Life</h1>
         <p style="font-size: 1.2rem; margin-top: 1rem;">JavaScript is required</p>
       </div>
     </noscript>

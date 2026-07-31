@@ -1,28 +1,13 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import { nodePolyfills } from 'vite-plugin-node-polyfills'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [
-    react(),
-    nodePolyfills({
-      // Include all polyfills
-      protocolImports: true,
-    }),
-  ],
+  plugins: [react()],
   define: {
-    global: 'globalThis',
     'process.env': {},
   },
-  resolve: {
-    alias: {
-      buffer: 'buffer',
-      process: 'process/browser',
-    },
-  },
   optimizeDeps: {
-    include: ['buffer', 'process'],
     exclude: [
       '@reown/appkit',
       '@wagmi/core',
@@ -31,9 +16,6 @@ export default defineConfig({
       'viem'
     ],
     esbuildOptions: {
-      define: {
-        global: 'globalThis',
-      },
       sourcemap: false,
     },
   },

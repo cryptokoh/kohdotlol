@@ -229,7 +229,7 @@ function KoHLabs() {
         <div className="max-w-7xl mx-auto">
           <div className="inline-block relative mb-10 animate-float">
             <img 
-              src="/kohlabs-meme.png" 
+              src="/kohlabs-meme.webp" 
               alt="$koHLabs Meme" 
               className={`w-72 h-72 rounded-full border-4 object-cover ${
                 matrixMode 
