@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { lazy, Suspense } from 'react'
 import ErrorBoundary from './components/ErrorBoundary'
 import ResumePage from './ResumePage'
+import Portfolio from './Portfolio'
 
 const KoHLabsExact = lazy(() => import('./KoHLabsExact'))
 const KoHLabsOperations = lazy(() => import('./KoHLabsOperations'))
@@ -14,6 +15,10 @@ function App() {
         <Routes>
           <Route
             path="/"
+            element={<Portfolio />}
+          />
+          <Route
+            path="/resume"
             element={<ResumePage />}
           />
           <Route
@@ -42,7 +47,7 @@ function App() {
           />
           <Route
             path="*"
-            element={<ResumePage />}
+            element={<Portfolio />}
           />
         </Routes>
       </Router>
