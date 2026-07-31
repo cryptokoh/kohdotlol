@@ -1,6 +1,22 @@
-import RussellLanding from './components/RussellLanding'
-import './components/RussellLanding.css'
+import CareerGraph from './components/CareerGraph'
+import './ResumePage.css'
+
+const experience = [
+  ['2024 — present', 'Independent Founder-Builder / koH', 'Austin, TX', 'Build and maintain web platforms for community coordination, commerce, sales enablement, and public-good infrastructure. Current work includes Harmonik, DANZ / FlowB, Nored Farms systems, and HAND Protocol tools.'],
+  ['2019 — 2024', 'KohX LLC, Founder', 'Ballwin, MO', 'Founded Kindness of Humanity Exchange to explore proof-of-stake infrastructure for charities and impact organizations. Led accessible blockchain education with community partners and at technology conferences.'],
+  ['2009 — 2018', 'RA Resources, Owner / Technician', 'Arlington, TX', 'Repaired Android devices and consumer electronics, solved hardware and software issues, and grew the work into broad technical support for people and small businesses.'],
+  ['2008 — 2009', 'Desktop Disposal, Manager / Sales', 'Irving, TX', 'Managed online sales of refurbished computers, inventory and warehouse flow, employee supervision, and business outreach for electronics recycling.'],
+  ['2002 — 2007', 'Pinnacle Solutions, Computer Tech / File Clerk / Sales', 'Dallas, TX', 'Handled technical issues, file organization, customer service, and sales support while learning the operating rhythms of a small business.'],
+]
 
 export default function ResumePage() {
-  return <RussellLanding />
+  return <main className="resume-page"><div className="resume-shell">
+    <nav className="resume-nav" aria-label="Resume navigation"><a href="/">← koh.lol</a><a href="mailto:hello@koh.lol">Start a conversation ↗</a></nav>
+    <header className="resume-masthead"><div><p className="resume-eyebrow">Resume / 2026</p><h1>Russell <em>Herod</em></h1><p className="resume-summary">Technical operator and founder who turns complex systems into useful, human-facing tools — across support, commerce, community infrastructure, and the web.</p></div><aside className="resume-contact"><span>Austin, Texas</span><a href="mailto:hello@koh.lol">hello@koh.lol</a><a href="https://www.linkedin.com/in/russell-herod-841372192/" target="_blank" rel="noreferrer">LinkedIn ↗</a><a href="/" >koh.lol ↗</a></aside></header>
+    <section className="resume-section"><p className="resume-section__title">Trajectory</p><div className="resume-section__body"><h2>A practical career built <em>from the ground up.</em></h2><CareerGraph compact /></div></section>
+    <section className="resume-section"><p className="resume-section__title">Experience</p><div className="resume-section__body"><h2>Work that connects <em>people, operations, and technology.</em></h2><div className="resume-experience">{experience.map(([period, role, place, description]) => <article className="resume-role" key={role}><time>{period}</time><div><h3>{role}<span>{place}</span></h3><p>{description}</p></div></article>)}</div></div></section>
+    <section className="resume-section"><p className="resume-section__title">Capabilities</p><div className="resume-section__body"><h2>Range without losing <em>the through line.</em></h2><div className="resume-skills"><div className="resume-skill"><h3>Product & web</h3><p>React, Next.js, Vite, TypeScript, JavaScript, HTML, CSS, Supabase, PostgreSQL, GraphQL, Stripe.</p></div><div className="resume-skill"><h3>Technical support</h3><p>Hardware troubleshooting, device repair, network setup, Windows, Linux, cPanel, Plesk, and customer-facing technical help.</p></div><div className="resume-skill"><h3>Operations</h3><p>E-commerce, sales, inventory management, warehouse coordination, documentation, product planning, and clear handoffs.</p></div><div className="resume-skill"><h3>Community systems</h3><p>Blockchain education, onboarding, public-good infrastructure, practical communication, and mission-led program building.</p></div></div></div></section>
+    <section className="resume-section"><p className="resume-section__title">Selected work</p><div className="resume-section__body"><h2>Current frameworks <em>and platforms.</em></h2><div className="resume-projects"><div className="resume-project"><strong>Harmonik</strong><span>Neighborhood community platform</span></div><div className="resume-project"><strong>DANZ / FlowB</strong><span>Coordination and agent tooling</span></div><div className="resume-project"><strong>Nored Farms</strong><span>E-commerce and wholesale systems</span></div><div className="resume-project"><strong>HAND Protocol</strong><span>Nonprofit mission infrastructure</span></div></div></div></section>
+    <footer className="resume-footer"><span>Russell Herod</span><span>Available for thoughtful work</span><span>© 2026</span></footer>
+  </div></main>
 }

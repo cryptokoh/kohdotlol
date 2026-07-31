@@ -1,26 +1,91 @@
 import { useEffect, useState } from 'react'
 import './Portfolio.css'
+import CareerGraph from './components/CareerGraph'
 
-const focusAreas = [
+const projectGroups = [
   {
-    title: 'Public surfaces',
-    text: 'Landing pages, campaign sites, and clean presentation layers that feel specific instead of generic.'
+    label: 'Public work',
+    color: 'blue',
+    tabs: [
+      { name: 'HAND Protocol', meta: 'Foundation campaign', color: 'blue', text: 'A public-facing system for a regenerative infrastructure nonprofit, built to make the next action obvious.', href: 'https://handprotocol.netlify.app/' },
+      { name: 'Public surfaces', meta: 'Independent builds', color: 'red', text: 'Landing pages, campaign sites, and small web moments with enough character to be remembered.', href: '#contact' }
+    ]
   },
   {
-    title: 'Operator tooling',
-    text: 'Dashboards, intake flows, and small internal systems that keep the work moving without adding noise.'
+    label: 'Systems and tools',
+    color: 'teal',
+    tabs: [
+      { name: 'Quiet tools', meta: 'Operator systems', color: 'teal', text: 'Dashboards, intake flows, and small internal systems that keep the work moving without adding noise.' },
+      { name: 'Experiments', meta: 'Short runs', color: 'yellow', text: 'Prototypes and live builds that test a direction before it turns into a larger surface.' }
+    ]
   },
   {
-    title: 'Experiments',
-    text: 'Short runs, prototypes, and live builds that test a direction before it turns into a larger surface.'
+    label: 'Archive',
+    color: 'purple',
+    tabs: [
+      { name: 'KoHLabs / v1', meta: 'Legacy surface', color: 'purple', text: 'The older experiments stay live. History is useful when it has a door, not when it takes over the lobby.', href: '/legacy' },
+      { name: 'Live builds', meta: 'In motion', color: 'black', text: 'A record of things being tested in public, where the unfinished edges are part of the point.', href: '/live' }
+    ]
   }
 ]
 
-const currentNotes = [
-  'Shipping lighter layouts with clearer hierarchy.',
-  'Keeping the visual language warm, calm, and legible.',
-  'Preserving the older builds as legacy routes instead of the homepage.'
+const historyGroups = [
+  {
+    label: 'Community and protocol', color: 'blue', tabs: [
+      { name: 'KohX LLC', meta: '2019 to 2024', color: 'blue', text: 'Founded Kindness of Humanity Exchange around proof-of-stake blockchain ideas for charities and impact organizations. Spoke at tech conferences and worked with Blockchain Center Miami on education for mining and cybersecurity basics.', detail: 'Ballwin, Missouri' }
+    ]
+  },
+  {
+    label: 'Expressive and technical', color: 'teal', tabs: [
+      { name: 'RA Resources', meta: '2009 to 2018', color: 'teal', text: 'Ran device repair and troubleshooting focused on Android hardware, then broadened the business into general electronics support and technical help.', detail: 'Arlington, Texas' }
+    ]
+  },
+  {
+    label: 'Operations', color: 'purple', tabs: [
+      { name: 'Desktop Disposal', meta: '2008 to 2009', color: 'purple', text: 'Managed sales, inventory, warehouse flow, and refurbished equipment resale through e-commerce channels.', detail: 'Sales, inventory, and resale' },
+      { name: 'Pinnacle Solutions', meta: '2002 to 2007', color: 'red', text: 'Handled tech support, file work, customer service, and sales support while building early systems thinking around business and operations.', detail: 'Technical support' }
+    ]
+  }
 ]
+
+function FileSystem({ groups, title }) {
+  const [active, setActive] = useState({ group: 0, tab: 0 })
+
+  return (
+    <div className="file-system" aria-label={title}>
+      {groups.map((group, groupIndex) => {
+        const isOpen = active.group === groupIndex
+        const selected = group.tabs[active.group === groupIndex ? active.tab : 0]
+        return (
+          <section className={`file-row file-row--${group.color} ${isOpen ? 'is-open' : ''}`} key={group.label}>
+            <div className="file-row__tabs">
+              {group.tabs.map((tab, tabIndex) => (
+                <button
+                  className={`file-tab file-tab--${tab.color} ${isOpen && active.tab === tabIndex ? 'is-active' : ''}`}
+                  key={tab.name}
+                  type="button"
+                  onClick={() => setActive({ group: groupIndex, tab: tabIndex })}
+                  aria-expanded={isOpen && active.tab === tabIndex}
+                >
+                  <span>{tab.name}</span><small>{tab.meta}</small>
+                </button>
+              ))}
+              <button className="file-row__label" type="button" onClick={() => setActive({ group: groupIndex, tab: 0 })}>
+                {group.label} <span>{isOpen ? '⌃' : '‹'}</span>
+              </button>
+            </div>
+            <div className="file-row__body" aria-hidden={!isOpen}>
+              <div className="file-row__body-inner">
+                <span className="file-row__number">{String(groupIndex + 1).padStart(2, '0')}</span>
+                <div className="file-row__copy"><p className="file-meta">{selected.detail || selected.meta}</p><h3>{selected.name}</h3><p>{selected.text}</p>{selected.href && <a href={selected.href}>Open file <span>↗</span></a>}</div>
+              </div>
+            </div>
+          </section>
+        )
+      })}
+    </div>
+  )
+}
 
 export default function Portfolio() {
   const [ready, setReady] = useState(false)
@@ -32,141 +97,16 @@ export default function Portfolio() {
 
   return (
     <div className={`koh-home ${ready ? 'is-ready' : ''}`}>
-      <div className="koh-home__backdrop" aria-hidden="true" />
-      <div className="koh-home__grid" aria-hidden="true" />
-
-      <header className="koh-nav">
-        <div className="koh-shell koh-nav__inner">
-          <a className="koh-brand" href="/" aria-label="koh.lol home">
-            <span className="koh-brand__mark" aria-hidden="true">koH</span>
-            <span className="koh-brand__text">
-              <span className="koh-brand__top">koh.lol</span>
-              <span className="koh-brand__bottom">public builds and notes</span>
-            </span>
-          </a>
-
-          <nav className="koh-nav__links" aria-label="Primary">
-            <a href="#work">Work</a>
-            <a href="#notes">Notes</a>
-            <a href="#connect">Connect</a>
-          </nav>
-        </div>
-      </header>
-
+      <header className="koh-header"><a className="koh-logo" href="/">KOH.LOL FILES</a><nav><a href="#projects">Projects</a><a href="#history">History</a><a href="/resume">Resume</a><a href="#contact">Contact</a></nav></header>
       <main>
-        <section className="koh-hero">
-          <div className="koh-shell koh-hero__inner">
-            <div className="koh-hero__copy">
-              <p className="koh-eyebrow">koh.lol / 2026</p>
-              <h1>Building clean web surfaces, tools, and experiments.</h1>
-              <p className="koh-lede">
-                The homepage is now tuned for clarity, not spectacle. It gives the work room to
-                breathe, keeps the structure legible on mobile, and leaves the older dark build
-                behind as a legacy route.
-              </p>
+        <section className="koh-hero"><div className="koh-hero__inner"><h1>Independent<br />web building</h1><p>A working archive of public surfaces, tools, experiments, and the work that led here.</p><a className="koh-hero__scroll" href="#projects">Open the files <span>↓</span></a></div></section>
 
-              <div className="koh-actions">
-                <a className="koh-button koh-button--primary" href="#work">
-                  View work
-                </a>
-                <a className="koh-button koh-button--secondary" href="#notes">
-                  Read notes
-                </a>
-              </div>
-            </div>
+        <section className="koh-archive" id="projects"><div className="koh-archive__header"><span>Projects</span><span>03 groups / public work</span></div><FileSystem groups={projectGroups} title="Projects" /></section>
+        <section className="koh-archive koh-archive--history" id="history"><div className="koh-archive__header"><span>Work history</span><span>03 groups / 2002 to 2024</span></div><CareerGraph /><FileSystem groups={historyGroups} title="Work history" /></section>
 
-            <aside className="koh-panel">
-              <p className="koh-panel__label">Current focus</p>
-              <dl className="koh-keylist">
-                <div>
-                  <dt>Surface</dt>
-                  <dd>Public site, campaign pages, and microsites</dd>
-                </div>
-                <div>
-                  <dt>Style</dt>
-                  <dd>Warm editorial, amber accent, quiet contrast</dd>
-                </div>
-                <div>
-                  <dt>Priority</dt>
-                  <dd>Clear hierarchy, mobile fit, and low friction</dd>
-                </div>
-              </dl>
-            </aside>
-          </div>
-        </section>
-
-        <section className="koh-section" id="work">
-          <div className="koh-shell">
-            <div className="koh-section__heading">
-              <p className="koh-eyebrow">What the site holds</p>
-              <h2>Three lanes, one simpler presentation.</h2>
-              <p>
-                The current structure keeps the homepage focused on the work itself instead of
-                layering on effects that compete with the content.
-              </p>
-            </div>
-
-            <div className="koh-card-grid">
-              {focusAreas.map((item) => (
-                <article className="koh-card" key={item.title}>
-                  <h3>{item.title}</h3>
-                  <p>{item.text}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="koh-section koh-section--split" id="notes">
-          <div className="koh-shell koh-split">
-            <div className="koh-section__heading koh-section__heading--compact">
-              <p className="koh-eyebrow">Notes</p>
-              <h2>What changed in the newer style.</h2>
-              <p>
-                The page now reads as a calm public surface, with a softer palette, clearer type
-                scale, and less visual clutter.
-              </p>
-            </div>
-
-            <div className="koh-notes">
-              {currentNotes.map((note) => (
-                <article className="koh-note" key={note}>
-                  <p>{note}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="koh-section" id="connect">
-          <div className="koh-shell koh-cta">
-            <div>
-              <p className="koh-eyebrow">Connect</p>
-              <h2>Reach out when the next surface is ready.</h2>
-              <p>
-                The page is set up for small, specific updates. Drop in the next link, project,
-                or contact path when it is ready to ship.
-              </p>
-            </div>
-
-            <div className="koh-cta__actions">
-              <a className="koh-button koh-button--primary" href="mailto:hello@koh.lol">
-                Email
-              </a>
-              <a className="koh-button koh-button--secondary" href="/legacy">
-                Open legacy
-              </a>
-            </div>
-          </div>
-        </section>
+        <section className="koh-contact" id="contact"><p>Have a useful thing in mind?</p><h2>Give it<br /><em>a good shape.</em></h2><a href="mailto:hello@koh.lol">hello@koh.lol <span>↗</span></a></section>
       </main>
-
-      <footer className="koh-footer">
-        <div className="koh-shell koh-footer__inner">
-          <p>koh.lol, newer homepage style.</p>
-          <p className="koh-footer__meta">Legacy routes stay available, but the homepage stays clean.</p>
-        </div>
-      </footer>
+      <footer><span>© 2026 koh.lol</span><span>Built with care in Austin</span><a href="/resume">Resume</a><a href="/legacy">Legacy</a></footer>
     </div>
   )
 }
